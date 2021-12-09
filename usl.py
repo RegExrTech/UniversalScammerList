@@ -35,7 +35,7 @@ def publish_bans(sub_config):
 	new_update_time = last_update_time
 	# Get list of user bans
 	for action in sub_config.subreddit_object.mod.log(limit=None, action='banuser'):
-		if action.created_utc < last_update_time:
+		if action.created_utc <= last_update_time:
 			continue
 		created_utc = action.created_utc
 		description = action.description
@@ -109,6 +109,8 @@ def publish_unbans(sub_config):
 		command = ""
 		for count, word in enumerate(words):
 			word = word.strip()
+			if not word:
+				continue
 			if word == "$unban":
 				command = word
 				if count + 1 < len(words):

@@ -40,7 +40,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		action_text += " banned "
 	elif is_unban:
 		action_text += " unbanned "
-	action_text += " on " + datetime.datetime.fromtimestamp(issued_at).strftime("%Y-%m-%d %H:%M")
+	action_text += " on " + datetime.datetime.fromtimestamp(issued_at).strftime("%Y-%m-%d %H:%M") + " UTC"
 	action_text += " by u/" + issued_by
 	action_text += " from r/" + originated_from
 	if context:
@@ -103,7 +103,7 @@ def publish_ban():
 				action_queue[sub_name]['ban'][tag] = []
 			action_queue[sub_name]['ban'][tag].append(banned_user)
 
-	log_action(banned_user, banned_by, banned_on, issued_on, context=description, is_ban=True)
+	log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + str(tags), is_ban=True)
         json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})

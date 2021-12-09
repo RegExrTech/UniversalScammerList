@@ -34,7 +34,12 @@ def publish_bans(sub_config):
 
 	new_update_time = last_update_time
 	# Get list of user bans
-	for action in sub_config.subreddit_object.mod.log(limit=None, action='banuser'):
+	try:
+		actions = sub_config.subreddit_object.mod.log(limit=None, action='banuser')
+	except Exception as e:
+		print("Unable to get mod actions when checking for bans with error " + str(e))
+		return
+	for action in actions:
 		if action.created_utc <= last_update_time:
 			continue
 		created_utc = action.created_utc

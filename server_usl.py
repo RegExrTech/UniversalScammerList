@@ -32,7 +32,7 @@ bans_fname = 'database/bans.json'
 update_times_fname = 'database/update_times.json'
 action_queue_fname = 'database/action_queue.json'
 
-TAGS = ["scammer", "sketchy", "spammer"]
+TAGS = ["scammer", "sketchy", "compromised", "troll"]
 
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	action_text = "u/" + impacted_user + " was "

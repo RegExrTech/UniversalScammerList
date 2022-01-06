@@ -1,10 +1,11 @@
-from collections import defaultdict
 import sys
 sys.path.insert(0, '.')
 from Config import Config
+from tags import TAGS
 
 import praw
 
+from collections import defaultdict
 import requests
 import argparse
 
@@ -44,14 +45,13 @@ def publish_bans(sub_config):
 			continue
 		created_utc = action.created_utc
 		description = action.description
-		is_permanent = str(action.details) == "permanent"
 		banned_by = action.mod
 		banned_user = action.target_author
 		# Ignore bans issued by the USL
 		if sub_config.is_bot_name(banned_by.name):
 			continue
 		# Ignore temp bans
-		if not is_permanent:
+		if not str(action.details) == "permanent":
 			continue
 		ban_tags, description = get_ban_tags_and_description(description)
 		# Ignore bans without USL tags
@@ -78,9 +78,18 @@ def ban_from_queue(sub_config):
 			users_to_descriptions[user]['description'] = "You have been banned from r/" + sub_config.subreddit_name + " due to a ban from r/" + user_data['banned_on'] + ". You must contact the mods of r/" + user_data['banned_on'] + " to have this ban removed. Please do not reply to this message."
 	for user in users_to_descriptions:
 		text = users_to_descriptions[user]
-		if user not in DO_NOT_BAN:
+		if user in DO_NOT_BAN:
+			continue
+		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
+		if not any(["#"+_tag in ban_note for _tag in TAGS]):
+			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
+			sub_config.subreddit_object.message("Duplicate Ban Found By USL", message_content)
+			continue
+		try:
 			sub_config.subreddit_object.banned.add(user, ban_message=text['description'][:1000], ban_reason="USL Ban", note=text['mod note'][:300])
-			print(user + " - " + text['description'] + " - " + text['mod note'])
+		except Exception as e:
+			print("Unable to ban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
+		print(user + " - " + text['description'] + " - " + text['mod note'])
 
 def get_messages(reddit):
 	messages = []
@@ -146,12 +155,19 @@ def publish_unbans(sub_config):
 
 def unban_from_queue(sub_config):
 	to_unban = requests.get(request_url + "/get-unban-queue/", data={'sub_name': sub_config.subreddit_name, 'tags': ",".join(sub_config.tags)}).json()
+	users = []
 	for tag in to_unban:
-		for user in to_unban[tag]:
-			try:
-				sub_config.subreddit_object.banned.remove(user)
-			except Exception as e:
-				print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
+		users += to_unban[tag]
+	for user in list(set(users)):
+		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
+		if not any(["#"+_tag in ban_note for _tag in TAGS]):
+			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was removed from the USL. However, you banned this user for unrelated reasons. As such, I will not remove this ban for you. However, if you banned this user because you believed them to be a scammer, please double check things as the situation might have changed. Thanks!"
+			sub_config.subreddit_object.message("Conflicting Unban Found In The USL", message_content)
+			continue
+		try:
+			sub_config.subreddit_object.banned.remove(user)
+		except Exception as e:
+			print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
 
 def main():
 	parser = argparse.ArgumentParser()

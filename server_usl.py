@@ -70,8 +70,7 @@ def add_sub_to_action_queue(sub_name, action_queue):
 
 def get_valid_moderators(sub_name, include_usl_mods=True):
 	sub_config = helper.get_all_subs()[sub_name]
-	subreddit_object = sub_config.subreddit_object
-	moderators = [x.name.lower() for x in subreddit_object.moderator()]
+	moderators = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	if include_usl_mods:
 		usl_sub = sub_config.reddit.subreddit('UniversalScammerList')
 		moderators += [x.name.lower() for x in usl_sub.moderator()]

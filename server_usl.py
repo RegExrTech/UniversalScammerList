@@ -5,6 +5,11 @@ from werkzeug.serving import WSGIRequestHandler
 import helper
 from Config import Config
 import datetime
+import time
+
+import sys
+sys.path.insert(0, '.')
+from tags import TAGS
 
 app = Flask(__name__)
 
@@ -31,8 +36,6 @@ log_bot = Config('logger')
 bans_fname = 'database/bans.json'
 update_times_fname = 'database/update_times.json'
 action_queue_fname = 'database/action_queue.json'
-
-TAGS = ["scammer", "sketchy", "compromised", "troll"]
 
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	action_text = "u/" + impacted_user + " was "
@@ -101,7 +104,8 @@ def publish_ban():
 				continue
 			if tag not in action_queue[sub_name]['ban']:
 				action_queue[sub_name]['ban'][tag] = []
-			action_queue[sub_name]['ban'][tag].append(banned_user)
+			if banned_user not in action_queue[sub_name]['ban'][tag]:
+				action_queue[sub_name]['ban'][tag].append(banned_user)
 
 	log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + str(tags), is_ban=True)
         json_helper.dump(bans, bans_fname)
@@ -118,6 +122,8 @@ def get_ban_queue():
 	for tag in action_queue[sub_name]['ban']:
 		to_return[tag] = {}
 		for user in action_queue[sub_name]['ban'][tag]:
+			if user not in bans:
+				continue
 			to_return[tag][user] = bans[user][tag]
 	for tag in action_queue[sub_name]['ban']:
 		action_queue[sub_name]['ban'][tag] = []
@@ -139,12 +145,14 @@ def publish_unban():
 	issued_by_valid_mod = False
 	correct_ban_issuers = {}
 	valid_tags = []
-	originally_banned_on = bans[unbanned_user][tag]['banned_on']
+	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'] for tag in tags]
 	for tag in tags:
 		if tag in bans[unbanned_user]:
 			found_valid_tag = True
 			# Get the list of moderators of the sub from which this user was banned.
-			moderators = get_valid_moderators(originally_banned_on)
+			moderators = []
+			for originally_banned_on in originally_banned_on_list:
+				moderators += get_valid_moderators(originally_banned_on)
 			if requester in moderators:
 				del(bans[unbanned_user][tag])
 				issued_by_valid_mod = True
@@ -170,7 +178,8 @@ def publish_unban():
 				remaining_tags = bans[unbanned_user].keys()
 			# ONLY issue an unban IF this user has no tags remaining that the sub is subscribed to.
 			if not any([x in remaining_tags for x in all_subs[sub_name].tags]):
-				action_queue[sub_name]['unban'][tag].append(unbanned_user)
+				if unbanned_user not in action_queue[sub_name]['unban'][tag]:
+					action_queue[sub_name]['unban'][tag].append(unbanned_user)
 
 	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + str(valid_tags), is_unban=True)
         json_helper.dump(bans, bans_fname)

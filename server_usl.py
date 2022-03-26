@@ -44,7 +44,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	elif is_unban:
 		action_text += "unbanned"
 	action_text += " on " + datetime.datetime.fromtimestamp(issued_at).strftime("%Y-%m-%d %H:%M") + " UTC"
-	action_text += " by u/" + issued_by
+#	action_text += " by u/" + issued_by
 	action_text += " from r/" + originated_from
 	if context:
 		action_text += " with context - " + context

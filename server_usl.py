@@ -40,9 +40,9 @@ action_queue_fname = 'database/action_queue.json'
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	action_text = "u/" + impacted_user + " was "
 	if is_ban:
-		action_text += " banned "
+		action_text += "banned"
 	elif is_unban:
-		action_text += " unbanned "
+		action_text += "unbanned"
 	action_text += " on " + datetime.datetime.fromtimestamp(issued_at).strftime("%Y-%m-%d %H:%M") + " UTC"
 	action_text += " by u/" + issued_by
 	action_text += " from r/" + originated_from

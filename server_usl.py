@@ -55,7 +55,10 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		page.edit("* " + action_text + "\n" + content)
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
-
+	# Update the ban list wiki page
+	content = "\n".join(["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in bans.keys()])
+	page = log_bot.subreddit_object.wiki['banlist']
+	page.edit(content)
 
 def clean_tags(tags):
 	cleaned_tags = []

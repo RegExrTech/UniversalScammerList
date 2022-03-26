@@ -188,6 +188,24 @@ def publish_unban():
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})
 
+@app.route('/add-to-action-queue/', methods=["POST"])
+def add_to_action_queue():
+	global action_queue
+	sub_name = request.form["sub_name"].lower()
+	username = request.form["username"].lower()
+	action = request.form["action"].lower()
+	tags = request.form["tags"].lower().split(",")
+	if sub_name not in action_queue:
+		action_queue[sub_name] = {}
+	if action not in action_queue[sub_name]:
+		action_queue[sub_name][action] = {}
+	for tag in tags:
+		if tag not in action_queue[sub_name][action]:
+			action_queue[sub_name][action][tag] = []
+		action_queue[sub_name][action][tag].append(username)
+	json_helper.dump(action_queue, action_queue_fname)
+	return jsonify({})
+
 @app.route('/get-unban-queue/', methods=["GET"])
 def get_unban_queue():
 	global action_queue

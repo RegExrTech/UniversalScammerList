@@ -66,7 +66,7 @@ def publish_bans(sub_config):
 
 def ban_from_queue(sub_config):
 	to_ban = requests.get(request_url + "/get-ban-queue/", data={'sub_name': sub_config.subreddit_name}).json()
-	users_to_descriptions = defaultdict(lambda: {'description': '', 'mod note': ''})
+	users_to_descriptions = defaultdict(lambda: {'description': '', 'mod note': '', 'tags': []})
 	for tag in to_ban:
 		if tag not in sub_config.tags:
 			continue
@@ -76,6 +76,7 @@ def ban_from_queue(sub_config):
 				users_to_descriptions[user]['mod note'] = "USL ban from r/" + user_data['banned_on'] + " - " + user_data['description'] + " - "
 			users_to_descriptions[user]['mod note'] += "#" + tag + " "
 			users_to_descriptions[user]['description'] = "You have been banned from r/" + sub_config.subreddit_name + " due to a ban from r/" + user_data['banned_on'] + ". You must contact the mods of r/" + user_data['banned_on'] + " to have this ban removed. Please do not reply to this message."
+			users_to_descriptions[user]['tags'].append(tag)
 	mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	for user in users_to_descriptions:
 		text = users_to_descriptions[user]
@@ -96,6 +97,7 @@ def ban_from_queue(sub_config):
 			sub_config.subreddit_object.banned.add(user, ban_message=text['description'][:1000], ban_reason="USL Ban", note=text['mod note'][:300])
 		except Exception as e:
 			print("Unable to ban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
+			requests.post(request_url + "/add-to-action-queue/", {'sub_name', sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
 		print(user + " - " + text['description'] + " - " + text['mod note'])
 
 def get_messages(reddit):
@@ -178,6 +180,8 @@ def unban_from_queue(sub_config):
 			sub_config.subreddit_object.banned.remove(user)
 		except Exception as e:
 			print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
+			_tags = [tag for tag in to_unban.keys() if user in to_unban[tag]]
+			requests.post(request_url + "/add-to-action-queue/", {'sub_name', sub_config.subreddit_name, 'username': user, 'action': 'unban', 'tags': ",".join(_tags)})
 
 def main():
 	parser = argparse.ArgumentParser()

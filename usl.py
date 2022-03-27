@@ -181,7 +181,7 @@ def unban_from_queue(sub_config):
 		except Exception as e:
 			print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
 			_tags = [tag for tag in to_unban.keys() if user in to_unban[tag]]
-			requests.post(request_url + "/add-to-action-queue/", {'sub_name', sub_config.subreddit_name, 'username': user, 'action': 'unban', 'tags': ",".join(_tags)})
+			requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'unban', 'tags': ",".join(_tags)})
 
 def main():
 	parser = argparse.ArgumentParser()

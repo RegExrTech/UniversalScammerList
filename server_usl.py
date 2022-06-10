@@ -37,28 +37,72 @@ bans_fname = 'database/bans.json'
 update_times_fname = 'database/update_times.json'
 action_queue_fname = 'database/action_queue.json'
 
+def create_paginated_wiki(wiki_title, text_lines, config):
+	content_size = 0
+	page = 1
+	page_content = {}
+	index_start = 0
+	index_end = 0
+	for line in text_lines:
+		content_size += len((line+"\n").encode('utf-8'))
+		# Wiki pages are limited to 524288 bytes
+		if content_size >= 500000:
+			page_content[page] = "\n".join(text_lines[index_start:index_end])
+			index_start = index_end
+			page += 1
+			content_size = len((line+"\n").encode('utf-8'))
+		index_end += 1
+	page_content[page] = "\n".join(text_lines[index_start:])
+
+	page_numbers = page_content.keys()
+	page_numbers.sort()
+	for page_number in page_numbers:
+		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
+		page.edit(page_content[page_number])
+	page = config.subreddit_object.wiki[wiki_title]
+	page.edit("\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
+
+def update_action_log_wiki(action_text, config):
+	index_page = config.subreddit_object.wiki['bot_actions']
+	index_content = index_page.content_md
+	latest_page_number = index_content.splitlines()[-1].split("/")[-1]
+
+	content_page = config.subreddit_object.wiki['bot_actions/'+latest_page_number]
+	page_content = content_page.content_md
+	# Wiki pages are limited to 524288 bytes
+	if len((action_text + "\n" + page_content).encode('utf-8')) < 400000:
+		content_page.edit(action_text + "\n" + page_content)
+	else:  # Make a new page
+		latest_page_number = str(int(latest_page_number) + 1)
+		config.subreddit_object.wiki.create(name='bot_actions/'+latest_page_number, content=action_text)
+		index_page.edit(index_content + "\n" + "* https://www.reddit.com/r/" + config.subreddit_name + "/wiki/bot_actions/" + latest_page_number)
+
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
+	# Generate new action text
 	action_text = "u/" + impacted_user + " was "
 	if is_ban:
 		action_text += "banned"
 	elif is_unban:
 		action_text += "unbanned"
+	else:
+		action_text += "<unknown action>"
 	action_text += " on " + datetime.datetime.fromtimestamp(issued_at).strftime("%Y-%m-%d %H:%M") + " UTC"
 #	action_text += " by u/" + issued_by
 	action_text += " from r/" + originated_from
-	if context:
+	if context != "":
 		action_text += " with context - " + context
-
+	update_action_log_wiki(action_text)
+	# Update action log
 	try:
-		page = log_bot.subreddit_object.wiki['bot_actions']
-		content = page.content_md
-		page.edit("* " + action_text + "\n" + content)
+		update_action_log_wiki(action_text, log_bot)
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
-	# Update the ban list wiki page
-	content = "\n".join(["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in bans.keys()])
-	page = log_bot.subreddit_object.wiki['banlist']
-	page.edit(content)
+	# Update the ban list
+	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in bans.keys()]
+	try:
+		create_paginated_wiki('botlist', text_lines, log_bot)
+	except Exception as e:
+		print("Unable to update the banlist with error " + str(e))
 
 def clean_tags(tags):
 	cleaned_tags = []

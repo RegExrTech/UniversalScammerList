@@ -99,7 +99,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	# Update the ban list
 	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in bans.keys()]
 	try:
-		create_paginated_wiki('botlist', text_lines, log_bot)
+		create_paginated_wiki('banlist', text_lines, log_bot)
 	except Exception as e:
 		print("Unable to update the banlist with error " + str(e))
 

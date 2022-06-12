@@ -91,7 +91,6 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	action_text += " from r/" + originated_from
 	if context != "":
 		action_text += " with context - " + context
-	update_action_log_wiki(action_text)
 	# Update action log
 	try:
 		update_action_log_wiki(action_text, log_bot)

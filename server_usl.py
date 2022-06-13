@@ -37,6 +37,18 @@ bans_fname = 'database/bans.json'
 update_times_fname = 'database/update_times.json'
 action_queue_fname = 'database/action_queue.json'
 
+def get_most_recent_ban_time(user_data):
+	# Gets the most recent ban date for each ban tag
+	return max([user_data[tag]['issued_on'] for tag in user_data.keys()])
+
+def order_users_by_ban_date(bans, reverse=False):
+	# Returns a list of usernames sorted from oldest to newest ban.
+	# Set reverse=True to get bans from newest to oldest.
+	users_to_ban_date = {}
+	for user in bans.keys():
+		users_to_ban_date[user] = get_most_recent_ban_time(bans[user])
+	return sorted(users_to_ban_date, key=users_to_ban_date.get, reverse=reverse)
+
 def create_paginated_wiki(wiki_title, text_lines, config):
 	content_size = 0
 	page = 1
@@ -46,7 +58,7 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	for line in text_lines:
 		content_size += len((line+"\n").encode('utf-8'))
 		# Wiki pages are limited to 524288 bytes
-		if content_size >= 500000:
+		if content_size >= 400000:
 			page_content[page] = "\n".join(text_lines[index_start:index_end])
 			index_start = index_end
 			page += 1
@@ -97,7 +109,8 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
 	# Update the ban list
-	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in bans.keys()]
+	sorted_usernames = order_users_by_ban_date(bans)
+	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in sorted_usernames]
 	try:
 		create_paginated_wiki('banlist', text_lines, log_bot)
 	except Exception as e:

@@ -79,7 +79,7 @@ def update_action_log_wiki(action_text, config):
 
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	# Generate new action text
-	action_text = "u/" + impacted_user + " was "
+	action_text = "* u/" + impacted_user + " was "
 	if is_ban:
 		action_text += "banned"
 	elif is_unban:

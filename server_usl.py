@@ -239,7 +239,7 @@ def publish_unban():
 				if unbanned_user not in action_queue[sub_name]['unban'][tag]:
 					action_queue[sub_name]['unban'][tag].append(unbanned_user)
 
-	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + str(valid_tags), is_unban=True)
+	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + ", ".join(["#" + _tag for _tag in valid_tags]), is_unban=True)
         json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})

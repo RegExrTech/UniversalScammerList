@@ -25,6 +25,26 @@ def get_ban_tags_and_description(description):
 	description = " ".join(description.split(":")[1:])
 	return tags, description
 
+def get_mod_actions(sub_config, last_update_time, action='banuser', before=None):
+	actions = []
+	try:
+		if before is not None:
+			action_generator = sub_config.subreddit_object.mod.log(limit=None, params={'before':before.id})
+		else:
+			action_generator = sub_config.subreddit_object.mod.log(limit=None)
+	except Exception as e:
+		print(sub_config.subreddit_name + " was unable to get mod actions when checking for bans with error " + str(e))
+		return actions
+	found_last_action = False
+	for action in action_generator:
+		if action.created_utc <= last_update_time:
+			found_last_action = True
+			break
+		actions.append(action)
+	if not found_last_action:
+		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])
+	return actions
+
 def publish_bans(sub_config):
 	last_update_time_data = requests.get(request_url + "/get-last-update-time/", data={'sub_name': sub_config.subreddit_name}).json()
 	if 'update_time' in last_update_time_data:
@@ -34,15 +54,8 @@ def publish_bans(sub_config):
 		return
 
 	new_update_time = last_update_time
-	# Get list of user bans
-	try:
-		actions = sub_config.subreddit_object.mod.log(limit=None, action='banuser')
-	except Exception as e:
-		print("Unable to get mod actions when checking for bans with error " + str(e))
-		return
+	actions =  get_mod_actions(sub_config, last_update_time)
 	for action in actions:
-		if action.created_utc <= last_update_time:
-			continue
 		created_utc = action.created_utc
 		description = action.description
 		banned_by = action.mod

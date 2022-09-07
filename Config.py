@@ -11,22 +11,27 @@ def get_json_data(fname):
                 data = json.load(json_data, object_hook=ascii_encode_dict)
         return data
 
+def dump(db, fname):
+	with open(fname, 'w') as outfile:  # Write out new data
+		outfile.write(json.dumps(db, sort_keys=True, indent=4))
+
 class Config():
 
 	def __init__(self, sub_name):
-		config = get_json_data("config/" + sub_name + ".json")
+		self.fname = "config/" + sub_name + ".json"
+		self.raw_config = get_json_data(self.fname)
 
-		self.subreddit_name = config['subreddit_name'].lower()
-		self.client_id = config['client_id']
-		self.client_secret = config['client_secret']
-		self.bot_username = config['bot_username']
-		self.bot_password = config['bot_password']
+		self.subreddit_name = self.raw_config['subreddit_name'].lower()
+		self.client_id = self.raw_config['client_id']
+		self.client_secret = self.raw_config['client_secret']
+		self.bot_username = self.raw_config['bot_username']
+		self.bot_password = self.raw_config['bot_password']
 		# If this account has permission to write bans to the USL
-		self.write_to = config['write_to']
+		self.write_to = self.raw_config['write_to']
 		# If this account has permission to read bans from the USL
-		self.read_from = config['read_from']
+		self.read_from = self.raw_config['read_from']
 		# Tags that this account is subscribed to
-		self.tags = config['tags']
+		self.tags = self.raw_config['tags']
 		self.reddit = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='USL Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', username=self.bot_username, password=self.bot_password)
 		self.subreddit_object = self.reddit.subreddit(self.subreddit_name)
 
@@ -34,3 +39,7 @@ class Config():
 	def is_bot_name(self, bot_name):
 		# TODO uncomment that bit below
 		return bot_name.lower() == self.bot_username.lower() # or bot_name.lower() == "uslbot"
+
+	def update_config(self):
+		self.raw_config['tags'] = self.tags
+		dump(self.raw_config, self.fname)

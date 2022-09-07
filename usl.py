@@ -2,6 +2,7 @@ import sys
 sys.path.insert(0, '.')
 from Config import Config
 from tags import TAGS
+import wiki_helper
 
 import praw
 
@@ -210,6 +211,8 @@ def main():
 	args = parser.parse_args()
 
 	sub_config = Config(args.sub_name.lower())
+
+	wiki_helper.run_config_checker(sub_config)
 
 	if sub_config.write_to:
 		publish_bans(sub_config)

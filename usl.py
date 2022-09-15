@@ -122,14 +122,20 @@ def ban_from_queue(sub_config):
 				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
 		print(user + " - " + text['description'] + " - " + text['mod note'])
 
-def get_messages(reddit):
+def get_messages(sub_config):
 	messages = []
 	to_mark_as_read = []
 	try:
-		for message in reddit.inbox.unread():
+		for message in sub_config.reddit.inbox.unread():
 			to_mark_as_read.append(message)
 			if not message.was_comment:
-				messages.append(message)
+				if 'gadzooks! **you are invited to become a moderator**' in message.body.lower() and message.subreddit != None and message.subreddit.display_name.lower() == sub_config.subreddit_name:
+					try:
+						sub_config.subreddit_object.mod.accept_invite()
+					except Exception as e:
+						print("Was unable to accept invitation to moderate " + sub_config.subreddit_name + " with error " + str(e))
+				else:
+					messages.append(message)
 	except Exception as e:
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
@@ -143,8 +149,7 @@ def get_messages(reddit):
 
 	return messages
 
-def publish_unbans(sub_config):
-	messages = get_messages(sub_config.reddit)
+def publish_unbans(sub_config, messages):
 	for message in messages:
 		try:
 			requester = message.author.name.lower()
@@ -212,11 +217,14 @@ def main():
 
 	sub_config = Config(args.sub_name.lower())
 
+	# Accepts mod invites and returns unban requests
+	messages = get_messages(sub_config)
+
 	wiki_helper.run_config_checker(sub_config)
 
 	if sub_config.write_to:
 		publish_bans(sub_config)
-		publish_unbans(sub_config)
+		publish_unbans(sub_config, messages)
 	if sub_config.read_from:
 		ban_from_queue(sub_config)
 		unban_from_queue(sub_config)

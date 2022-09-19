@@ -139,6 +139,7 @@ def get_valid_moderators(sub_name, include_usl_mods=True):
 def publish_ban():
 	global bans
 	global action_queue
+	sub_configs = helper.get_all_subs()
 	banned_user = request.form["banned_user"].lower()
 	banned_by = request.form["banned_by"].lower()
 	banned_on = request.form["banned_on"].lower()
@@ -158,10 +159,17 @@ def publish_ban():
 			continue
 		bans[banned_user][tag] = {'banned_by': banned_by, 'banned_on': banned_on, 'issued_on': issued_on, 'description': description}
 		for sub_name in action_queue:
+			sub_config = sub_configs[sub_name]
+			# If this is the reporting sub
 			if sub_name == banned_on:
 				continue
+			# If this sub is not subscribed to this tag
+			if tag not in sub_config.tags:
+				continue
+			# If the tag doesn't already exist in the action queue
 			if tag not in action_queue[sub_name]['ban']:
 				action_queue[sub_name]['ban'][tag] = []
+			# If the user is not already in the action queue for that tag
 			if banned_user not in action_queue[sub_name]['ban'][tag]:
 				action_queue[sub_name]['ban'][tag].append(banned_user)
 
@@ -258,7 +266,8 @@ def add_to_action_queue():
 	for tag in tags:
 		if tag not in action_queue[sub_name][action]:
 			action_queue[sub_name][action][tag] = []
-		action_queue[sub_name][action][tag].append(username)
+		if username not in action_queue[sub_name][action][tag]:
+			action_queue[sub_name][action][tag].append(username)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})
 

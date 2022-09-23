@@ -9,6 +9,7 @@ import praw
 from collections import defaultdict
 import requests
 import argparse
+import time
 
 request_url = "http://0.0.0.0:8080"
 
@@ -142,7 +143,7 @@ def get_messages(sub_config):
 					messages.append(message)
 	except Exception as e:
 		print(e)
-		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
+		print("u/" + sub_config.bot_username + " failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
 
 	for message in to_mark_as_read:
 		try:

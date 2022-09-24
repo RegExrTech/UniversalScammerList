@@ -2,13 +2,9 @@ import praw
 import os
 import json
 
-def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
-
 def get_json_data(fname):
         with open(fname) as json_data:
-                data = json.load(json_data, object_hook=ascii_encode_dict)
+                data = json.load(json_data)
         return data
 
 def dump(db, fname):

@@ -14,21 +14,14 @@ from tags import TAGS
 app = Flask(__name__)
 
 class JsonHelper:
-        def ascii_encode_dict(self, data):
-                ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-                return dict(map(ascii_encode, pair) for pair in data.items())
+	def get_db(self, fname):
+		with open(fname) as json_data:
+			data = json.load(json_data)
+		return data
 
-        def get_db(self, fname, encode_ascii=True):
-                with open(fname) as json_data:
-                        if encode_ascii:
-                                data = json.load(json_data, object_hook=self.ascii_encode_dict)
-                        else:
-                                data = json.load(json_data)
-                return data
-
-        def dump(self, db, fname):
-                with open(fname, 'w') as outfile:
-                        outfile.write(str(db).replace("'", '"').replace('{u"', '{"').replace('[u"', '["').replace(' u"', ' "').encode('ascii','ignore'))
+	def dump(self, db, fname):
+		with open(fname, 'w') as outfile:
+			outfile.write(json.dumps(db, sort_keys=True, indent=4))
 
 json_helper = JsonHelper()
 log_bot = Config('logger')
@@ -174,7 +167,7 @@ def publish_ban():
 				action_queue[sub_name]['ban'][tag].append(banned_user)
 
 	log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + ", ".join(["#" + _tag for _tag in tags]), is_ban=True)
-        json_helper.dump(bans, bans_fname)
+	json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})
 
@@ -248,7 +241,7 @@ def publish_unban():
 					action_queue[sub_name]['unban'][tag].append(unbanned_user)
 
 	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + ", ".join(["#" + _tag for _tag in valid_tags]), is_unban=True)
-        json_helper.dump(bans, bans_fname)
+	json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})
 
@@ -274,10 +267,10 @@ def add_to_action_queue():
 @app.route('/get-unban-queue/', methods=["GET"])
 def get_unban_queue():
 	global action_queue
-        sub_name = request.form["sub_name"].lower()
+	sub_name = request.form["sub_name"].lower()
 	tags = request.form["tags"].lower().split(",")
-        if sub_name not in action_queue:
-                add_sub_to_action_queue(sub_name, action_queue)
+	if sub_name not in action_queue:
+		add_sub_to_action_queue(sub_name, action_queue)
 	to_unban = copy.deepcopy(action_queue[sub_name]['unban'])
 	for tag in to_unban.keys():
 		if tag not in tags:
@@ -315,27 +308,30 @@ def set_last_update_time():
 
 @app.route('/dump/', methods=["POST"])
 def dump():
-        json_helper.dump(bans, bans_fname)
-        json_helper.dump(update_times, update_times_fname)
-        json_helper.dump(action_queue, action_queue_fname)
-        return jsonify({})
+	json_helper.dump(bans, bans_fname)
+	json_helper.dump(update_times, update_times_fname)
+	json_helper.dump(action_queue, action_queue_fname)
+	return jsonify({})
 
 
 class MyRequestHandler(WSGIRequestHandler):
-        # Just like WSGIRequestHandler, but without "code"
-        def log_request(self, code='-', size='-'):
-                if 200 == code:
-                        pass
-                else:
-                        self.log('info', '"%s" %s %s', self.requestline, code, size)
+	# Just like WSGIRequestHandler, but without "code"
+	def log_request(self, code='-', size='-'):
+		if 200 == code:
+			pass
+		else:
+			self.log('info', '"%s" %s %s', self.requestline, code, size)
 
 
 if __name__ == "__main__":
-        try:
-                bans = json_helper.get_db(bans_fname)
-                update_times = json_helper.get_db(update_times_fname)
+	try:
+		bans = json_helper.get_db(bans_fname)
+		print('here1')
+		update_times = json_helper.get_db(update_times_fname)
+		print('here2')
 		action_queue = json_helper.get_db(action_queue_fname)
-                app.run(host= '0.0.0.0', port=8080, request_handler=MyRequestHandler)
-        except Exception as e:
+		print('here33')
+		app.run(host= '0.0.0.0', port=8080, request_handler=MyRequestHandler)
+	except Exception as e:
 		print(e)
-                pass
+		pass

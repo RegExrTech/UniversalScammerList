@@ -70,6 +70,12 @@
             "scammer": []
         }
     },
+    "mangaswap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "shave_bazaar": {
         "ban": {
             "compromised": [],

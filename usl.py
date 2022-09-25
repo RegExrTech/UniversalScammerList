@@ -56,11 +56,6 @@ def publish_bans(sub_config):
 		return
 
 	new_update_time = last_update_time
-	# We need to ensure the check time is always updating. Otherwise, for subs that don't often perform bans
-	# like r/funkoppopmod, we'll get a very stale last_update_time which will cause a maximum recursive depth when
-	# getting all mod actions for that sub since the last update time. So we define check_time as close to the most
-	# recent mod action as possible and ALWAYS save that time off after we check the mod log for actions.
-	check_time = time.time()
 	actions =  get_mod_actions(sub_config, last_update_time)
 	for action in actions:
 		created_utc = action.created_utc
@@ -81,7 +76,8 @@ def publish_bans(sub_config):
 		if action.created_utc > new_update_time:
 			new_update_time = action.created_utc
 
-	requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': check_time})
+	if last_update_time != new_update_time:
+		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
 
 def ban_from_queue(sub_config):
 	to_ban = requests.get(request_url + "/get-ban-queue/", data={'sub_name': sub_config.subreddit_name}).json()

@@ -15,6 +15,14 @@ request_url = "http://0.0.0.0:8080"
 
 DO_NOT_BAN = set(['[deleted]', 'automoderator'])
 
+def check_if_mod(sub_config):
+	try:
+		mod_list = [str(x).lower() for x in sub_config.subreddit_object.moderator()]
+	except Exception as e:
+		print("Unable to get mod list for " + sub_config.subreddit_name + " with error " + str(e))
+		return False
+	return sub_config.bot_username.lower() in mod_list
+
 def get_ban_tags_and_description(description):
 	tags = []
 	other = []
@@ -217,6 +225,9 @@ def main():
 	args = parser.parse_args()
 
 	sub_config = Config(args.sub_name.lower())
+
+	if not check_if_mod(sub_config):
+		return
 
 	# Accepts mod invites and returns unban requests
 	messages = get_messages(sub_config)

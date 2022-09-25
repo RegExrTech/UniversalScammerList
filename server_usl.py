@@ -32,13 +32,13 @@ action_queue_fname = 'database/action_queue.json'
 
 def get_most_recent_ban_time(user_data):
 	# Gets the most recent ban date for each ban tag
-	return max([user_data[tag]['issued_on'] for tag in user_data.keys()])
+	return max([user_data[tag]['issued_on'] for tag in list(user_data.keys())])
 
 def order_users_by_ban_date(bans, reverse=False):
 	# Returns a list of usernames sorted from oldest to newest ban.
 	# Set reverse=True to get bans from newest to oldest.
 	users_to_ban_date = {}
-	for user in bans.keys():
+	for user in list(bans.keys()):
 		users_to_ban_date[user] = get_most_recent_ban_time(bans[user])
 	return sorted(users_to_ban_date, key=users_to_ban_date.get, reverse=reverse)
 
@@ -59,7 +59,7 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 		index_end += 1
 	page_content[page] = "\n".join(text_lines[index_start:])
 
-	page_numbers = page_content.keys()
+	page_numbers = list(page_content.keys())
 	page_numbers.sort()
 	for page_number in page_numbers:
 		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
@@ -103,7 +103,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		print("Unable to log action " + action_text + " with error " + str(e))
 	# Update the ban list
 	sorted_usernames = order_users_by_ban_date(bans)
-	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in bans[name].keys()]) for name in sorted_usernames]
+	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in list(bans[name].keys())]) for name in sorted_usernames]
 	try:
 		create_paginated_wiki('banlist', text_lines, log_bot)
 	except Exception as e:
@@ -219,7 +219,7 @@ def publish_unban():
 			else:
 				correct_ban_issuers[tag] = originally_banned_on
 	if not found_valid_tag:
-		return jsonify({'error': 'u/' + unbanned_user + ' is not currently banned with any of the given tags. The valid tags are:\n\n' + "\n".join(["* #" + tag for tags in bans[unbanned_user].keys()])})
+		return jsonify({'error': 'u/' + unbanned_user + ' is not currently banned with any of the given tags. The valid tags are:\n\n' + "\n".join(["* #" + tag for tags in list(bans[unbanned_user].keys())])})
 	if not issued_by_valid_mod:
 		error_text = 'Sorry, but this user could not be unbanned because you are not a moderator of any subs that issued a ban for any of the given tags. The following tags may only be removed by the mods of the following subreddits:'
 		for key, value in correct_ban_issuers.items():
@@ -234,7 +234,7 @@ def publish_unban():
 				action_queue[sub_name]['unban'][tag] = []
 			remaining_tags = []
 			if unbanned_user in bans:
-				remaining_tags = bans[unbanned_user].keys()
+				remaining_tags = list(bans[unbanned_user].keys())
 			# ONLY issue an unban IF this user has no tags remaining that the sub is subscribed to.
 			if not any([x in remaining_tags for x in all_subs[sub_name].tags]):
 				if unbanned_user not in action_queue[sub_name]['unban'][tag]:
@@ -272,7 +272,7 @@ def get_unban_queue():
 	if sub_name not in action_queue:
 		add_sub_to_action_queue(sub_name, action_queue)
 	to_unban = copy.deepcopy(action_queue[sub_name]['unban'])
-	for tag in to_unban.keys():
+	for tag in list(to_unban.keys()):
 		if tag not in tags:
 			del(to_unban[tag])
 	for tag in action_queue[sub_name]['unban']:
@@ -326,11 +326,8 @@ class MyRequestHandler(WSGIRequestHandler):
 if __name__ == "__main__":
 	try:
 		bans = json_helper.get_db(bans_fname)
-		print('here1')
 		update_times = json_helper.get_db(update_times_fname)
-		print('here2')
 		action_queue = json_helper.get_db(action_queue_fname)
-		print('here33')
 		app.run(host= '0.0.0.0', port=8080, request_handler=MyRequestHandler)
 	except Exception as e:
 		print(e)

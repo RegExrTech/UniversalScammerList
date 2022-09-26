@@ -33,8 +33,9 @@ class Config():
 
 
 	def is_bot_name(self, bot_name):
-		# TODO uncomment that bit below
-		return bot_name.lower() == self.bot_username.lower() # or bot_name.lower() == "uslbot"
+		# Right now, r/FunkoSwap acts as the entry point for all USL bans to go to other subs.
+		# Other subs should ignore bans done by the USL bot.
+		return bot_name.lower() == self.bot_username.lower()  or (bot_name.lower() == "uslbot" and self.subreddit_name != 'funkoswap')
 
 	def update_config(self):
 		self.raw_config['tags'] = self.tags

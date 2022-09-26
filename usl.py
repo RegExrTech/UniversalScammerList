@@ -65,6 +65,7 @@ def publish_bans(sub_config):
 
 	# Handle the special case where we don't have a last update time
 	if last_update_time == 0:
+		last_update_time = time.time() - 1
 		new_update_time = time.time()
 	else:
 		new_update_time = last_update_time

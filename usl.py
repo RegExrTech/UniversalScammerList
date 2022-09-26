@@ -63,9 +63,16 @@ def publish_bans(sub_config):
 		print("Error getting last_update_time from server: " + last_update_time_data['error'])
 		return
 
-	new_update_time = last_update_time
+	# Handle the special case where we don't have a last update time
+	if last_update_time == 0:
+		new_update_time = time.time()
+	else:
+		new_update_time = last_update_time
+
 	actions =  get_mod_actions(sub_config, last_update_time)
 	for action in actions:
+		if action.created_utc > new_update_time:
+			new_update_time = action.created_utc
 		created_utc = action.created_utc
 		description = action.description
 		banned_by = action.mod
@@ -81,8 +88,6 @@ def publish_bans(sub_config):
 		if not ban_tags:
 			continue
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
-		if action.created_utc > new_update_time:
-			new_update_time = action.created_utc
 
 	if last_update_time != new_update_time:
 		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})

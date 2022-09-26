@@ -292,7 +292,7 @@ def get_last_update_time():
 	sub_name = request.form["sub_name"].lower()
 	if sub_name in update_times:
 		return jsonify({'update_time': update_times[sub_name]})
-	return jsonify({'update_time': time.time()})
+	return jsonify({'update_time': 0})
 
 @app.route('/set-last-update-time/', methods=["POST"])
 def set_last_update_time():

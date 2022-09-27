@@ -113,15 +113,15 @@ def ban_from_queue(sub_config):
 			continue
 		if user.lower() in mods:
 			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nConsidering this user is a **moderator** of your community, it is **imperative** that you figure out what happened.\n\nIf there was a misunderstanding, please reach out to the mods of r/UniversalScammerList to get this sorted out. However, If this user is no longer fit to be a moderator, they should be removed as a moderator and banned from your community."
-			sub_config.subreddit_object.message("One of your moderators has been added to the Universal Scammer List", message_content)
+			sub_config.subreddit_object.message(subject="One of your moderators has been added to the Universal Scammer List", message=message_content)
 			message_content = "Hello, USL Mods. Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nHowever, this user is a moderator of r/" + sub_config.subreddit_name + " which is a USL-participating sub.\n\nPlease look into this matter ASAP. If the user in question is not fit to be a moderator and they are **not** removed from the sub(s) in which they moderate, please remove those sub(s) from the USL."
-			sub_config.reddit.subreddit('universalscammerlist').message("Moderator of r/" + sub_config.subreddit_name + " added to the USL", message_content)
+			sub_config.reddit.subreddit('universalscammerlist').message(subject="Moderator of r/" + sub_config.subreddit_name + " added to the USL", message=message_content)
 			continue
 		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
 		if ban_note and not any(["#"+_tag in ban_note for _tag in TAGS]):
 			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
 			# Send the message as the log bot to avoid spamming mod discussion
-			Config('logger').reddit.subreddit(sub_config.subreddit_name).message("Duplicate Ban Found By USL", message_content)
+			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
 			continue
 		try:
 			sub_config.subreddit_object.banned.add(user, ban_message=text['description'][:1000], ban_reason="USL Ban", note=text['mod note'][:300])
@@ -204,7 +204,7 @@ def publish_unbans(sub_config, messages):
 			text = "Handling for that command has not been implimented yet. Sorry."
 
 		try:
-			message.reply(text)
+			message.reply(body=text)
 		except Exception as e:
 			print(sub_config.bot_username + " could not reply to " + str(message.author) + " with error - " + str(e))
 
@@ -217,7 +217,7 @@ def unban_from_queue(sub_config):
 		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
 		if ban_note and not any(["#"+_tag in ban_note for _tag in TAGS]):
 			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was removed from the USL. However, you banned this user for unrelated reasons. As such, I will not remove this ban for you. However, if you banned this user because you believed them to be a scammer, please double check things as the situation might have changed. Thanks!"
-			Config('logger').reddit.subreddit(sub_config.subreddit_name).message("Conflicting Unban Found In The USL", message_content)
+			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Conflicting Unban Found In The USL", message=message_content)
 			continue
 		try:
 			sub_config.subreddit_object.banned.remove(user)
@@ -233,11 +233,11 @@ def main():
 
 	sub_config = Config(args.sub_name.lower())
 
-	if not check_if_mod(sub_config):
-		return
-
 	# Accepts mod invites and returns unban requests
 	messages = get_messages(sub_config)
+
+	if not check_if_mod(sub_config):
+		return
 
 	wiki_helper.run_config_checker(sub_config)
 

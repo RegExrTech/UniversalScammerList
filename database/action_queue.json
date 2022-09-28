@@ -54,6 +54,12 @@
         },
         "unban": {}
     },
+    "comblocmarket2": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "comicswap": {
         "ban": {
             "scammer": []
@@ -166,6 +172,12 @@
         },
         "unban": {}
     },
+    "giftofgames": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "gofundme": {
         "ban": {
             "scammer": []
@@ -237,6 +249,12 @@
         },
         "unban": {}
     },
+    "mechmarket": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "mousemarket": {
         "ban": {
             "scammer": []
@@ -256,6 +274,12 @@
         "unban": {}
     },
     "photomarket": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
+    "pmsforsale": {
         "ban": {
             "scammer": []
         },

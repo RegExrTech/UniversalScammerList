@@ -38,7 +38,8 @@
     },
     "care": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },
@@ -92,7 +93,8 @@
     },
     "food_pantry": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },
@@ -263,7 +265,8 @@
     },
     "need": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },
@@ -287,19 +290,22 @@
     },
     "random_acts_of_pizza": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },
     "randomactsofpetfood": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },
     "randomkindness": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {}
     },

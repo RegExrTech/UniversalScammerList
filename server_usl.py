@@ -147,9 +147,11 @@ def publish_ban():
 
 	if banned_user not in bans:
 		bans[banned_user] = {}
+	duplicate_ban = False
 	for tag in tags:
 		if tag in bans[banned_user]:
 			continue
+		duplicate_ban = True
 		bans[banned_user][tag] = {'banned_by': banned_by, 'banned_on': banned_on, 'issued_on': issued_on, 'description': description}
 		for sub_name in action_queue:
 			sub_config = sub_configs[sub_name]
@@ -165,8 +167,8 @@ def publish_ban():
 			# If the user is not already in the action queue for that tag
 			if banned_user not in action_queue[sub_name]['ban'][tag]:
 				action_queue[sub_name]['ban'][tag].append(banned_user)
-
-	log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + ", ".join(["#" + _tag for _tag in tags]), is_ban=True)
+	if not duplicate_ban:
+		log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + ", ".join(["#" + _tag for _tag in tags]), is_ban=True)
 	json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})

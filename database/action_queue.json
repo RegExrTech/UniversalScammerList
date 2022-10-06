@@ -15,69 +15,92 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "assistance": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "avexchange": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "borrow": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "care": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "cash4cash": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "charity": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "comblocmarket2": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "comicswap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "digitalcodesell": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "disneypinswap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "dogemarket": {
         "ban": {
@@ -96,13 +119,17 @@
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "forhire": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "funkoppopmod": {
         "ban": {
@@ -130,19 +157,33 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "gameswap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
+    },
+    "gametrade": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
     },
     "garlicmarket": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "gctrading": {
         "ban": {
@@ -160,43 +201,57 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "gcxrep": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "giftcardexchange": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "giftofgames": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "gofundme": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "gunaccessoriesforsale": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "hardwareswapuk": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "hockeyjerseys": {
         "ban": {
@@ -209,117 +264,161 @@
             "scammer": []
         }
     },
+    "indiegameswap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "knife_swap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "legomarket": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "lolboosting": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mangaswap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mcsplaystation": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mcsrep": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mcsxbox": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mechmarket": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mousemarket": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "need": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "overwatchboosting": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "photomarket": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "pmsforsale": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "random_acts_of_pizza": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "randomactsofpetfood": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "randomkindness": {
         "ban": {
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "rocketleagueexchange": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "sgsflair": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "shave_bazaar": {
         "ban": {
@@ -337,37 +436,49 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "snackexchange": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "starcitizen_trades": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "steamgameswap": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "thinkpadsforsale": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "trade": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "ulgeartrade": {
         "ban": {
@@ -384,18 +495,24 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "vinylcollectors": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "watchexchange": {
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     }
 }

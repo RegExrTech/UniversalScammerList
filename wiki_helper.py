@@ -12,7 +12,7 @@ def get_wiki_page(config, wiki_page_name):
 		# Transient error, assume no changes have been made
 		return None
 
-def get_wiki_page_content(config_page):
+def get_wiki_page_content(config_page, config):
 	# If the config page does not exist, make it
 	try:
 		return config_page.content_md
@@ -29,7 +29,7 @@ def get_wiki_page_content(config_page):
 
 def run_config_checker(config):
 	config_page = get_wiki_page(config, WIKI_PAGE_NAME)
-	content = get_wiki_page_content(config_page)
+	content = get_wiki_page_content(config_page, config)
 	if content == "":
 		return
 	# If the bot was the last person to update the config, break out early

@@ -10,6 +10,8 @@ import time
 import sys
 sys.path.insert(0, '.')
 from tags import TAGS
+from tags import PRIVATE_TAGS
+from tags import PUBLIC_TAGS
 
 app = Flask(__name__)
 
@@ -63,9 +65,9 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	page_numbers.sort()
 	for page_number in page_numbers:
 		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
-		page.edit(page_content[page_number])
+		page.edit(content=page_content[page_number])
 	page = config.subreddit_object.wiki[wiki_title]
-	page.edit("\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
+	page.edit(content="\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
 
 def update_action_log_wiki(action_text, config):
 	index_page = config.subreddit_object.wiki['bot_actions']
@@ -76,11 +78,11 @@ def update_action_log_wiki(action_text, config):
 	page_content = content_page.content_md
 	# Wiki pages are limited to 524288 bytes
 	if len((action_text + "\n" + page_content).encode('utf-8')) < 400000:
-		content_page.edit(action_text + "\n" + page_content)
+		content_page.edit(content=action_text + "\n" + page_content)
 	else:  # Make a new page
 		latest_page_number = str(int(latest_page_number) + 1)
 		config.subreddit_object.wiki.create(name='bot_actions/'+latest_page_number, content=action_text)
-		index_page.edit(index_content + "\n" + "* https://www.reddit.com/r/" + config.subreddit_name + "/wiki/bot_actions/" + latest_page_number)
+		index_page.edit(content=index_content + "\n" + "* https://www.reddit.com/r/" + config.subreddit_name + "/wiki/bot_actions/" + latest_page_number)
 
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	# Generate new action text
@@ -98,12 +100,20 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		action_text += " with context - " + context
 	# Update action log
 	try:
-		update_action_log_wiki(action_text, log_bot)
+		# Only update if the context includes a public tag
+		if any(["#"+tag in context for tag in PUBLIC_TAGS]):
+			update_action_log_wiki(action_text, log_bot)
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
 	# Update the ban list
 	sorted_usernames = order_users_by_ban_date(bans)
-	text_lines = ["* /u/"+name+" " + " ".join(["#"+tag for tag in list(bans[name].keys())]) for name in sorted_usernames]
+	text_lines = []
+	for username in sorted_usernames:
+		tags = [tag for tag in list(bans[username].keys()) if tag not in PRIVATE_TAGS]
+		if tags == []:
+			continue
+		line_text = "* /u/" + username + " " + " ".join(["#"+tag for tag in tags])
+		text_lines.append(line_text)
 	try:
 		create_paginated_wiki('banlist', text_lines, log_bot)
 	except Exception as e:
@@ -147,11 +157,11 @@ def publish_ban():
 
 	if banned_user not in bans:
 		bans[banned_user] = {}
-	duplicate_ban = False
+	duplicate_ban = True
 	for tag in tags:
 		if tag in bans[banned_user]:
 			continue
-		duplicate_ban = True
+		duplicate_ban = False
 		bans[banned_user][tag] = {'banned_by': banned_by, 'banned_on': banned_on, 'issued_on': issued_on, 'description': description}
 		for sub_name in action_queue:
 			sub_config = sub_configs[sub_name]

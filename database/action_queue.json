@@ -264,6 +264,13 @@
             "scammer": []
         }
     },
+    "hutcoinsales": {
+        "ban": {
+            "scammer": [],
+            "sketchy": []
+        },
+        "unban": {}
+    },
     "indiegameswap": {
         "ban": {
             "scammer": []
@@ -343,6 +350,20 @@
         "unban": {
             "scammer": []
         }
+    },
+    "nba2kmtselling": {
+        "ban": {
+            "scammer": [],
+            "sketchy": []
+        },
+        "unban": {}
+    },
+    "nbarep": {
+        "ban": {
+            "scammer": [],
+            "sketchy": []
+        },
+        "unban": {}
     },
     "need": {
         "ban": {

@@ -4,24 +4,33 @@ import time
 
 WIKI_PAGE_NAME = 'usl_config'
 
-def run_config_checker(config):
+def get_wiki_page(config, wiki_page_name):
 	# Get the config page
 	try:
-		config_page = config.subreddit_object.wiki[WIKI_PAGE_NAME]
+		return config.subreddit_object.wiki[wiki_page_name]
 	except:
 		# Transient error, assume no changes have been made
-		return
+		return None
+
+def get_wiki_page_content(config_page):
 	# If the config page does not exist, make it
 	try:
-		content = config_page.content_md
+		return config_page.content_md
 	except NotFound as e:
 		try:
 			create_wiki_config(config, config_page)
+			return config_page.content_md
 		except NotFound as e:
 			# We likely don't have permissions, so just silently return
-			return
+			return ""
 	except:
 		# Transient error, assume no changes have been made
+		return ""
+
+def run_config_checker(config):
+	config_page = get_wiki_page(config, WIKI_PAGE_NAME)
+	content = get_wiki_page_content(config_page)
+	if content == "":
 		return
 	# If the bot was the last person to update the config, break out early
 	if config_page.revision_by.name.lower() == config.bot_username.lower():
@@ -48,7 +57,7 @@ def create_wiki_config(config, config_page):
 
 def validate_wiki_content(config, config_page):
 	content = "tags:" + ",".join(["#"+tag for tag in config.tags]) + "\n\nbot_timestamp:" + str(time.time())
-	config_page.edit(content)
+	config_page.edit(content=content)
 
 def get_config_content(content):
 	config_content = {}
@@ -60,7 +69,7 @@ def get_config_content(content):
 
 def invalidate_config(content):
 	content = "\n\n".join(content.split("\n\n")[1:] + ["bot_timestamp:" + str(time.time())])
-	config_page.edit(content)
+	config_page.edit(content=content)
 
 def inform_config_invalid(config_pag):
 	message = "I'm sorry but I was unable to parse the config you set in the " + WIKI_PAGE_NAME + " wiki page. Please review the [config guide](https://www.universalscammerlist.com/config_guide.html) and try again."

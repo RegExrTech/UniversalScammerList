@@ -530,6 +530,12 @@
             "sketchy": []
         }
     },
+    "signupsforpay": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "slavelabour": {
         "ban": {
             "scammer": []

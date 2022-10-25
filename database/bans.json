@@ -1309,6 +1309,14 @@
             "issued_on": 1649006014.0
         }
     },
+    "adbdragonmaster1": {
+        "scammer": {
+            "banned_by": "bigben2010",
+            "banned_on": "giftcardexchange",
+            "description": "",
+            "issued_on": 1666642550.0
+        }
+    },
     "adderallseeker": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -1759,6 +1767,14 @@
             "banned_on": "photomarket",
             "description": "",
             "issued_on": 1666395180.0
+        }
+    },
+    "agpl23713": {
+        "scammer": {
+            "banned_by": "uslbot",
+            "banned_on": "funkoswap",
+            "description": " USLBot; from UniversalScammerList",
+            "issued_on": 1666660322.0
         }
     },
     "agreeablevacation178": {
@@ -3243,6 +3259,14 @@
             "issued_on": 1650262243.0
         }
     },
+    "apricotcharming1504": {
+        "scammer": {
+            "banned_by": "orangeapplez",
+            "banned_on": "borrow",
+            "description": " collateral scam",
+            "issued_on": 1666645411.0
+        }
+    },
     "aprill_852": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -3287,6 +3311,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from borrow",
             "issued_on": 1661530292.0
+        }
+    },
+    "arcticdynamics": {
+        "scammer": {
+            "banned_by": "uslbot",
+            "banned_on": "funkoswap",
+            "description": " USLBot; from UniversalScammerList",
+            "issued_on": 1666656812.0
         }
     },
     "areyoueatingthis": {
@@ -4989,6 +5021,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from borrow",
             "issued_on": 1653876793.0
+        }
+    },
+    "benald_3636": {
+        "scammer": {
+            "banned_by": "aspiringinspirator",
+            "banned_on": "assistance",
+            "description": " Bank info scammer.",
+            "issued_on": 1666663816.0
         }
     },
     "bendygirlstl": {
@@ -8869,6 +8909,14 @@
             "issued_on": 1640488408.0
         }
     },
+    "cleopatrashouseboy": {
+        "sketchy": {
+            "banned_by": "rhubes",
+            "banned_on": "random_acts_of_pizza",
+            "description": "",
+            "issued_on": 1666603623.0
+        }
+    },
     "clingermanmichael": {
         "scammer": {
             "banned_by": "uslbot",
@@ -11649,6 +11697,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from Assistance",
             "issued_on": 1652266477.0
+        }
+    },
+    "determinution": {
+        "scammer": {
+            "banned_by": "zeroair",
+            "banned_on": "watchexchange",
+            "description": " from edcexchange",
+            "issued_on": 1666633258.0
         }
     },
     "deusea": {
@@ -21637,6 +21693,20 @@
             "issued_on": 1647954792.0
         }
     },
+    "its4m4dm4dworld": {
+        "borrowdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666639478.0
+        },
+        "gbdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666639478.0
+        }
+    },
     "its_moriarty": {
         "borrowdeleter": {
             "banned_by": "giversbot",
@@ -22745,6 +22815,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from RocketLeagueExchange",
             "issued_on": 1660565148.0
+        }
+    },
+    "jiggly_puff333": {
+        "sketchy": {
+            "banned_by": "dr3wcifer",
+            "banned_on": "borrow",
+            "description": " ban evasion, alt of u/violentserenity",
+            "issued_on": 1666629370.0
         }
     },
     "jimbosxmastree": {
@@ -24529,6 +24607,14 @@
             "issued_on": 1645998636.0
         }
     },
+    "kks1236": {
+        "troll": {
+            "banned_by": "cannibalisticmidgets",
+            "banned_on": "slavelabour",
+            "description": "",
+            "issued_on": 1666661747.0
+        }
+    },
     "klipgruissb": {
         "scammer": {
             "banned_by": "uslbot",
@@ -25701,6 +25787,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from UniversalScammerList",
             "issued_on": 1649882629.0
+        }
+    },
+    "lespy_laz": {
+        "scammer": {
+            "banned_by": "uslbot",
+            "banned_on": "funkoswap",
+            "description": " USLBot; from UniversalScammerList",
+            "issued_on": 1666664190.0
         }
     },
     "lessorganisation90": {
@@ -30999,6 +31093,20 @@
             "issued_on": 1639150804.0
         }
     },
+    "nimblenymph": {
+        "borrowdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666599032.0
+        },
+        "gbdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666599032.0
+        }
+    },
     "nimnom123": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -33553,6 +33661,14 @@
             "issued_on": 1664481180.0
         }
     },
+    "paintersteve636": {
+        "sketchy": {
+            "banned_by": "rhubes",
+            "banned_on": "random_acts_of_pizza",
+            "description": "",
+            "issued_on": 1666646200.0
+        }
+    },
     "paladinpuncher": {
         "scammer": {
             "banned_by": "uslbot",
@@ -33859,6 +33975,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from (ambiguous)",
             "issued_on": 1643664318.0
+        }
+    },
+    "paulinejensenlo": {
+        "scammer": {
+            "banned_by": "orangeapplez",
+            "banned_on": "borrow",
+            "description": " Ban Evasion",
+            "issued_on": 1666642506.0
         }
     },
     "paulzino": {
@@ -35329,6 +35453,14 @@
             "issued_on": 1661389868.0
         }
     },
+    "primnathaniow": {
+        "gbdeleter": {
+            "banned_by": "rhubes",
+            "banned_on": "random_acts_of_pizza",
+            "description": "",
+            "issued_on": 1666639401.0
+        }
+    },
     "princess-rufflebutt": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -36345,6 +36477,28 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from (ambiguous)",
             "issued_on": 1654518021.0
+        }
+    },
+    "rain_man_beats": {
+        "borrowdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666653217.0
+        },
+        "gbdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666653217.0
+        }
+    },
+    "rainbowsixshenanigan": {
+        "scammer": {
+            "banned_by": "loansbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666642140.0
         }
     },
     "rainbowunicorn88": {
@@ -38101,6 +38255,14 @@
             "issued_on": 1660771038.0
         }
     },
+    "roopadoop69": {
+        "sketchy": {
+            "banned_by": "rhubes",
+            "banned_on": "random_acts_of_pizza",
+            "description": " karma farming",
+            "issued_on": 1666646883.0
+        }
+    },
     "rosas661": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -38187,6 +38349,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from Random_Acts_Of_Pizza",
             "issued_on": 1638974675.0
+        }
+    },
+    "roundearther901": {
+        "scammer": {
+            "banned_by": "uslbot",
+            "banned_on": "funkoswap",
+            "description": " USLBot; from Random_Acts_Of_Amazon",
+            "issued_on": 1666655423.0
         }
     },
     "roundguess249": {
@@ -41119,6 +41289,20 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from borrow",
             "issued_on": 1651966391.0
+        }
+    },
+    "smuldrs": {
+        "borrowdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666673844.0
+        },
+        "gbdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666673844.0
         }
     },
     "smutvendor": {
@@ -45677,6 +45861,20 @@
             "issued_on": 1641866337.0
         }
     },
+    "tonyz086": {
+        "borrowdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666673117.0
+        },
+        "gbdeleter": {
+            "banned_by": "giversbot",
+            "banned_on": "borrow",
+            "description": "",
+            "issued_on": 1666673117.0
+        }
+    },
     "too_late_for_tacos": {
         "scammer": {
             "banned_by": "uslbot",
@@ -47911,6 +48109,14 @@
             "issued_on": 1663092655.0
         }
     },
+    "watchdog_": {
+        "troll": {
+            "banned_by": "cannibalisticmidgets",
+            "banned_on": "slavelabour",
+            "description": "",
+            "issued_on": 1666661724.0
+        }
+    },
     "watchdogsinv": {
         "sketchy": {
             "banned_by": "uslbot",
@@ -49313,6 +49519,14 @@
             "banned_on": "funkoswap",
             "description": " USLBot; from borrow",
             "issued_on": 1657583640.0
+        }
+    },
+    "xxraccoongalxx": {
+        "scammer": {
+            "banned_by": "orangeapplez",
+            "banned_on": "randomkindness",
+            "description": " Multi Account Scamming Trash alt of u/ThatGlitteryUnicorn & u/sprinkleglitteronme",
+            "issued_on": 1666630948.0
         }
     },
     "xxx4200": {

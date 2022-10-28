@@ -138,11 +138,12 @@ def add_sub_to_action_queue(sub_name, action_queue):
 				action_queue[sub_name]['ban'][tag].append(user)
 
 def get_valid_moderators(sub_name, include_usl_mods=True):
-	sub_config = helper.get_all_subs()[sub_name]
+	all_sub_configs = helper.get_all_subs()
+	sub_config = all_sub_configs[sub_name]
 	moderators = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	if include_usl_mods:
-		usl_sub = sub_config.reddit.subreddit('UniversalScammerList')
-		moderators += [x.name.lower() for x in usl_sub.moderator()]
+		usl_sub = all_sub_configs['universalscammerlist']
+		moderators += [x.name.lower() for x in usl_sub.subreddit_object.moderator()]
 	return list(set(moderators))
 
 @app.route('/subscribe-new-tags/', methods=["POST"])
@@ -156,6 +157,7 @@ def subscribe_new_tags():
 		for tag in bans[user]:
 			if tag in tags:
 				action_queue[sub_name]['ban'][tag].append(user)
+	return jsonify({})
 
 @app.route('/publish-ban/', methods=["POST"])
 def publish_ban():
@@ -235,7 +237,7 @@ def publish_unban():
 	issued_by_valid_mod = False
 	correct_ban_issuers = {}
 	valid_tags = []
-	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'] for tag in tags]
+	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'] for tag in tags if tag in bans[unbanned_user]]
 	for tag in tags:
 		if tag in bans[unbanned_user]:
 			found_valid_tag = True

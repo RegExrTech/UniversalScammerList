@@ -1,8 +1,10 @@
 from Config import Config
 from prawcore.exceptions import NotFound
 import time
+import requests
 
 WIKI_PAGE_NAME = 'usl_config'
+request_url = "http://0.0.0.0:8080"
 
 def get_wiki_page(config, wiki_page_name):
 	# Get the config page
@@ -91,8 +93,9 @@ def update_tags(tags_string, config):
 	tags = [tag.strip() for tag in tags]
 	tags = [tag for tag in tags if tag != '']
 	tags = [tag[1:] if tag[0] == "#" else tag for tag in tags]
-	config.tags = tags
-	config.update_config()
+	new_tags = [tag for tag in tags if tag not in config.tags]
+	config.update_config(tags)
+	requests.post(request_url + "/subscribe-new-tags/", {'tags': ",".join(new_tags), 'sub_name': config.subreddit_name})
 
 if __name__ == "__main__":
 	log_bot = Config('logger')

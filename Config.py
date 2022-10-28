@@ -37,6 +37,7 @@ class Config():
 		# Other subs should ignore bans done by the USL bot.
 		return bot_name.lower() == self.bot_username.lower()  or (bot_name.lower() == "uslbot" and self.subreddit_name != 'funkoswap')
 
-	def update_config(self):
+	def update_config(self, tags):
+		self.tags = tags
 		self.raw_config['tags'] = self.tags
 		dump(self.raw_config, self.fname)

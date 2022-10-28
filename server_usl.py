@@ -145,6 +145,18 @@ def get_valid_moderators(sub_name, include_usl_mods=True):
 		moderators += [x.name.lower() for x in usl_sub.moderator()]
 	return list(set(moderators))
 
+@app.route('/subscribe-new-tags/', methods=["POST"])
+def subscribe_new_tags():
+	global action_queue
+	sub_name = request.form["sub_name"]
+	tags = request.form["tags"].lower().split(",")
+	for tag in tags:
+		action_queue[sub_name]['ban'][tag] = []
+	for user in bans:
+		for tag in bans[user]:
+			if tag in tags:
+				action_queue[sub_name]['ban'][tag].append(user)
+
 @app.route('/publish-ban/', methods=["POST"])
 def publish_ban():
 	global bans

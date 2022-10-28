@@ -129,6 +129,13 @@ def clean_tags(tags):
 
 def add_sub_to_action_queue(sub_name, action_queue):
 	action_queue[sub_name] = {'ban': {}, 'unban': {}}
+	sub_config = helper.get_all_subs()[sub_name]
+	for tag in sub_config.tags:
+		action_queue[sub_name]['ban'][tag] = []
+	for user in bans:
+		for tag in bans[user]:
+			if tag in action_queue[sub_name]['ban']:
+				action_queue[sub_name]['ban'][tag].append(user)
 
 def get_valid_moderators(sub_name, include_usl_mods=True):
 	sub_config = helper.get_all_subs()[sub_name]

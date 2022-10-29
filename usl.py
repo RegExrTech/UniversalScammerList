@@ -107,6 +107,9 @@ def ban_from_queue(sub_config):
 			users_to_descriptions[user]['description'] = "You have been banned from r/" + sub_config.subreddit_name + " due to a ban from r/" + user_data['banned_on'] + ". You must contact the mods of r/" + user_data['banned_on'] + " to have this ban removed. Please do not reply to this message."
 			users_to_descriptions[user]['tags'].append(tag)
 	mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
+	sleep_time = 0
+	if len(users_to_descriptions.keys()) > 1000:
+		sleep_time = 7.5
 	for user in users_to_descriptions:
 		text = users_to_descriptions[user]
 		if user in DO_NOT_BAN:
@@ -137,6 +140,8 @@ def ban_from_queue(sub_config):
 			if not deleted_account:
 				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
 		print(user + " - " + text['description'] + " - " + text['mod note'])
+		if sleep_time > 0:
+			time.sleep(sleep_time)
 
 def get_messages(sub_config):
 	messages = []

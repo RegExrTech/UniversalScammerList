@@ -58,14 +58,14 @@ def create_wiki_config(config, config_page):
 	config_page.mod.update(listed=False, permlevel=2)
 
 def validate_wiki_content(config, config_page):
-	content = "tags:" + ",".join(["#"+tag for tag in config.tags]) + "\n\nbot_timestamp:" + str(time.time())
+	content = "tags: " + ",".join(["#"+tag for tag in config.tags]) + "\n\nbot_timestamp:" + str(time.time())
 	config_page.edit(content=content)
 
 def get_config_content(content):
 	config_content = {}
 	for line in content.splitlines():
 		key = line.split(":")[0]
-		value = ":".join(line.split(":")[1:])
+		value = ":".join(line.split(":")[1:]).strip()
 		config_content[key] = value
 	return config_content
 

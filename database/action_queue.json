@@ -3,7 +3,9 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "airsoftmarketcanada": {
         "ban": {
@@ -517,7 +519,9 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "random_acts_of_pizza": {
         "ban": {

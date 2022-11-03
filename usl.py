@@ -211,7 +211,7 @@ def publish_unbans(sub_config, messages):
 		try:
 			message.reply(body=text)
 		except Exception as e:
-			print(sub_config.bot_username + " could not reply to " + str(message.author) + " with error - " + str(e))
+			print(sub_config.bot_username + " could not reply to u/" + str(message.author) + " with error - " + str(e))
 
 def unban_from_queue(sub_config):
 	to_unban = requests.get(request_url + "/get-unban-queue/", data={'sub_name': sub_config.subreddit_name, 'tags': ",".join(sub_config.tags)}).json()

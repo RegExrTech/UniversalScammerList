@@ -73,6 +73,14 @@
             "sketchy": []
         }
     },
+    "canadianhardwareswap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "care": {
         "ban": {
             "scammer": [],
@@ -447,7 +455,9 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "mousemarket": {
         "ban": {
@@ -506,7 +516,9 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "photomarket": {
         "ban": {

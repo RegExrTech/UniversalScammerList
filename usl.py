@@ -88,6 +88,7 @@ def publish_bans(sub_config):
 		# Ignore bans without USL tags
 		if not ban_tags:
 			continue
+		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description " + description)
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 
 	if last_update_time != new_update_time:
@@ -139,7 +140,6 @@ def ban_from_queue(sub_config):
 					deleted_account = True
 			if not deleted_account:
 				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
-		print(user + " - " + text['description'] + " - " + text['mod note'])
 		if sleep_time > 0:
 			time.sleep(sleep_time)
 

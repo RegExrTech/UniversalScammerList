@@ -65,6 +65,8 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	page_numbers.sort()
 	for page_number in page_numbers:
 		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
+		if len(page_numbers) > 1 and page_numbers[-2] == page_number:
+			json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + latest_page_number + ".json")
 		page.edit(content=page_content[page_number])
 	page = config.subreddit_object.wiki[wiki_title]
 	page.edit(content="\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
@@ -80,6 +82,7 @@ def update_action_log_wiki(action_text, config):
 	if len((action_text + "\n" + page_content).encode('utf-8')) < 400000:
 		content_page.edit(content=action_text + "\n" + page_content)
 	else:  # Make a new page
+		json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + latest_page_number + ".json")
 		latest_page_number = str(int(latest_page_number) + 1)
 		config.subreddit_object.wiki.create(name='bot_actions/'+latest_page_number, content=action_text)
 		index_page.edit(content=index_content + "\n" + "* https://www.reddit.com/r/" + config.subreddit_name + "/wiki/bot_actions/" + latest_page_number)

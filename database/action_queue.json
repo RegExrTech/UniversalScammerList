@@ -4,7 +4,8 @@
             "scammer": []
         },
         "unban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "airsoftmarketcanada": {
@@ -442,6 +443,12 @@
             "sketchy": []
         }
     },
+    "miniswap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "mousemarket": {
         "ban": {
             "scammer": []
@@ -495,6 +502,12 @@
             "sketchy": []
         }
     },
+    "pen_swap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "photomarket": {
         "ban": {
             "scammer": []
@@ -520,7 +533,8 @@
             "scammer": []
         },
         "unban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "random_acts_of_pizza": {

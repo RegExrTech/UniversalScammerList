@@ -66,7 +66,7 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	for page_number in page_numbers:
 		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
 		if len(page_numbers) > 1 and page_numbers[-2] == page_number:
-			json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + latest_page_number + ".json")
+			json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + str(page_number) + ".json")
 		page.edit(content=page_content[page_number])
 	page = config.subreddit_object.wiki[wiki_title]
 	page.edit(content="\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
@@ -135,12 +135,14 @@ def add_sub_to_action_queue(sub_name, action_queue):
 	sub_config = helper.get_all_subs()[sub_name]
 	for tag in sub_config.tags:
 		action_queue[sub_name]['ban'][tag] = []
-	for user in bans:
-		for tag in bans[user]:
-			if tag in action_queue[sub_name]['ban']:
-				action_queue[sub_name]['ban'][tag].append(user)
+# TODO Uncomment these lines once all subs are on the new system
+#	for user in bans:
+#		for tag in bans[user]:
+#			if tag in action_queue[sub_name]['ban']:
+#				action_queue[sub_name]['ban'][tag].append(user)
 
 def get_valid_moderators(sub_name, include_usl_mods=True):
+	sub_name = sub_name.lower()
 	all_sub_configs = helper.get_all_subs()
 	sub_config = all_sub_configs[sub_name]
 	moderators = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
@@ -156,10 +158,11 @@ def subscribe_new_tags():
 	tags = request.form["tags"].lower().split(",")
 	for tag in tags:
 		action_queue[sub_name]['ban'][tag] = []
-	for user in bans:
-		for tag in bans[user]:
-			if tag in tags:
-				action_queue[sub_name]['ban'][tag].append(user)
+# TODO Uncomment these lines once all users are using the tags they expect to be using
+#	for user in bans:
+#		for tag in bans[user]:
+#			if tag in tags:
+#				action_queue[sub_name]['ban'][tag].append(user)
 	return jsonify({})
 
 @app.route('/publish-ban/', methods=["POST"])
@@ -240,7 +243,7 @@ def publish_unban():
 	issued_by_valid_mod = False
 	correct_ban_issuers = {}
 	valid_tags = []
-	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'] for tag in tags if tag in bans[unbanned_user]]
+	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'].lower() for tag in tags if tag in bans[unbanned_user]]
 	for tag in tags:
 		if tag in bans[unbanned_user]:
 			found_valid_tag = True

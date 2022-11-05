@@ -122,10 +122,17 @@ def ban_from_queue(sub_config):
 			sub_config.reddit.subreddit('universalscammerlist').message(subject="Moderator of r/" + sub_config.subreddit_name + " added to the USL", message=message_content)
 			continue
 		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
+		# If the user has a ban note (implying they are banned) and there are not USL tag in the ban note, skip
 		if ban_note and not any(["#"+_tag in ban_note for _tag in TAGS]):
 			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
 			# Send the message as the log bot to avoid spamming mod discussion
 			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
+			continue
+		# else if there is a ban for this user and there ARE existing USL tags in the ban notes, silently skip
+		# Having a USL ban tag in the description is important for unbanning, but we only check that at least
+		# one tag exists to unban because we use the database as the source of truth and not ban notes. As such,
+		# as long as one ban note is already present, there is no need to override the ban and do extra work.
+		elif ban_note and any(["#"+_tag in ban_note for _tag in TAGS]):
 			continue
 		try:
 			sub_config.subreddit_object.banned.add(user, ban_message=text['description'][:1000], ban_reason="USL Ban", note=text['mod note'][:300])

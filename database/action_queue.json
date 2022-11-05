@@ -83,8 +83,11 @@
     },
     "care": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -167,8 +170,11 @@
     },
     "food_pantry": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -493,8 +499,11 @@
     },
     "need": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -551,8 +560,11 @@
     },
     "random_acts_of_pizza": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -572,8 +584,11 @@
     },
     "randomactsofpetfood": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -583,8 +598,11 @@
     },
     "randomkindness": {
         "ban": {
+            "compromised": [],
+            "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -636,7 +654,8 @@
     },
     "slavelabour": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -706,6 +725,13 @@
             "scammer": [],
             "sketchy": []
         }
+    },
+    "universalscammerlist": {
+        "ban": {
+            "scammer": [],
+            "sketchy": []
+        },
+        "unban": {}
     },
     "uvtrade": {
         "ban": {

@@ -367,6 +367,12 @@
             "sketchy": []
         }
     },
+    "igsrep": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {}
+    },
     "indiegameswap": {
         "ban": {
             "scammer": []
@@ -537,6 +543,14 @@
             "gbdeleter": [],
             "scammer": [],
             "sketchy": []
+        }
+    },
+    "playingcardsmarket": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
         }
     },
     "pmsforsale": {
@@ -731,7 +745,9 @@
             "scammer": [],
             "sketchy": []
         },
-        "unban": {}
+        "unban": {
+            "scammer": []
+        }
     },
     "uvtrade": {
         "ban": {

@@ -4,6 +4,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -78,6 +79,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": []
         }
     },
@@ -371,7 +373,9 @@
         "ban": {
             "scammer": []
         },
-        "unban": {}
+        "unban": {
+            "gbdeleter": []
+        }
     },
     "indiegameswap": {
         "ban": {
@@ -468,6 +472,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": []
         }
     },
@@ -532,6 +537,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": []
         }
     },
@@ -550,6 +556,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": []
         }
     },
@@ -568,6 +575,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -662,6 +670,7 @@
             "scammer": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -746,6 +755,7 @@
             "sketchy": []
         },
         "unban": {
+            "gbdeleter": [],
             "scammer": []
         }
     },

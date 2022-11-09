@@ -65,8 +65,8 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	page_numbers.sort()
 	for page_number in page_numbers:
 		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
-		if len(page_numbers) > 1 and page_numbers[-2] == page_number:
-			json_helper.dump({'data': {'content_md': page_content[page_number]}}, "../RegExrTech.github.io/static/data/bot_actions_" + str(page_number) + ".json")
+#		if len(page_numbers) > 1 and page_numbers[-2] == page_number:
+#			json_helper.dump({'data': {'content_md': page_content[page_number]}}, "../RegExrTech.github.io/static/data/bot_actions_" + str(page_number) + ".json")
 		page.edit(content=page_content[page_number])
 	page = config.subreddit_object.wiki[wiki_title]
 	page.edit(content="\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))

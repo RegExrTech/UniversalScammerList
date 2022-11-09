@@ -80,7 +80,8 @@
         },
         "unban": {
             "gbdeleter": [],
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "care": {
@@ -374,7 +375,8 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": []
+            "gbdeleter": [],
+            "sketchy": []
         }
     },
     "indiegameswap": {
@@ -473,7 +475,8 @@
         },
         "unban": {
             "gbdeleter": [],
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "mousemarket": {
@@ -538,7 +541,8 @@
         },
         "unban": {
             "gbdeleter": [],
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "photomarket": {
@@ -557,7 +561,8 @@
         },
         "unban": {
             "gbdeleter": [],
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "pmsforsale": {
@@ -756,7 +761,8 @@
         },
         "unban": {
             "gbdeleter": [],
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "uvtrade": {

@@ -46,11 +46,15 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 		print(sub_config.subreddit_name + " was unable to get mod actions when checking for bans with error " + str(e))
 		return actions
 	found_last_action = False
-	for action in action_generator:
-		if action.created_utc <= last_update_time:
-			found_last_action = True
-			break
-		actions.append(action)
+	try:
+		for action in action_generator:
+			if action.created_utc <= last_update_time:
+				found_last_action = True
+				break
+			actions.append(action)
+	except Exception as e:
+		print(sub_config.subreddit_name + " was unable to continue scraping the mod queue with error " + str(e))
+		found_last_action = True
 	if not found_last_action:
 		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])
 	return actions

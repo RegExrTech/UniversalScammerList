@@ -76,7 +76,10 @@
     },
     "canadianhardwareswap": {
         "ban": {
-            "scammer": []
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -100,7 +103,8 @@
     },
     "cash4cash": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
             "gbdeleter": [],
@@ -432,7 +436,10 @@
     },
     "mcsplaystation": {
         "ban": {
-            "scammer": []
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -442,7 +449,10 @@
     },
     "mcsrep": {
         "ban": {
-            "scammer": []
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -452,7 +462,10 @@
     },
     "mcsxbox": {
         "ban": {
-            "scammer": []
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],
@@ -650,7 +663,8 @@
     },
     "sgsflair": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
             "gbdeleter": [],
@@ -714,7 +728,8 @@
     },
     "steamgameswap": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
             "gbdeleter": [],

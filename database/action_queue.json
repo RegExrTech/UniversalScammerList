@@ -495,7 +495,10 @@
     },
     "mousemarket": {
         "ban": {
-            "scammer": []
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "gbdeleter": [],

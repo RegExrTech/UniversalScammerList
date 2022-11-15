@@ -111,6 +111,8 @@ def ban_from_queue(sub_config):
 			users_to_descriptions[user]['mod note'] += "#" + tag + " "
 			users_to_descriptions[user]['description'] = "You have been banned from r/" + sub_config.subreddit_name + " due to a ban from r/" + user_data['banned_on'] + ". You must contact the mods of r/" + user_data['banned_on'] + " to have this ban removed. Please do not reply to this message."
 			users_to_descriptions[user]['tags'].append(tag)
+
+	previously_banned_users = []
 	mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	sleep_time = 0
 	if len(users_to_descriptions.keys()) > 1000:
@@ -128,9 +130,7 @@ def ban_from_queue(sub_config):
 		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
 		# If the user has a ban note (implying they are banned) and there are not USL tag in the ban note, skip
 		if ban_note and not any(["#"+_tag in ban_note for _tag in TAGS]):
-			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was added to the USL with the following context: \n\n> " + text['mod note'] + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
-			# Send the message as the log bot to avoid spamming mod discussion
-			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
+			previously_banned_users.append(user)
 			continue
 		# else if there is a ban for this user and there ARE existing USL tags in the ban notes, silently skip
 		# Having a USL ban tag in the description is important for unbanning, but we only check that at least
@@ -153,6 +153,10 @@ def ban_from_queue(sub_config):
 				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
 		if sleep_time > 0:
 			time.sleep(sleep_time)
+	if previously_banned_users:
+		message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, the folling users were added to the USL:\n\n* u/" + "\n\n* u/".join(previously_banned_users) + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
+		# Send the message as the log bot to avoid spamming mod discussion
+		Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
 
 def get_messages(sub_config):
 	messages = []
@@ -202,6 +206,9 @@ def publish_unbans(sub_config, messages):
 					unbanned_user = words[count+1].split("/")[-1]
 			elif word[0] == "#":
 				tags.append(word[1:])
+		# Don't want to start a PM war with my own bots.
+		if 'kofi.regexr.tech' in text:
+			continue
 		if not command:
 			text = "No command was found. Please be sure to start your message with a command. Commands should be in the form `$command`. For example, `$unban u/username #tag1 #tag2`"
 		elif command == "$unban":

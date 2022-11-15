@@ -135,11 +135,10 @@ def add_sub_to_action_queue(sub_name, action_queue):
 	sub_config = helper.get_all_subs()[sub_name]
 	for tag in sub_config.tags:
 		action_queue[sub_name]['ban'][tag] = []
-# TODO Uncomment these lines once all subs are on the new system
-#	for user in bans:
-#		for tag in bans[user]:
-#			if tag in action_queue[sub_name]['ban']:
-#				action_queue[sub_name]['ban'][tag].append(user)
+	for user in bans:
+		for tag in bans[user]:
+			if tag in action_queue[sub_name]['ban']:
+				action_queue[sub_name]['ban'][tag].append(user)
 
 def get_valid_moderators(sub_name, include_usl_mods=True):
 	sub_name = sub_name.lower()
@@ -157,12 +156,11 @@ def subscribe_new_tags():
 	sub_name = request.form["sub_name"]
 	tags = request.form["tags"].lower().split(",")
 	for tag in tags:
-		action_queue[sub_name]['ban'][tag] = []
-# TODO Uncomment these lines once all users are using the tags they expect to be using
-#	for user in bans:
-#		for tag in bans[user]:
-#			if tag in tags:
-#				action_queue[sub_name]['ban'][tag].append(user)
+			action_queue[sub_name]['ban'][tag] = []
+	for user in bans:
+		for tag in bans[user]:
+			if tag in tags:
+				action_queue[sub_name]['ban'][tag].append(user)
 	return jsonify({})
 
 @app.route('/publish-ban/', methods=["POST"])

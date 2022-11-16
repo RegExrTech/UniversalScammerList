@@ -103,6 +103,7 @@
     },
     "cash4cash": {
         "ban": {
+            "": [],
             "scammer": [],
             "sketchy": []
         },

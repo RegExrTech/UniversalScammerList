@@ -34,7 +34,8 @@
     },
     "appleswap": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
             "gbdeleter": [],
@@ -303,7 +304,8 @@
     },
     "giftcardexchange": {
         "ban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
             "gbdeleter": [],

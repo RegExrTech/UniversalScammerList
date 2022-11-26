@@ -1,7 +1,16 @@
 {
     "airsoftmarket": {
         "ban": {
-            "scammer": []
+            "scammer": [
+                "pacyguy20",
+                "hannahlinda1",
+                "camilaleeson",
+                "theoriginalwizard",
+                "impactedmarmite95",
+                "hikillll",
+                "soapysoap93",
+                "italian-chocolate"
+            ]
         },
         "unban": {
             "gbdeleter": [],

@@ -23,12 +23,17 @@ def check_if_mod(sub_config):
 		return False
 	return sub_config.bot_username.lower() in mod_list
 
+def clean_ban_tag(tag):
+	if tag[0] == "#":
+		tag = tag[1:]
+	return "#" + "".join([x.lower() for x in tag if x.isalpha()])
+
 def get_ban_tags_and_description(description):
 	tags = []
 	other = []
 	for word in [x for x in description.split(" ") if x]:
 		if word[0] == "#":
-			tags.append(word)
+			tags.append(clean_ban_tag(word))
 		else:
 			other.append(word)
 	description = " ".join(other)

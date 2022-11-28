@@ -112,7 +112,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	sorted_usernames = order_users_by_ban_date(bans)
 	text_lines = []
 	for username in sorted_usernames:
-		tags = [tag for tag in list(bans[username].keys()) if tag not in PRIVATE_TAGS]
+		tags = [tag for tag in list(bans[username].keys()) if tag in PUBLIC_TAGS]
 		if tags == []:
 			continue
 		line_text = "* /u/" + username + " " + " ".join(["#"+tag for tag in tags])

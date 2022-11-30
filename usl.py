@@ -180,6 +180,7 @@ def get_messages(sub_config):
 	except Exception as e:
 		print(e)
 		print("u/" + sub_config.bot_username + " failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
+		return []
 
 	for message in to_mark_as_read:
 		try:

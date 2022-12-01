@@ -199,8 +199,12 @@ def publish_ban():
 			# If the tag doesn't already exist in the action queue
 			if tag not in action_queue[sub_name]['ban']:
 				action_queue[sub_name]['ban'][tag] = []
-			# If the user is not already in the action queue for that tag
-			if banned_user not in action_queue[sub_name]['ban'][tag]:
+			# If the user is in the queue to be unbanned but a request to ban them happened
+			# before the unban could take effect, remove the unban request and do nothing.
+			if banned_user in action_queue[sub_name]['unban'][tag]:
+				action_queue[sub_name]['unban'][tag].remove(banned_user)
+			# If the user is not already in the ban action queue for that tag
+			elif banned_user not in action_queue[sub_name]['ban'][tag]:
 				action_queue[sub_name]['ban'][tag].append(banned_user)
 	if not duplicate_ban:
 		log_action(banned_user, banned_by, banned_on, issued_on, context=description + " - Tags Added: " + ", ".join(["#" + _tag for _tag in tags]), is_ban=True)
@@ -274,7 +278,12 @@ def publish_unban():
 				remaining_tags = list(bans[unbanned_user].keys())
 			# ONLY issue an unban IF this user has no tags remaining that the sub is subscribed to.
 			if not any([x in remaining_tags for x in all_subs[sub_name].tags]):
-				if unbanned_user not in action_queue[sub_name]['unban'][tag]:
+				# If the user was scheduled to be banned but the unban request came through BEFORE
+				# the user could even be banned on the sub, then skip the ban step and just remove them
+				# from the queue
+				if unbanned_user in action_queue[sub_name]['ban'][tag]:
+					action_queue[sub_name]['ban'][tag].remove(unbanned_user)
+				elif unbanned_user not in action_queue[sub_name]['unban'][tag]:
 					action_queue[sub_name]['unban'][tag].append(unbanned_user)
 
 	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + ", ".join(["#" + _tag for _tag in valid_tags]), is_unban=True)

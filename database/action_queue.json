@@ -1,6 +1,7 @@
 {
     "airsoftmarket": {
         "ban": {
+            "": [],
             "scammer": [
                 "pacyguy20",
                 "hannahlinda1",
@@ -47,7 +48,19 @@
                 "nyitraizoli1",
                 "muslimtwin",
                 "hedonistfuck",
-                "wereallfuckingidiots"
+                "wereallfuckingidiots",
+                "erroneousomission",
+                "rakishlybeat24",
+                "cakee7837436",
+                "kingkringe63",
+                "chattganistan",
+                "tantamountainclimber",
+                "whatsgoinonhere190",
+                "changusultimus",
+                "azonalvideo491",
+                "intrepid-wifey2022",
+                "nicheols",
+                "yadadsbald"
             ]
         },
         "unban": {
@@ -55,7 +68,8 @@
             "scammer": [
                 "carb0n12",
                 "test",
-                "agitated-handle-7750"
+                "agitated-handle-7750",
+                "direct_end5127"
             ],
             "sketchy": [
                 "chickslaya",

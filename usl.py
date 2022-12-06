@@ -147,7 +147,6 @@ def ban_from_queue(sub_config):
 			sub_config.subreddit_object.banned.add(user, ban_message=text['description'][:1000], ban_reason="USL Ban", note=text['mod note'][:300])
 		except Exception as e:
 			deleted_account = False
-			print("Unable to ban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
 			try:
 				sub_config.reddit.redditor(user).id
 			except Exception as e:
@@ -155,6 +154,7 @@ def ban_from_queue(sub_config):
 					print(user + " deleted their account so they cannot be banned from " + sub_config.subreddit_name)
 					deleted_account = True
 			if not deleted_account:
+				print("Unable to ban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
 				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'ban', 'tags': ",".join(users_to_descriptions[user]['tags'])})
 		if sleep_time > 0:
 			time.sleep(sleep_time)

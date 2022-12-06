@@ -222,7 +222,10 @@ def get_ban_queue():
 	for tag in action_queue[sub_name]['ban']:
 		to_return[tag] = {}
 		for user in action_queue[sub_name]['ban'][tag]:
+			# If we can't find the relevant information on the user in the DB, then they aren't someone we should actually ban.
 			if user not in bans:
+				continue
+			if tag not in bans[user]:
 				continue
 			to_return[tag][user] = bans[user][tag]
 	for tag in action_queue[sub_name]['ban']:

@@ -58,7 +58,7 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 				break
 			actions.append(action)
 	except Exception as e:
-		print(sub_config.subreddit_name + " was unable to continue scraping the mod queue with error " + str(e))
+		print(sub_config.subreddit_name + " was unable to continue scraping the mod log with error " + str(e))
 		found_last_action = True
 	if not found_last_action:
 		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])
@@ -97,6 +97,9 @@ def publish_bans(sub_config):
 		# Ignore bans without USL tags
 		if not ban_tags:
 			continue
+		unknown_tags = [tag for tag in ban_tags if tag not in TAGS.tags]
+		if unknown_tags:
+			print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
 		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description " + description)
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 

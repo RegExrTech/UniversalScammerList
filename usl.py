@@ -104,6 +104,12 @@ def publish_bans(sub_config):
 		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
 
 def ban_from_queue(sub_config):
+	try:
+		mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
+	except Exception as e:
+		print(sub_config.subreddit_name + " was unable to get list of moderators with error " + str(e) + " when banning from queue. Skipping phase...")
+		return
+
 	to_ban = requests.get(request_url + "/get-ban-queue/", data={'sub_name': sub_config.subreddit_name}).json()
 	users_to_descriptions = defaultdict(lambda: {'description': '', 'mod note': '', 'tags': []})
 	for tag in to_ban:
@@ -118,7 +124,6 @@ def ban_from_queue(sub_config):
 			users_to_descriptions[user]['tags'].append(tag)
 
 	previously_banned_users = []
-	mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	sleep_time = 0
 	if len(users_to_descriptions.keys()) > 1000:
 		sleep_time = 7.5

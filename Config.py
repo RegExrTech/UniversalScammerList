@@ -30,6 +30,8 @@ class Config():
 		self.tags = self.raw_config['tags']
 		self.reddit = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='USL Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', username=self.bot_username, password=self.bot_password)
 		self.subreddit_object = self.reddit.subreddit(self.subreddit_name)
+		# Optional, can be set later.
+		self.mods = []
 
 
 	def is_bot_name(self, bot_name):

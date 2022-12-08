@@ -97,7 +97,7 @@ def publish_bans(sub_config):
 		# Ignore bans without USL tags
 		if not ban_tags:
 			continue
-		unknown_tags = [tag for tag in ban_tags if tag not in TAGS.tags]
+		unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
 		if unknown_tags:
 			print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
 		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description " + description)
@@ -107,12 +107,7 @@ def publish_bans(sub_config):
 		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
 
 def ban_from_queue(sub_config):
-	try:
-		mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
-	except Exception as e:
-		print(sub_config.subreddit_name + " was unable to get list of moderators with error " + str(e) + " when banning from queue. Skipping phase...")
-		return
-
+	mods = sub_config.mods
 	to_ban = requests.get(request_url + "/get-ban-queue/", data={'sub_name': sub_config.subreddit_name}).json()
 	users_to_descriptions = defaultdict(lambda: {'description': '', 'mod note': '', 'tags': []})
 	for tag in to_ban:
@@ -269,6 +264,11 @@ def main():
 	args = parser.parse_args()
 
 	sub_config = Config(args.sub_name.lower())
+	try:
+		sub_config.mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
+	except Exception as e:
+		print("u/" + sub_config.bot_username + " was unable to get list of moderators from r/" + sub_config.subreddit_name + " with error " + str(e) + ". Skipping iteration...")
+		return
 
 	# Accepts mod invites and returns unban requests
 	messages = get_messages(sub_config)

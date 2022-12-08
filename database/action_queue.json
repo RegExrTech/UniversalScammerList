@@ -1,13 +1,10 @@
 {
     "airsoftmarket": {
         "ban": {
-            "": [],
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "airsoftmarketcanada": {
@@ -15,9 +12,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "animalcrossingamiibos": {
@@ -28,7 +23,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -39,7 +33,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -50,7 +43,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -60,9 +52,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "borrow": {
@@ -71,7 +61,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -84,7 +73,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -105,12 +93,10 @@
     },
     "cash4cash": {
         "ban": {
-            "": [],
             "scammer": [],
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -120,9 +106,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "comblocmarket2": {
@@ -130,9 +114,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "comicswap": {
@@ -140,9 +122,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "digitalcodesell": {
@@ -150,9 +130,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "disneypinswap": {
@@ -160,9 +138,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "dogemarket": {
@@ -173,7 +149,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -197,9 +172,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "funkoppopmod": {
@@ -218,13 +191,11 @@
     },
     "funkoswap": {
         "ban": {
-            "": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -234,9 +205,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "gameswap": {
@@ -244,9 +213,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "gametrade": {
@@ -254,9 +221,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "garlicmarket": {
@@ -264,9 +229,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "gctrading": {
@@ -277,7 +240,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -288,7 +250,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -298,9 +259,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "giftcardexchange": {
@@ -309,7 +268,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -319,9 +277,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "gofundme": {
@@ -329,9 +285,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "gunaccessoriesforsale": {
@@ -339,9 +293,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "hardwareswapuk": {
@@ -349,9 +301,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "hockeyjerseys": {
@@ -362,7 +312,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -373,7 +322,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -383,9 +331,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "indiegameswap": {
@@ -393,9 +339,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "knife_swap": {
@@ -403,9 +347,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "legomarket": {
@@ -413,9 +355,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "lolboosting": {
@@ -423,9 +363,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "mangaswap": {
@@ -433,9 +371,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "mcsplaystation": {
@@ -446,7 +382,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -459,7 +394,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -472,7 +406,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -482,9 +415,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "miniswap": {
@@ -492,9 +423,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "mousemarket": {
@@ -505,7 +434,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -516,7 +444,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -527,7 +454,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -551,9 +477,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "pen_swap": {
@@ -561,9 +485,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "photomarket": {
@@ -571,9 +493,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "playingcardsmarket": {
@@ -581,9 +501,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "pmsforsale": {
@@ -591,9 +509,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "random_acts_of_amazon": {
@@ -601,9 +517,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "random_acts_of_pizza": {
@@ -625,9 +539,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "randomactsofpetfood": {
@@ -663,9 +575,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "sgsflair": {
@@ -674,7 +584,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -687,7 +596,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -697,9 +605,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "slavelabour": {
@@ -708,9 +614,7 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "snackexchange": {
@@ -720,7 +624,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -730,9 +633,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "steamgameswap": {
@@ -741,7 +642,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -751,9 +651,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "trade": {
@@ -761,9 +659,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "ulgeartrade": {
@@ -774,7 +670,6 @@
             "troll": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -785,7 +680,6 @@
             "sketchy": []
         },
         "unban": {
-            "gbdeleter": [],
             "scammer": [],
             "sketchy": []
         }
@@ -795,9 +689,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "vinylcollectors": {
@@ -805,9 +697,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     },
     "watchexchange": {
@@ -815,9 +705,7 @@
             "scammer": []
         },
         "unban": {
-            "gbdeleter": [],
-            "scammer": [],
-            "sketchy": []
+            "scammer": []
         }
     }
 }

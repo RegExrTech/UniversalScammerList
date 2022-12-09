@@ -274,6 +274,9 @@ def publish_unban():
 	all_subs = helper.get_all_subs()
 	for sub_name in action_queue:
 		for tag in valid_tags:
+			# If this sub is not subscribed to this tag
+			if tag not in all_subs[sub_name].tags:
+				continue
 			if tag not in action_queue[sub_name]['unban']:
 				action_queue[sub_name]['unban'][tag] = []
 			remaining_tags = []
@@ -284,7 +287,7 @@ def publish_unban():
 				# If the user was scheduled to be banned but the unban request came through BEFORE
 				# the user could even be banned on the sub, then skip the ban step and just remove them
 				# from the queue
-				if unbanned_user in action_queue[sub_name]['ban'][tag]:
+				if tag in action_queue[sub_name]['ban'] and unbanned_user in action_queue[sub_name]['ban'][tag]:
 					action_queue[sub_name]['ban'][tag].remove(unbanned_user)
 				elif unbanned_user not in action_queue[sub_name]['unban'][tag]:
 					action_queue[sub_name]['unban'][tag].append(unbanned_user)

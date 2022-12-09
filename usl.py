@@ -16,12 +16,7 @@ request_url = "http://0.0.0.0:8080"
 DO_NOT_BAN = set(['[deleted]', 'automoderator'])
 
 def check_if_mod(sub_config):
-	try:
-		mod_list = [str(x).lower() for x in sub_config.subreddit_object.moderator()]
-	except Exception as e:
-		print("Unable to get mod list for " + sub_config.subreddit_name + " with error " + str(e))
-		return False
-	return sub_config.bot_username.lower() in mod_list
+	return sub_config.bot_username.lower() in sub_config.mods
 
 def clean_ban_tag(tag):
 	if tag[0] == "#":
@@ -267,7 +262,7 @@ def main():
 	try:
 		sub_config.mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	except Exception as e:
-		print("u/" + sub_config.bot_username + " was unable to get list of moderators from r/" + sub_config.subreddit_name + " with error " + str(e) + ". Skipping iteration...")
+		print("    u/" + sub_config.bot_username + " was unable to get list of moderators from r/" + sub_config.subreddit_name + " with error " + str(e) + ". Skipping iteration...")
 		return
 
 	# Accepts mod invites and returns unban requests

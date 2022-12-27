@@ -263,7 +263,7 @@ def publish_unban():
 			else:
 				correct_ban_issuers[tag] = originally_banned_on
 	if not found_valid_tag:
-		return jsonify({'error': 'u/' + unbanned_user + ' is not currently banned with any of the given tags. The valid tags are:\n\n' + "\n".join(["* #" + tag for tags in list(bans[unbanned_user].keys())])})
+		return jsonify({'error': 'u/' + unbanned_user + ' is not currently banned with any of the given tags. The valid tags are:\n\n' + "\n".join(["* #" + tag for tag in list(bans[unbanned_user].keys())])})
 	if not issued_by_valid_mod:
 		error_text = 'Sorry, but this user could not be unbanned because you are not a moderator of any subs that issued a ban for any of the given tags. The following tags may only be removed by the mods of the following subreddits:'
 		for key, value in correct_ban_issuers.items():

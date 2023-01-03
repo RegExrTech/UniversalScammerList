@@ -53,7 +53,7 @@ def create_paginated_wiki(wiki_title, text_lines, config):
 	for line in text_lines:
 		content_size += len((line+"\n").encode('utf-8'))
 		# Wiki pages are limited to 524288 bytes
-		if content_size >= 400000:
+		if content_size >= 200000:
 			page_content[page] = "\n".join(text_lines[index_start:index_end])
 			index_start = index_end
 			page += 1
@@ -79,7 +79,7 @@ def update_action_log_wiki(action_text, config):
 	content_page = config.subreddit_object.wiki['bot_actions/'+latest_page_number]
 	page_content = content_page.content_md
 	# Wiki pages are limited to 524288 bytes
-	if len((action_text + "\n" + page_content).encode('utf-8')) < 400000:
+	if len((action_text + "\n" + page_content).encode('utf-8')) < 200000:
 		content_page.edit(content=action_text + "\n" + page_content)
 	else:  # Make a new page
 		json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + latest_page_number + ".json")
@@ -106,6 +106,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		# Only update if the context includes a public tag
 		if any(["#"+tag in context for tag in PUBLIC_TAGS]):
 			update_action_log_wiki(action_text, log_bot)
+			time.sleep(5)  # Sleep a bit so we don't rate limit ourselves when writing to wiki pages
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
 	# Update the ban list
@@ -119,6 +120,7 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 		text_lines.append(line_text)
 	try:
 		create_paginated_wiki('banlist', text_lines, log_bot)
+		time.sleep(5)  # Sleep a bit so we don't rate limit ourselves when writing to wiki pages
 	except Exception as e:
 		print("Unable to update the banlist with error " + str(e))
 
@@ -375,12 +377,19 @@ class MyRequestHandler(WSGIRequestHandler):
 			self.log('info', '"%s" %s %s', self.requestline, code, size)
 
 
+def port_in_use(port):
+	import socket
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		return s.connect_ex(('0.0.0.0', PORT)) == 0
+
 if __name__ == "__main__":
 	try:
-		bans = json_helper.get_db(bans_fname)
-		update_times = json_helper.get_db(update_times_fname)
-		action_queue = json_helper.get_db(action_queue_fname)
-		app.run(host= '0.0.0.0', port=8080, request_handler=MyRequestHandler)
+		PORT = 8080
+		if not port_in_use(PORT):
+			bans = json_helper.get_db(bans_fname)
+			update_times = json_helper.get_db(update_times_fname)
+			action_queue = json_helper.get_db(action_queue_fname)
+			app.run(host= '0.0.0.0', port=PORT, request_handler=MyRequestHandler)
 	except Exception as e:
 		print(e)
 		pass

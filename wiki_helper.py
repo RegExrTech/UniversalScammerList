@@ -34,9 +34,9 @@ def run_config_checker(config):
 	content = get_wiki_page_content(config_page, config)
 	if content == "":
 		return
-	# If the bot was the last person to update the config, break out early
-	if config_page.revision_by.name.lower() == config.bot_username.lower():
-		return
+#	# If the bot was the last person to update the config, break out early
+#	if config_page.revision_by.name.lower() == config.bot_username.lower():
+#		return
 	# Parse the config page
 	try:
 		config_content = get_config_content(content)
@@ -48,6 +48,9 @@ def run_config_checker(config):
 	# Update the tags
 	if 'tags' in config_content:
 		update_tags(config_content['tags'], config)
+	if 'typo_checking' in config_content:
+		typo_checking = config_content['typo_checking'].lower() == 'true'
+		config.update_typo_checking(typo_checking, config)
 	# Inform parsing successful
 	inform_config_valid(config_page)
 	# Validate Wiki Page
@@ -58,7 +61,9 @@ def create_wiki_config(config, config_page):
 	config_page.mod.update(listed=False, permlevel=2)
 
 def validate_wiki_content(config, config_page):
-	content = "tags: " + ",".join(["#"+tag for tag in config.tags]) + "\n\nbot_timestamp:" + str(time.time())
+	content = "tags: " + ",".join(["#"+tag for tag in config.tags])
+	content += "\n\ntypo_checking: " + str(config.typo_checking)
+	content += "\n\nbot_timestamp:" + str(time.time())
 	config_page.edit(content=content)
 
 def get_config_content(content):
@@ -94,7 +99,7 @@ def update_tags(tags_string, config):
 	tags = [tag for tag in tags if tag != '']
 	tags = [tag[1:] if tag[0] == "#" else tag for tag in tags]
 	new_tags = [tag for tag in tags if tag not in config.tags]
-	config.update_config(tags)
+	config.update_tags(tags)
 	requests.post(request_url + "/subscribe-new-tags/", {'tags': ",".join(new_tags), 'sub_name': config.subreddit_name})
 
 if __name__ == "__main__":

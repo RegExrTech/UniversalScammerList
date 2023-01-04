@@ -23,6 +23,18 @@ def clean_ban_tag(tag):
 		tag = tag[1:]
 	return "#" + "".join([x.lower() for x in tag if x.isalpha()])
 
+def handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user):
+	message_subject = "Unknown tag in user ban"
+	message_body = "Hello u/" + banned_by.name + ",\n\n"
+	message_body += "Recently, you banned u/" + banned_user + " from r/" + sub_config.subreddit_name + ". "
+	message_body += "When you did so, you included the following tag(s) in the mod note:\n\n* "
+	message_body += "\n\n* ".join("#"+tag for tag in unknown_tags) + "\n\n"
+	message_body += "These tag(s) appear to be USL tag(s) but do not appear in the list of [valid tags](https://www.universalscammerlist.com/tags)\n\n"
+	message_body += "If you made a typo in the tag you submitted, please locally unban the user. Then, reissue the ban, this time properly spelling the tag(s) in question in the mod note.\n\n"
+	message_body += "If you did not make a typo and these are simply tag(s) that are unrelated to the USL, please disregard this message.\n\n"
+	message_body += "Thanks!"
+	banned_by.message(subject=message_subject, message=message_body)
+
 def get_ban_tags_and_description(description):
 	tags = []
 	other = []
@@ -94,6 +106,7 @@ def publish_bans(sub_config):
 			continue
 		unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
 		if unknown_tags:
+			handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)
 			print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
 		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description " + description)
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})

@@ -30,6 +30,7 @@ class Config():
 		self.tags = self.raw_config['tags']
 		self.reddit = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='USL Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', username=self.bot_username, password=self.bot_password)
 		self.subreddit_object = self.reddit.subreddit(self.subreddit_name)
+		self.typo_checking = self.raw_config['typo_checking']
 		# Optional, can be set later.
 		self.mods = []
 
@@ -37,7 +38,12 @@ class Config():
 	def is_bot_name(self, bot_name):
 		return bot_name.lower() in [self.bot_username.lower(), "uslbot"]
 
-	def update_config(self, tags):
+	def update_tags(self, tags):
 		self.tags = tags
 		self.raw_config['tags'] = self.tags
+		dump(self.raw_config, self.fname)
+
+	def update_typo_checking(self, typo_checking, config):
+		self.typo_checking = typo_checking
+		self.raw_config['typo_checking'] = self.typo_checking
 		dump(self.raw_config, self.fname)

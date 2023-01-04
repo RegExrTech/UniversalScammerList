@@ -106,9 +106,10 @@ def publish_bans(sub_config):
 			continue
 		unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
 		if unknown_tags:
-			handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)
+			if sub_config.typo_checking:
+				handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)
 			print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
-		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description " + description)
+		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags \#" + ", \#".join(ban_tags) + " with description" + description)
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 
 	if last_update_time != new_update_time:

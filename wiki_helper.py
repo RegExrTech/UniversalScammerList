@@ -34,9 +34,9 @@ def run_config_checker(config):
 	content = get_wiki_page_content(config_page, config)
 	if content == "":
 		return
-#	# If the bot was the last person to update the config, break out early
-#	if config_page.revision_by.name.lower() == config.bot_username.lower():
-#		return
+	# If the bot was the last person to update the config, break out early
+	if config_page.revision_by.name.lower() == config.bot_username.lower():
+		return
 	# Parse the config page
 	try:
 		config_content = get_config_content(content)

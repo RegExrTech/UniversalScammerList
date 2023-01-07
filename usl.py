@@ -65,7 +65,7 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 				break
 			actions.append(action)
 	except Exception as e:
-		print(sub_config.subreddit_name + " was unable to continue scraping the mod log with error " + str(e))
+		print("    r/" + sub_config.subreddit_name + " was unable to continue scraping the mod log with error " + str(e))
 		found_last_action = True
 	if not found_last_action:
 		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])

@@ -114,7 +114,20 @@
     "charity": {
         "ban": {
             "": [],
-            "scammer": []
+            "compromised": [],
+            "gbdeleter": [],
+            "scammer": [
+                "travellerfourlife",
+                "sneakrs_micheal",
+                "beenob3",
+                "aktitrading",
+                "divinity222",
+                "jokapo",
+                "cafe_racerr",
+                "jamietedford"
+            ],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "scammer": []
@@ -312,7 +325,20 @@
     "gofundme": {
         "ban": {
             "": [],
-            "scammer": []
+            "compromised": [],
+            "gbdeleter": [],
+            "scammer": [
+                "travellerfourlife",
+                "sneakrs_micheal",
+                "beenob3",
+                "aktitrading",
+                "divinity222",
+                "jokapo",
+                "cafe_racerr",
+                "jamietedford"
+            ],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
             "scammer": []

@@ -163,7 +163,7 @@ def ban_from_queue(sub_config):
 				sub_config.reddit.redditor(user).id
 			except Exception as e:
 				if type(e).__name__ == 'NotFound':
-					print(user + " deleted their account so they cannot be banned from " + sub_config.subreddit_name)
+					print("u/" + user + " deleted their account so they cannot be banned from " + sub_config.subreddit_name)
 					deleted_account = True
 			if not deleted_account:
 				print("Unable to ban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))

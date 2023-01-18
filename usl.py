@@ -173,7 +173,10 @@ def ban_from_queue(sub_config):
 	if previously_banned_users:
 		message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, the following users were added to the USL:\n\n* u/" + "\n\n* u/".join(previously_banned_users) + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
 		# Send the message as the log bot to avoid spamming mod discussion
-		Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
+		try:
+			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
+		except:
+			print("    Failed to send the following message to r/" + sub_config.subreddit_name + ": " + message_content)
 
 def get_messages(sub_config):
 	messages = []

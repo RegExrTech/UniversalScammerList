@@ -202,7 +202,7 @@ def publish_ban():
 			if tag not in action_queue[sub_name]['ban']:
 				action_queue[sub_name]['ban'][tag] = []
 			if tag not in action_queue[sub_name]['unban']:
-				action_queue[sub_name]['ban'][tag] = []
+				action_queue[sub_name]['unban'][tag] = []
 			# If the user is in the queue to be unbanned but a request to ban them happened
 			# before the unban could take effect, remove the unban request and do nothing.
 			if banned_user in action_queue[sub_name]['unban'][tag]:

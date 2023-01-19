@@ -121,7 +121,9 @@
             "troll": []
         },
         "unban": {
-            "scammer": []
+            "gbdeleter": [],
+            "scammer": [],
+            "sketchy": []
         }
     },
     "comblocmarket2": {
@@ -323,7 +325,9 @@
             "troll": []
         },
         "unban": {
-            "scammer": []
+            "gbdeleter": [],
+            "scammer": [],
+            "sketchy": []
         }
     },
     "gunaccessoriesforsale": {

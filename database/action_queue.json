@@ -234,19 +234,31 @@
     "gamesale": {
         "ban": {
             "": [],
-            "scammer": []
+            "scammer": [
+                "bobthebuilder010203"
+            ],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
-            "scammer": []
+            "scammer": [
+                "squiddypds"
+            ]
         }
     },
     "gameswap": {
         "ban": {
             "": [],
-            "scammer": []
+            "scammer": [
+                "bobthebuilder010203"
+            ],
+            "sketchy": [],
+            "troll": []
         },
         "unban": {
-            "scammer": []
+            "scammer": [
+                "squiddypds"
+            ]
         }
     },
     "gametrade": {
@@ -542,7 +554,8 @@
         "unban": {
             "gbdeleter": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         }
     },
     "overwatchboosting": {

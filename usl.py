@@ -40,7 +40,9 @@ def get_ban_tags_and_description(description):
 	other = []
 	for word in [x for x in description.split(" ") if x]:
 		if word[0] == "#":
-			tags.append(clean_ban_tag(word))
+			ban_tag = clean_ban_tag(word)
+			if ban_tag != "#":
+				tags.append(ban_tag)
 		else:
 			other.append(word)
 	description = " ".join(other)

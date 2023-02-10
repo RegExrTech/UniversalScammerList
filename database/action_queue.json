@@ -52,6 +52,31 @@
             "sketchy": []
         }
     },
+    "avatartrading": {
+        "ban": {
+            "compromised": [],
+            "scammer": [
+                "marinerfinancepa",
+                "sensitive-package-75",
+                "colemanpotts",
+                "kllowwn",
+                "cheesecake2671"
+            ],
+            "sketchy": [
+                "cryptoistheplan",
+                "jimmythejam47",
+                "dtrave88",
+                "aulei",
+                "internationalclock17",
+                "sammie756"
+            ],
+            "spammer": []
+        },
+        "unban": {
+            "scammer": [],
+            "sketchy": []
+        }
+    },
     "avexchange": {
         "ban": {
             "": [],

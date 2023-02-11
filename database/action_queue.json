@@ -60,7 +60,15 @@
                 "sensitive-package-75",
                 "colemanpotts",
                 "kllowwn",
-                "cheesecake2671"
+                "cheesecake2671",
+                "jrdmsk395",
+                "sad-temperature2146",
+                "destructiveki",
+                "sufficient-drag-2749",
+                "httpjzy",
+                "altruistic_singer847",
+                "smdtweak",
+                "clipner21"
             ],
             "sketchy": [
                 "cryptoistheplan",
@@ -68,13 +76,27 @@
                 "dtrave88",
                 "aulei",
                 "internationalclock17",
-                "sammie756"
+                "sammie756",
+                "disastrous_blood5470",
+                "ignoranceisb",
+                "scholarfamiliar6541",
+                "niasyko",
+                "marcel_celbun3",
+                "false_cropping",
+                "esbociesfr"
             ],
-            "spammer": []
+            "spammer": [
+                "daliava",
+                "smallsharpness"
+            ]
         },
         "unban": {
-            "scammer": [],
-            "sketchy": []
+            "scammer": [
+                "bannjio",
+                "ruvio123"
+            ],
+            "sketchy": [],
+            "spammer": []
         }
     },
     "avexchange": {
@@ -687,6 +709,37 @@
             "scammer": [],
             "sketchy": [],
             "troll": []
+        }
+    },
+    "retrogameswap": {
+        "ban": {
+            "scammer": [
+                "jrdmsk395",
+                "sad-temperature2146",
+                "destructiveki",
+                "sufficient-drag-2749",
+                "httpjzy",
+                "altruistic_singer847",
+                "smdtweak",
+                "clipner21"
+            ],
+            "sketchy": [
+                "disastrous_blood5470",
+                "ignoranceisb",
+                "scholarfamiliar6541",
+                "niasyko",
+                "marcel_celbun3",
+                "false_cropping",
+                "esbociesfr"
+            ],
+            "troll": []
+        },
+        "unban": {
+            "scammer": [
+                "bannjio",
+                "ruvio123"
+            ],
+            "sketchy": []
         }
     },
     "rocketleagueexchange": {

@@ -13,11 +13,13 @@ f = open(f_path, 'r')
 already_sent = set(f.read().splitlines())
 f.close()
 
+title = "[PLEAD READ] Universal Scammer List Usage Guide"
+
 subnames = [x.split(".")[0] for x in os.listdir("config/")]
 for subname in subnames:
-	sub_config = Config.Config(subname)
 	if subname == 'funkoppopmod':
 		continue
+	sub_config = Config.Config(subname)
 	try:
 		mod_list = sub_config.subreddit_object.moderator()
 	except:
@@ -26,7 +28,6 @@ for subname in subnames:
 	# Wait until the bot is a mod of the sub to send messages
 	if sub_config.bot_username.lower() not in [x.name.lower() for x in mod_list]:
 		continue
-	title = "[PLEAD READ] Universal Scammer List Usage Guide"
 	body = "Hi there! If you're receiving this message, it means that either you have joined r/" + subname + " as a new moderator or r/" + subname + " has just started participating in the Universal Scammer List.\n\n"
 	body += "If you're new to using the Universal Scammer List as a moderator, please review the [usage guide](https://www.universalscammerlist.com/about) as soon as possible. It gives details on how to configure the bot, how to add and remove bans from the USL, and more.\n\n"
 	body += "If you have any questions, please reach out to the mod group on r/UniversalScammerList or feel free to message u/RegExr directly.\n\n"

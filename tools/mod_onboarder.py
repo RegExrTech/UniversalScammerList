@@ -43,8 +43,9 @@ for subname in subnames:
 		try:
 			mod.message(subject=title, message=body)
 		except Exception as e:
-			print("Unable to send message to u/" + mod_name + " on sub r/" + subname + " with error " + str(e))
+			print("  Unable to send message to u/" + mod_name + " on sub r/" + subname + " with error " + str(e))
 			time.sleep(60)
+		print("Found a new mod! User is u/" + mod_name)
 		time.sleep(20)
 		already_sent.add(mod_name)
 

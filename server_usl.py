@@ -142,7 +142,7 @@ def add_sub_to_action_queue(sub_name, action_queue):
 			if tag in action_queue[sub_name]['ban']:
 				action_queue[sub_name]['ban'][tag].append(user)
 
-def get_valid_moderators(sub_name, include_usl_mods=True):
+def get_valid_moderators(sub_name, include_usl_mods=False):
 	sub_name = sub_name.lower()
 	all_sub_configs = helper.get_all_subs()
 	sub_config = all_sub_configs[sub_name]

@@ -239,6 +239,12 @@ def get_ban_queue():
 
 @app.route('/publish-unban/', methods=["POST"])
 def publish_unban():
+	# TODO The bot is unclear when a mod goes to remove multiple tags if they are only authorized to remove *some* of those tags.
+	# For example, if a user is banned with #scammer and #sketchy but I'm only authorized to remove #sketchy but a sent a request
+	# to remove both tags anyway, the bot will say that my request went through as expected EVEN THOUGH it really only removed
+	# the tags that I'm authorized to remove.
+	#
+	# The bot should be clearer about what it did for each tag that has been requested to be removed.
 	global bans
 	global action_queue
 	unbanned_user = request.form["unbanned_user"].lower()
@@ -252,20 +258,20 @@ def publish_unban():
 	issued_by_valid_mod = False
 	correct_ban_issuers = {}
 	valid_tags = []
-	originally_banned_on_list = [bans[unbanned_user][tag]['banned_on'].lower() for tag in tags if tag in bans[unbanned_user]]
+	originally_banned_on = ""
 	for tag in tags:
-		if tag in bans[unbanned_user]:
-			found_valid_tag = True
-			# Get the list of moderators of the sub from which this user was banned.
-			moderators = []
-			for originally_banned_on in originally_banned_on_list:
-				moderators += get_valid_moderators(originally_banned_on)
-			if requester in moderators:
-				del(bans[unbanned_user][tag])
-				issued_by_valid_mod = True
-				valid_tags.append(tag)
-			else:
-				correct_ban_issuers[tag] = originally_banned_on
+		if tag not in bans[unbanned_user]:
+			continue
+		found_valid_tag = True
+		valid_mods = get_valid_moderators(bans[unbanned_user][tag]['banned_on'].lower())
+		if requester in valid_mods:
+			print("Removing tag " + tag + " from " + unbanned_user + " from r/" + bans[unbanned_user][tag]['banned_on'] + " because u/" + requester + " is a moderator in the list u/" + ", u/".join(valid_mods))
+			originally_banned_on = bans[unbanned_user][tag]['banned_on'].lower()
+			del(bans[unbanned_user][tag])
+			issued_by_valid_mod = True
+			valid_tags.append(tag)
+		else:
+			correct_ban_issuers[tag] = bans[unbanned_user][tag]['banned_on']
 	if not found_valid_tag:
 		return jsonify({'error': 'u/' + unbanned_user + ' is not currently banned with any of the given tags. The valid tags are:\n\n' + "\n".join(["* #" + tag for tag in list(bans[unbanned_user].keys())])})
 	if not issued_by_valid_mod:

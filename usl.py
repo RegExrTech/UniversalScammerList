@@ -14,6 +14,7 @@ import time
 request_url = "http://0.0.0.0:8080"
 
 DO_NOT_BAN = set(['[deleted]', 'automoderator'])
+IGNORE_MESSAGES_FROM = ['modnewsletter']
 
 def check_if_mod(sub_config):
 	return sub_config.bot_username.lower() in sub_config.mods
@@ -186,6 +187,8 @@ def get_messages(sub_config):
 	try:
 		for message in sub_config.reddit.inbox.unread():
 			to_mark_as_read.append(message)
+			if message.author.name.lower() in IGNORE_MESSAGES_FROM:
+				continue
 			if not message.was_comment:
 				if 'gadzooks! **you are invited to become a moderator**' in message.body.lower() and message.subreddit != None and message.subreddit.display_name.lower() == sub_config.subreddit_name:
 					try:

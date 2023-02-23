@@ -30,6 +30,10 @@ def main():
 		if sub_config.bot_username.lower() not in [x.name.lower() for x in mod_list]:
 			continue
 
+		# Only subs with write access need to be represented
+		if not sub_config.write_to:
+			continue
+
 		if not any([x.name.lower() in usl_sub_mods for x in mod_list]):
 			unrepresented_subs.append(subname)
 

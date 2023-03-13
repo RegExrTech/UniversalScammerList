@@ -48,6 +48,7 @@
             "sketchy": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         }
@@ -95,9 +96,18 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
+        }
+    },
+    "canadianknifeswap": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
         }
     },
     "care": {
@@ -110,6 +120,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -137,10 +148,19 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
+        }
+    },
+    "coinsales": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
         }
     },
     "comblocmarket2": {
@@ -170,6 +190,14 @@
             "scammer": []
         }
     },
+    "discexchange": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "disneypinswap": {
         "ban": {
             "": [],
@@ -188,6 +216,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -203,6 +232,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -298,6 +328,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -326,10 +357,12 @@
     "giftcardexchange": {
         "ban": {
             "": [],
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         }
@@ -353,6 +386,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -465,6 +499,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -479,6 +514,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -493,6 +529,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -525,6 +562,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -562,6 +600,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -631,6 +670,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -656,6 +696,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -670,8 +711,10 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         }
     },
     "randomkindness": {
@@ -684,6 +727,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
@@ -698,7 +742,8 @@
         },
         "unban": {
             "scammer": [],
-            "sketchy": []
+            "sketchy": [],
+            "troll": []
         }
     },
     "rocketleagueexchange": {
@@ -730,6 +775,7 @@
             "troll": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         }
@@ -762,6 +808,7 @@
             "sketchy": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         }
@@ -861,6 +908,22 @@
         },
         "unban": {
             "scammer": []
+        }
+    },
+    "ygomarketplace": {
+        "ban": {
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "spammer": [],
+            "troll": []
+        },
+        "unban": {
+            "compromised": [],
+            "scammer": [],
+            "sketchy": [],
+            "spammer": [],
+            "troll": []
         }
     }
 }

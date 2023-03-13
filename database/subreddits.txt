@@ -18,11 +18,15 @@
 
 * r/canadianhardwareswap
 
+* r/canadianknifeswap
+
 * r/care
 
 * r/cash4cash
 
 * r/charity
+
+* r/coinsales
 
 * r/comblocmarket2
 
@@ -31,6 +35,8 @@
 * r/cryptotrade
 
 * r/digitalcodesell
+
+* r/discexchange
 
 * r/disneypinswap
 
@@ -81,6 +87,8 @@
 * r/igsrep
 
 * r/indiegameswap
+
+* r/jailbreakswap
 
 * r/knife_swap
 
@@ -169,3 +177,5 @@
 * r/watchexchange
 
 * r/watchexchangecanada
+
+* r/ygomarketplace

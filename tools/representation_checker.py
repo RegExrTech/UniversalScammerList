@@ -48,6 +48,10 @@ def main():
 				print("Unable to send message to r/" + sub_config.subreddit_name + " with error " + str(e))
 			time.sleep(30)
 
+	# If there are no unrepresented subs, break out early
+	if not unrepresented_subs:
+		return
+
 	title = "The following subs are not represented in r/UniversalScammerList"
 	usl_sub_body = "Hello, mods of r/UniversalScammerList. During a routine inspection, I noticed that none of the mods from the follow subs are  represented on r/UniversalScammerList:\n\n"
 	usl_sub_body += "* r/" + "\n\n* r/".join(unrepresented_subs) + "\n\n"

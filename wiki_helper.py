@@ -55,6 +55,9 @@ def run_config_checker(config):
 	if 'typo_checking' in config_content:
 		typo_checking = config_content['typo_checking'].lower() == 'true'
 		config.update_typo_checking(typo_checking, config)
+	if 'local_unban_is_usl_unban' in config_content:
+		local_unban_is_usl_unban = config_content['local_unban_is_usl_unban'].lower() == 'true'
+		config.update_local_unban_config(local_unban_is_usl_unban)
 	# Inform parsing successful
 	inform_config_valid(config_page)
 	# Validate Wiki Page
@@ -67,6 +70,7 @@ def create_wiki_config(config, config_page):
 def get_local_config_content(config):
 	content = "tags: " + ",".join(["#"+tag for tag in config.tags])
 	content += "\n\ntypo_checking: " + str(config.typo_checking)
+	content += "\n\nlocal_unban_is_usl_unban: " + str(config.local_unban_is_usl_unban)
 	return content
 
 def validate_wiki_content(config, config_page):

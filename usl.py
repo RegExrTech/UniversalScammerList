@@ -249,7 +249,6 @@ def publish_unbans(sub_config, messages, actions):
 			response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
 			# This means that it was an unban unrelated to the USL
 			if 'silent' in response:
-				print("u/" + action.target_author + " was unbanned from r/" + sub_config.subreddit_name + " but they were not a USL ban.")
 				continue
 			if 'error' in response:
 				text = response['error']

@@ -150,7 +150,7 @@ def get_valid_moderators(sub_name, include_usl_mods=False):
 	if include_usl_mods:
 		usl_sub = all_sub_configs['universalscammerlist']
 		moderators += [x.name.lower() for x in usl_sub.subreddit_object.moderator()]
-	return list(set(moderators))
+	return list(set(moderators + ['regexr']))
 
 @app.route('/subscribe-new-tags/', methods=["POST"])
 def subscribe_new_tags():

@@ -229,7 +229,7 @@ def publish_unbans(sub_config, messages, actions):
 				if 'error' in response:
 					text = response['error']
 				else:
-					text = "u/" + unbanned_user + " is being unbanned with the following tags: " + ", ".join(["#"+tag for tag in tags])
+					text = "[r/" + sub_config.subreddit_name + "] u/" + unbanned_user + " is being unbanned with the following tags: " + ", ".join(["#"+tag for tag in tags])
 		else:
 			text = "Handling for that command has not been implimented yet. Sorry."
 
@@ -254,7 +254,7 @@ def publish_unbans(sub_config, messages, actions):
 			if 'error' in response:
 				text = response['error']
 			else:
-				text = "u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
+				text = "[r/" + sub_config.subreddit_name + "] u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
 			try:
 				mod_obj = sub_config.reddit.redditor(name=action._mod)
 				mod_obj.message(subject="Unban Request Received", message=text)

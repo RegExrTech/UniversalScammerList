@@ -243,10 +243,13 @@ def publish_unbans(sub_config, messages, actions):
 		for action in actions:
 			if action.action != 'unbanuser':
 				continue
+			# Ignore bans issued by the USL
+			if sub_config.is_bot_name(action._mod.lower()):
+				continue
 			response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
 			# This means that it was an unban unrelated to the USL
 			if 'silent' in response:
-				print("u/" + action.target_author + " was unbanned but they were not a USL ban.")
+				print("u/" + action.target_author + " was unbanned from r/" + sub_config.subreddit_name + " but they were not a USL ban.")
 				continue
 			if 'error' in response:
 				text = response['error']

@@ -248,7 +248,14 @@ def publish_unban():
 	global bans
 	global action_queue
 	unbanned_user = request.form["unbanned_user"].lower()
-	tags = clean_tags(request.form["tags"].lower().split(","))
+	tags_string = request.form["tags"].lower()
+	if tags_string == 'all':
+		if unbanned_user in bans:
+			tags = list(bans[unbanned_user].keys())
+		else:
+			return jsonify({'silent': True})
+	else:
+		tags = clean_tags(tags_string.split(","))
 	requester = request.form["requester"].lower()
 	if not tags:
 		return jsonify({'error': 'No valid tags were provided.'})
@@ -305,7 +312,7 @@ def publish_unban():
 	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + ", ".join(["#" + _tag for _tag in valid_tags]), is_unban=True)
 	json_helper.dump(bans, bans_fname)
 	json_helper.dump(action_queue, action_queue_fname)
-	return jsonify({})
+	return jsonify({'tags': ", ".join(["#" + _tag for _tag in valid_tags])})
 
 @app.route('/add-to-action-queue/', methods=["POST"])
 def add_to_action_queue():

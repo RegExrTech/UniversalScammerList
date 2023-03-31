@@ -74,25 +74,8 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])
 	return actions
 
-def publish_bans(sub_config):
-	last_update_time_data = requests.get(request_url + "/get-last-update-time/", data={'sub_name': sub_config.subreddit_name}).json()
-	if 'update_time' in last_update_time_data:
-		last_update_time = last_update_time_data['update_time']
-	else:
-		print("Error getting last_update_time from server: " + last_update_time_data['error'])
-		return
-
-	# Handle the special case where we don't have a last update time
-	if last_update_time == 0:
-		last_update_time = time.time() - 1
-		new_update_time = time.time()
-	else:
-		new_update_time = last_update_time
-
-	actions =  get_mod_actions(sub_config, last_update_time)
+def publish_bans(sub_config, actions):
 	for action in actions:
-		if action.created_utc > new_update_time:
-			new_update_time = action.created_utc
 		created_utc = action.created_utc
 		description = action.description
 		banned_by = action.mod
@@ -115,8 +98,6 @@ def publish_bans(sub_config):
 		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags " + ", ".join(ban_tags) + " with description" + description)
 		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 
-	if last_update_time != new_update_time:
-		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
 
 def ban_from_queue(sub_config):
 	mods = sub_config.mods
@@ -210,7 +191,8 @@ def get_messages(sub_config):
 
 	return messages
 
-def publish_unbans(sub_config, messages):
+def publish_unbans(sub_config, messages, actions):
+	# Unbans from DMs
 	for message in messages:
 		try:
 			requester = message.author.name.lower()
@@ -253,8 +235,29 @@ def publish_unbans(sub_config, messages):
 
 		try:
 			message.reply(body=text)
+			print(text)
 		except Exception as e:
 			print(sub_config.bot_username + " could not reply to u/" + str(message.author) + " with error - " + str(e))
+	# Unbans from mod log
+	if sub_config.local_unban_is_usl_unban:
+		for action in actions:
+			if action.action != 'unbanuser':
+				continue
+			response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
+			# This means that it was an unban unrelated to the USL
+			if 'silent' in response:
+				print("u/" + action.target_author + " was unbanned but they were not a USL ban.")
+				continue
+			if 'error' in response:
+				text = response['error']
+			else:
+				text = "u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
+			try:
+				mod_obj = sub_config.reddit.redditor(name=action._mod)
+				mod_obj.message(subject="Unban Request Received", message=text)
+				print(text)
+			except Exception as e:
+				print(sub_config.bot_username + " could not message u/" + str(action._mod) + " with error - " + str(e))
 
 def unban_from_queue(sub_config):
 	to_unban = requests.get(request_url + "/get-unban-queue/", data={'sub_name': sub_config.subreddit_name, 'tags': ",".join(sub_config.tags)}).json()
@@ -286,6 +289,20 @@ def unban_from_queue(sub_config):
 			_tags = [tag for tag in to_unban.keys() if user in to_unban[tag]]
 			requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'unban', 'tags': ",".join(_tags)})
 
+def get_last_update_time(sub_config):
+	last_update_time_data = requests.get(request_url + "/get-last-update-time/", data={'sub_name': sub_config.subreddit_name}).json()
+	if 'update_time' in last_update_time_data:
+		return last_update_time_data['update_time']
+	raise Exception("r/" + sub_config.subreddit_name + " found an error getting last_update_time from server: " + last_update_time_data['error'] + ". Aborting run.")
+
+def set_last_update_time(actions, new_update_time, last_update_time, sub_config):
+	for action in actions:
+		if action.created_utc > new_update_time:
+			new_update_time = action.created_utc
+	if last_update_time != new_update_time:
+		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
+
+
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('sub_name', metavar='C', type=str)
@@ -307,8 +324,17 @@ def main():
 	wiki_helper.run_config_checker(sub_config)
 
 	if sub_config.write_to:
-		publish_bans(sub_config)
-		publish_unbans(sub_config, messages)
+		last_update_time = get_last_update_time(sub_config)
+		# Handle the special case where we don't have a last update time
+		if last_update_time == 0:
+			last_update_time = time.time() - 1
+			new_update_time = time.time()
+		else:
+			new_update_time = last_update_time
+		actions = get_mod_actions(sub_config, last_update_time)
+		publish_bans(sub_config, actions)
+		publish_unbans(sub_config, messages, actions)
+		set_last_update_time(actions, new_update_time, last_update_time, sub_config)
 	if sub_config.read_from:
 		ban_from_queue(sub_config)
 		unban_from_queue(sub_config)

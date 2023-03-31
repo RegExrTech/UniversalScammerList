@@ -36,6 +36,10 @@ def run_config_checker(config):
 		return
 	# If the bot was the last person to update the config, break out early
 	if config_page.revision_by.name.lower() == config.bot_username.lower():
+		# But if there are local edits to the config, copy them to the remote config first
+		if not wiki_page_is_equal(config, content):
+			print("    Updated config for r/" + config.subreddit_name + " due to local changes.")
+			validate_wiki_content(config, config_page)
 		return
 	# Parse the config page
 	try:
@@ -60,11 +64,19 @@ def create_wiki_config(config, config_page):
 	validate_wiki_content(config, config_page)
 	config_page.mod.update(listed=False, permlevel=2)
 
-def validate_wiki_content(config, config_page):
+def get_local_config_content(config):
 	content = "tags: " + ",".join(["#"+tag for tag in config.tags])
 	content += "\n\ntypo_checking: " + str(config.typo_checking)
+	return content
+
+def validate_wiki_content(config, config_page):
+	content = get_local_config_content(config)
 	content += "\n\nbot_timestamp:" + str(time.time())
 	config_page.edit(content=content)
+
+def wiki_page_is_equal(config, page_content):
+	local_content = get_local_config_content(config)
+	return local_content in page_content
 
 def get_config_content(content):
 	config_content = {}

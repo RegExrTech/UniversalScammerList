@@ -222,6 +222,14 @@
             "troll": []
         }
     },
+    "fightsticksforsale": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "food_pantry": {
         "ban": {
             "": [],

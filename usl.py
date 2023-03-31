@@ -174,7 +174,7 @@ def ban_from_queue(sub_config):
 		if sleep_time > 0:
 			time.sleep(sleep_time)
 	if previously_banned_users:
-		message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, the following users were added to the USL:\n\n* u/" + "\n\n* u/".join(previously_banned_users) + "\n\nHowever, this user was previously banned on your subreddit through unrelated means. At this time, no action is required. The ban against this user on your sub is not being modified.\n\nHowever, if you wish to modify this ban to be in line with the USL, please modify the ban for this user to include the tags mentioned above. This will sync your ban with the USL so, if this user is taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want this user to remain banned, even if they are removed from the USL, then no action is needed on your part."
+		message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, the following user(s) were added to the USL:\n\n* u/" + "\n\n* u/".join([user + " - #" + ", #".join(users_to_descriptions[user]['tags']) for user in previously_banned_users]) + "\n\nHowever, these user(s) were previously banned on your subreddit through unrelated means. At this time, no action is required. The bans against these user(s) on your sub are not being modified.\n\nHowever, if you wish to modify these bans to be in line with the USL, please modify the bans for these user(s) to include the tags mentioned above. This will sync your bans with the USL so, if these user(s) are taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want these user(s) to remain banned, even if they are removed from the USL, then no action is needed on your part."
 		# Send the message as the log bot to avoid spamming mod discussion
 		try:
 			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
@@ -187,7 +187,7 @@ def get_messages(sub_config):
 	try:
 		for message in sub_config.reddit.inbox.unread():
 			to_mark_as_read.append(message)
-			if message.author.name.lower() in IGNORE_MESSAGES_FROM:
+			if message.author is not None and message.author.name.lower() in IGNORE_MESSAGES_FROM:
 				continue
 			if not message.was_comment:
 				if 'gadzooks! **you are invited to become a moderator**' in message.body.lower() and message.subreddit != None and message.subreddit.display_name.lower() == sub_config.subreddit_name:
@@ -269,6 +269,18 @@ def unban_from_queue(sub_config):
 			continue
 		try:
 			sub_config.subreddit_object.banned.remove(user)
+		except Exception as e:
+			deleted_account = False
+			try:
+				sub_config.reddit.redditor(user).id
+			except Exception as e:
+				if type(e).__name__ == 'NotFound':
+					print("u/" + user + " deleted their account so they cannot be unbanned from " + sub_config.subreddit_name)
+					deleted_account = True
+			if not deleted_account:
+				print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
+				requests.post(request_url + "/add-to-action-queue/", {'sub_name': sub_config.subreddit_name, 'username': user, 'action': 'unban', 'tags': ",".join([tag for tag in to_unban if user in to_unban[tag]])})
+
 		except Exception as e:
 			print("Unable to unban u/" + user + " on r/" + sub_config.subreddit_name + " with error " + str(e))
 			_tags = [tag for tag in to_unban.keys() if user in to_unban[tag]]

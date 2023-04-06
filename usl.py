@@ -333,7 +333,7 @@ def main():
 		else:
 			new_update_time = last_update_time
 		# Flip the actions so the oldest one is first
-		actions = get_mod_actions(sub_config, last_update_time)][::-1]
+		actions = get_mod_actions(sub_config, last_update_time)[::-1]
 		for action in actions:
 			if action.action == 'banuser':
 				publish_bans(sub_config, action)

@@ -74,29 +74,28 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 		return actions + get_mod_actions(sub_config, last_update_time, before=actions[-1])
 	return actions
 
-def publish_bans(sub_config, actions):
-	for action in actions:
-		created_utc = action.created_utc
-		description = action.description
-		banned_by = action.mod
-		banned_user = action.target_author
-		# Ignore bans issued by the USL
-		if sub_config.is_bot_name(banned_by.name):
-			continue
-		# Ignore temp bans
-		if not str(action.details) == "permanent":
-			continue
-		ban_tags, description = get_ban_tags_and_description(description)
-		# Ignore bans without USL tags
-		if not ban_tags:
-			continue
-		unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
-		if unknown_tags:
-			if sub_config.typo_checking:
-				handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)
-			print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
-		print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags " + ", ".join(ban_tags) + " with description" + description)
-		requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
+def publish_bans(sub_config, action):
+	created_utc = action.created_utc
+	description = action.description
+	banned_by = action.mod
+	banned_user = action.target_author
+	# Ignore bans issued by the USL
+	if sub_config.is_bot_name(banned_by.name):
+		return
+	# Ignore temp bans
+	if not str(action.details) == "permanent":
+		return
+	ban_tags, description = get_ban_tags_and_description(description)
+	# Ignore bans without USL tags
+	if not ban_tags:
+		return
+	unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
+	if unknown_tags:
+		if sub_config.typo_checking:
+			handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)
+		print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
+	print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags " + ", ".join(ban_tags) + " with description" + description)
+	requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 
 
 def ban_from_queue(sub_config):
@@ -191,7 +190,7 @@ def get_messages(sub_config):
 
 	return messages
 
-def publish_unbans(sub_config, messages, actions):
+def publish_unbans_from_messages(sub_config, messages):
 	# Unbans from DMs
 	for message in messages:
 		try:
@@ -238,28 +237,28 @@ def publish_unbans(sub_config, messages, actions):
 			print(text)
 		except Exception as e:
 			print(sub_config.bot_username + " could not reply to u/" + str(message.author) + " with error - " + str(e))
+
+def publish_unbans_from_mod_log(sub_config, action):
 	# Unbans from mod log
-	if sub_config.local_unban_is_usl_unban:
-		for action in actions:
-			if action.action != 'unbanuser':
-				continue
-			# Ignore bans issued by the USL
-			if sub_config.is_bot_name(action._mod.lower()):
-				continue
-			response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
-			# This means that it was an unban unrelated to the USL
-			if 'silent' in response:
-				continue
-			if 'error' in response:
-				text = response['error']
-			else:
-				text = "[r/" + sub_config.subreddit_name + "] u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
-			try:
-				mod_obj = sub_config.reddit.redditor(name=action._mod)
-				mod_obj.message(subject="Unban Request Received", message=text)
-				print(text)
-			except Exception as e:
-				print(sub_config.bot_username + " could not message u/" + str(action._mod) + " with error - " + str(e))
+	if not sub_config.local_unban_is_usl_unban:
+		return
+	# Ignore unbans issued by the USL
+	if sub_config.is_bot_name(action._mod.lower()):
+		return
+	response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
+	# This means that it was an unban unrelated to the USL
+	if 'silent' in response:
+		return
+	if 'error' in response:
+		text = "Hi u/" + action._mod + ",\n\n" + response['error'] + "\n\nIf you just meant for this to be a local unban, you can ignore this message. If you are trying to remove this user from the USL, please contact the mods of the sub that originally banned them. Thank you!"
+	else:
+		text = "[r/" + sub_config.subreddit_name + "] u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
+	try:
+		mod_obj = sub_config.reddit.redditor(name=action._mod)
+		mod_obj.message(subject="Unban Request Received", message=text)
+		print(text)
+	except Exception as e:
+		print(sub_config.bot_username + " could not message u/" + str(action._mod) + " with error - " + str(e))
 
 def unban_from_queue(sub_config):
 	to_unban = requests.get(request_url + "/get-unban-queue/", data={'sub_name': sub_config.subreddit_name, 'tags': ",".join(sub_config.tags)}).json()
@@ -333,9 +332,14 @@ def main():
 			new_update_time = time.time()
 		else:
 			new_update_time = last_update_time
-		actions = get_mod_actions(sub_config, last_update_time)
-		publish_bans(sub_config, actions)
-		publish_unbans(sub_config, messages, actions)
+		# Flip the actions so the oldest one is first
+		actions = get_mod_actions(sub_config, last_update_time)][::-1]
+		for action in actions:
+			if action.action == 'banuser':
+				publish_bans(sub_config, action)
+			elif action.action == 'unbanuser':
+				publish_unbans_from_mod_log(sub_config, action)
+		publish_unbans_from_messages(sub_config, messages)
 		set_last_update_time(actions, new_update_time, last_update_time, sub_config)
 	if sub_config.read_from:
 		ban_from_queue(sub_config)

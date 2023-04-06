@@ -362,6 +362,14 @@
             "scammer": []
         }
     },
+    "geartrade": {
+        "ban": {
+            "scammer": []
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "giftcardexchange": {
         "ban": {
             "": [],

@@ -54,7 +54,7 @@ def get_mod_actions(sub_config, last_update_time, action='banuser', before=None)
 	actions = []
 	try:
 		if before is not None:
-			action_generator = sub_config.subreddit_object.mod.log(limit=None, params={'before':before.id})
+			action_generator = sub_config.subreddit_object.mod.log(limit=None, params={'after':before.id})
 		else:
 			action_generator = sub_config.subreddit_object.mod.log(limit=None)
 	except Exception as e:

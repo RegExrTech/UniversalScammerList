@@ -5,6 +5,7 @@ from tags import TAGS
 import wiki_helper
 
 import praw
+from praw.models import SubredditHelper
 
 from collections import defaultdict
 import requests
@@ -175,6 +176,15 @@ def get_messages(sub_config):
 						sub_config.subreddit_object.mod.accept_invite()
 					except Exception as e:
 						print("Was unable to accept invitation to moderate " + sub_config.subreddit_name + " with error " + str(e))
+						continue
+					# This means that we're in action for the first time, so let's also claim our own subreddit
+					print("Attempting to claim r/" + sub_config.bot_username)
+					sh = SubredditHelper(sub_config.reddit, {})
+					try:
+						sh.create(sub_config.bot_username, subreddit_type='private')
+					except Exception as e:
+						if 'SUBREDDIT_EXISTS' in str(e):
+							print("    IMPERSONATION FOUND FOR u/" + sub_config.bot_username)
 				else:
 					messages.append(message)
 	except Exception as e:

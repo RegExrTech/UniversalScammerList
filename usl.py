@@ -234,7 +234,7 @@ def publish_unbans_from_messages(sub_config, messages):
 				text = "No tags were found in your message. Please ensure that tags start with a `#` character and include the tags you wish to remove from the USL. For example, `$unban u/username #tag1 #tag2`"
 			else:
 				# Send unban request to server. Check response for errors, like user not banned, or tag not recognized
-				response = requests.post(request_url + "/publish-unban/", {'requester': requester, 'unbanned_user': unbanned_user, 'tags': ",".join(tags)}).json()
+				response = requests.post(request_url + "/publish-unban/", {'requester': requester, 'unbanned_user': unbanned_user, 'tags': ",".join(tags), 'unbanning_sub': sub_config.subreddit_name}).json()
 				if 'error' in response:
 					text = response['error']
 				else:

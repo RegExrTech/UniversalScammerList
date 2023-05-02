@@ -12,10 +12,19 @@ import requests
 import argparse
 import time
 
+logger_config = Config('logger')
+
 request_url = "http://0.0.0.0:8080"
 
 DO_NOT_BAN = set(['[deleted]', 'automoderator'])
 IGNORE_MESSAGES_FROM = ['modnewsletter']
+
+def log_to_reddit(title, body):
+	sub = logger_config.reddit.subreddit('uslbotnotifications')
+	try:
+		sub.submit(title=title, selftext=body)
+	except Exception as e:
+		print("Unable to log message to reddit: " + title + " - with error " + str(e))
 
 def check_if_mod(sub_config):
 	return sub_config.bot_username.lower() in sub_config.mods
@@ -158,9 +167,10 @@ def ban_from_queue(sub_config):
 		message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, the following user(s) were added to the USL:\n\n* u/" + "\n\n* u/".join([user + " - #" + ", #".join(users_to_descriptions[user]['tags']) for user in previously_banned_users]) + "\n\nHowever, these user(s) were previously banned on your subreddit through unrelated means. At this time, no action is required. The bans against these user(s) on your sub are not being modified.\n\nHowever, if you wish to modify these bans to be in line with the USL, please modify the bans for these user(s) to include the tags mentioned above. This will sync your bans with the USL so, if these user(s) are taken off the USL in the future, they will be unbanned from your sub as well. If you do NOT wish for this to happen and want these user(s) to remain banned, even if they are removed from the USL, then no action is needed on your part."
 		# Send the message as the log bot to avoid spamming mod discussion
 		try:
-			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
+			logger_config.reddit.subreddit(sub_config.subreddit_name).message(subject="Duplicate Ban Found By USL", message=message_content)
 		except:
 			print("    Failed to send the following message to r/" + sub_config.subreddit_name + ": " + message_content)
+		log_to_reddit("[Notification] Ban collision. User(s) were already banned on /r/" + sub_config.subreddit_name, message_content)
 
 def get_messages(sub_config):
 	messages = []
@@ -279,7 +289,8 @@ def unban_from_queue(sub_config):
 		ban_note = "".join([ban.note for ban in sub_config.subreddit_object.banned(redditor=user)]).lower()
 		if ban_note and not any(["#"+_tag in ban_note for _tag in TAGS]):
 			message_content = "Hello, mods of r/" + sub_config.subreddit_name + ". Recently, u/" + user + " was removed from the USL. However, you banned this user for unrelated reasons. As such, I will not remove this ban for you. However, if you banned this user because you believed them to be a scammer, please double check things as the situation might have changed. Thanks!"
-			Config('logger').reddit.subreddit(sub_config.subreddit_name).message(subject="Conflicting Unban Found In The USL", message=message_content)
+			logger_config.reddit.subreddit(sub_config.subreddit_name).message(subject="Conflicting Unban Found In The USL", message=message_content)
+			log_to_reddit("[Notification] Unban suppressed. Did not unban /u/" + user + " from /r/" + sub_config.subreddit_name, message_content)
 			continue
 		try:
 			sub_config.subreddit_object.banned.remove(user)

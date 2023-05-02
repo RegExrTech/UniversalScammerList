@@ -255,7 +255,7 @@ def publish_unbans_from_mod_log(sub_config, action):
 	# Ignore unbans issued by the USL
 	if sub_config.is_bot_name(action._mod.lower()):
 		return
-	response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all"}).json()
+	response = requests.post(request_url + "/publish-unban/", {'requester': action._mod.lower(), 'unbanned_user': action.target_author.lower(), 'tags': "all", 'unbanning_sub': sub_config.subreddit_name}).json()
 	# This means that it was an unban unrelated to the USL
 	if 'silent' in response:
 		return

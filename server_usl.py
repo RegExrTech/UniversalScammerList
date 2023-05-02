@@ -247,20 +247,31 @@ def publish_unban():
 	# The bot should be clearer about what it did for each tag that has been requested to be removed.
 	global bans
 	global action_queue
+	requester = request.form["requester"].lower()
 	unbanned_user = request.form["unbanned_user"].lower()
 	tags_string = request.form["tags"].lower()
+	unbanning_sub = request.form["unbanning_sub"].lower()
+	if unbanned_user not in bans:
+		return jsonify({'error': 'u/' + unbanned_user + ' is not on the USL'})
 	if tags_string == 'all':
 		if unbanned_user in bans:
 			tags = list(bans[unbanned_user].keys())
 		else:
 			return jsonify({'silent': True})
+		# Want to clean tags ahead of time when unbanning from mod log
+		# so we only include tags that a sub is actually subscribed to.
+		# This may still result in tags remaining that a sub is not authorized to remove.
+		# That is okay because we want to surface that, if that happens. This is really just
+		# avoiding the case where a sub unbans a user who was banned for totally unrelate
+		# reasons on other subs via tags like private tags.
+		_config = Config(unbanning_sub)
+		tags = [tag for tag in tags if tag in _config.tags]
+		if not tags:
+			return jsonify({'silent': True})
 	else:
 		tags = clean_tags(tags_string.split(","))
-	requester = request.form["requester"].lower()
 	if not tags:
 		return jsonify({'error': 'No valid tags were provided.'})
-	if unbanned_user not in bans:
-		return jsonify({'error': 'u/' + unbanned_user + ' is not on the USL'})
 	found_valid_tag = False
 	issued_by_valid_mod = False
 	correct_ban_issuers = {}

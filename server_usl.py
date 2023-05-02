@@ -253,6 +253,10 @@ def publish_unban():
 	unbanning_sub = request.form["unbanning_sub"].lower()
 	if unbanned_user not in bans:
 		return jsonify({'error': 'u/' + unbanned_user + ' is not on the USL'})
+	all_subs = helper.get_all_subs()
+	# If the ban came from a mod log unban, we want to avoid putting another unban action in that sub's
+	# action queue.
+	suppress_requesting_sub = False
 	if tags_string == 'all':
 		if unbanned_user in bans:
 			tags = list(bans[unbanned_user].keys())
@@ -264,10 +268,11 @@ def publish_unban():
 		# That is okay because we want to surface that, if that happens. This is really just
 		# avoiding the case where a sub unbans a user who was banned for totally unrelate
 		# reasons on other subs via tags like private tags.
-		_config = Config(unbanning_sub)
+		_config = all_subs[unbanning_sub]
 		tags = [tag for tag in tags if tag in _config.tags]
 		if not tags:
 			return jsonify({'silent': True})
+		suppress_requesting_sub = True
 	else:
 		tags = clean_tags(tags_string.split(","))
 	if not tags:
@@ -299,8 +304,10 @@ def publish_unban():
 		return jsonify({'error': error_text})
 	if not bans[unbanned_user]:
 		del(bans[unbanned_user])
-	all_subs = helper.get_all_subs()
 	for sub_name in action_queue:
+		# If the unban came from the mod log, avoid putting an unban in that sub's action queue.
+		if suppress_requesting_sub and sub_name == unbanning_sub:
+			continue
 		for tag in valid_tags:
 			# If this sub is not subscribed to this tag
 			if tag not in all_subs[sub_name].tags:

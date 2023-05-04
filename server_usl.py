@@ -252,6 +252,8 @@ def publish_unban():
 	tags_string = request.form["tags"].lower()
 	unbanning_sub = request.form["unbanning_sub"].lower()
 	if unbanned_user not in bans:
+		if tags_string == 'all':
+			return jsonify({'silent': True})
 		return jsonify({'error': 'u/' + unbanned_user + ' is not on the USL'})
 	all_subs = helper.get_all_subs()
 	# If the ban came from a mod log unban, we want to avoid putting another unban action in that sub's

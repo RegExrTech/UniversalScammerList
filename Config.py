@@ -22,13 +22,14 @@ class Config():
 		self.client_secret = self.raw_config['client_secret']
 		self.bot_username = self.raw_config['bot_username']
 		self.bot_password = self.raw_config['bot_password']
+		self.refresh_token = self.raw_config['refresh_token']
 		# If this account has permission to write bans to the USL
 		self.write_to = self.raw_config['write_to']
 		# If this account has permission to read bans from the USL
 		self.read_from = self.raw_config['read_from']
 		# Tags that this account is subscribed to
 		self.tags = self.raw_config['tags']
-		self.reddit = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='USL Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', username=self.bot_username, password=self.bot_password)
+		self.reddit = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='USL Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', refresh_token=self.refresh_token)
 		self.subreddit_object = self.reddit.subreddit(self.subreddit_name)
 		self.typo_checking = self.raw_config['typo_checking']
 		self.local_unban_is_usl_unban = self.raw_config['local_unban_is_usl_unban']

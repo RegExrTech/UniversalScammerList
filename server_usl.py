@@ -264,14 +264,9 @@ def publish_unban():
 			tags = list(bans[unbanned_user].keys())
 		else:
 			return jsonify({'silent': True})
-		# Want to clean tags ahead of time when unbanning from mod log
-		# so we only include tags that a sub is actually subscribed to.
-		# This may still result in tags remaining that a sub is not authorized to remove.
-		# That is okay because we want to surface that, if that happens. This is really just
-		# avoiding the case where a sub unbans a user who was banned for totally unrelate
-		# reasons on other subs via tags like private tags.
-		_config = all_subs[unbanning_sub]
-		tags = [tag for tag in tags if tag in _config.tags]
+		# In the event that "all" tags are requested to be removed, we only want to remove tags that
+		# the requesting sub applied to the user in question.
+		tags = [tag for tag in bans[unbanned_user] if unbanning_sub == bans[unbanned_user][tag]['banned_on']]
 		if not tags:
 			return jsonify({'silent': True})
 		suppress_requesting_sub = True
@@ -307,6 +302,9 @@ def publish_unban():
 	if not bans[unbanned_user]:
 		del(bans[unbanned_user])
 	for sub_name in action_queue:
+		# Sometimes we remove subs but they stay in the action queue
+		if sub_name not in all_subs:
+			continue
 		# If the unban came from the mod log, avoid putting an unban in that sub's action queue.
 		if suppress_requesting_sub and sub_name == unbanning_sub:
 			continue

@@ -154,8 +154,8 @@ def ban_from_queue(sub_config):
 			deleted_account = False
 			try:
 				sub_config.reddit.redditor(user).id
-			except Exception as e:
-				if type(e).__name__ == 'NotFound':
+			except Exception as inner_e:
+				if type(inner_e).__name__ == 'NotFound':
 					print("u/" + user + " deleted their account so they cannot be banned from " + sub_config.subreddit_name)
 					deleted_account = True
 			if not deleted_account:
@@ -254,7 +254,6 @@ def publish_unbans_from_messages(sub_config, messages):
 
 		try:
 			message.reply(body=text)
-			print(text)
 		except Exception as e:
 			print(sub_config.bot_username + " could not reply to u/" + str(message.author) + " with error - " + str(e))
 

@@ -1,8 +1,8 @@
+=== Full Members ===
+
 * r/airsoftmarket
 
 * r/airsoftmarketcanada
-
-* r/animalcrossingamiibos
 
 * r/appleswap
 
@@ -26,10 +26,6 @@
 
 * r/charity
 
-* r/coinsales
-
-* r/comblocmarket2
-
 * r/comicswap
 
 * r/cryptotrade
@@ -40,13 +36,9 @@
 
 * r/disneypinswap
 
-* r/dogemarket
-
 * r/edcexchange
 
 * r/fashionrepsbst
-
-* r/fightsticksforsale
 
 * r/food_pantry
 
@@ -68,11 +60,7 @@
 
 * r/gctrep
 
-* r/gcxrep
-
 * r/geartrade
-
-* r/giftcardexchange
 
 * r/giftofgames
 
@@ -84,8 +72,6 @@
 
 * r/hardwareswapuk
 
-* r/hireawriter
-
 * r/hockeyjerseys
 
 * r/hutcoinsales
@@ -94,23 +80,13 @@
 
 * r/indiegameswap
 
-* r/jailbreakswap
-
 * r/knife_swap
 
 * r/legomarket
 
-* r/logger
-
 * r/lolboosting
 
 * r/mangaswap
-
-* r/mcsplaystation
-
-* r/mcsrep
-
-* r/mcsxbox
 
 * r/mechmarket
 
@@ -129,8 +105,6 @@
 * r/pen_swap
 
 * r/photomarket
-
-* r/pkmntcgtrades
 
 * r/playingcardsmarket
 
@@ -172,11 +146,9 @@
 
 * r/thinkpadsforsale
 
-* r/toyexchange
-
-* r/trade
-
 * r/ulgeartrade
+
+* r/universalscammerlist
 
 * r/uvtrade
 
@@ -187,3 +159,27 @@
 * r/watchexchangecanada
 
 * r/ygomarketplace
+
+=== Read-Only ===
+
+* r/animalcrossingamiibos
+
+* r/coinsales
+
+* r/dogemarket
+
+* r/fightsticksforsale
+
+* r/gcxrep
+
+* r/giftcardexchange
+
+* r/mcsplaystation
+
+* r/mcsrep
+
+* r/mcsxbox
+
+* r/pkmntcgtrades
+
+* r/toyexchange

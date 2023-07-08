@@ -191,6 +191,8 @@ def publish_ban():
 		duplicate_ban = False
 		bans[banned_user][tag] = {'banned_by': banned_by, 'banned_on': banned_on, 'issued_on': issued_on, 'description': description}
 		for sub_name in action_queue:
+			if sub_name not in sub_configs:
+				continue
 			sub_config = sub_configs[sub_name]
 			# If this is the reporting sub
 			if sub_name == banned_on:

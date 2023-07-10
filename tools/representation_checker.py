@@ -4,6 +4,9 @@ import sys
 sys.path.insert(0, ".")
 import Config
 
+# These mods don't count for representation
+blacklist_mod_names = ['automoderator']
+
 def main():
 	unrepresented_subs = []
 
@@ -34,7 +37,7 @@ def main():
 		if not sub_config.write_to:
 			continue
 
-		if not any([x.name.lower() in usl_sub_mods for x in mod_list]):
+		if not any([x.name.lower() in usl_sub_mods for x in mod_list if not x.name.lower() in blacklist_mod_names]):
 			unrepresented_subs.append(subname)
 
 			title = "[PLEASE READ] r/" + subname + " is not represented in r/UniversalScammerList"

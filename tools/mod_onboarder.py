@@ -13,7 +13,7 @@ f = open(f_path, 'r')
 already_sent = set(f.read().splitlines())
 f.close()
 
-title = "[PLEAD READ] Universal Scammer List Usage Guide"
+title = "[PLEASE READ] Universal Scammer List Usage Guide"
 
 subnames = [x.split(".")[0] for x in os.listdir("config/")]
 for subname in subnames:

@@ -76,6 +76,7 @@ def get_local_config_content(config):
 def validate_wiki_content(config, config_page):
 	content = get_local_config_content(config)
 	content += "\n\nbot_timestamp:" + str(time.time())
+	content += "\n\nDocumentation: https://www.universalscammerlist.com/about"
 	config_page.edit(content=content)
 
 def wiki_page_is_equal(config, page_content):

@@ -15,3 +15,6 @@ print(content)
 print(sub_page.content_md)
 if content != sub_page.content_md:
 	sub_page.edit(content=content)
+
+	new_tags = [x for x in content.splitlines() if x not in sub_page.content_md.splitlines()]
+	discord.log("The following new tags have been found: \n\n* " + "\n* ".join(new_tags))

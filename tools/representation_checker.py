@@ -3,6 +3,7 @@ import time
 import sys
 sys.path.insert(0, ".")
 import Config
+import discord
 
 # These mods don't count for representation
 blacklist_mod_names = ['automoderator']
@@ -41,6 +42,7 @@ def main():
 			unrepresented_subs.append(subname)
 
 			title = "[PLEASE READ] r/" + subname + " is not represented in r/UniversalScammerList"
+			discord.log("r/" + subname + " is not represented in r/UniversalScammerList")
 
 			offender_body = "Hello, mods of r/" + subname + ". Your subreddit is a participating subreddit of the Universal Scammer List. However, none of your mods are moderators in r/UniversalScammerList. The USL requires that at least one **ACTIVE** moderator from your sub also be a moderator of r/UniversalScammerList. This ensures that your sub is properly represented and issues regarding your sub can be dealt with swiftly.\n\n"
 			offender_body += "Please nominate one of your moderators to join r/UniversalScammerList and send your selection as a mod mail message to r/UniversalScammerList. Once you've done so, that user will be invited as a mod shortly. If you do **not** choose a mod to represent your sub, you could lose access to the USL.\n\n"

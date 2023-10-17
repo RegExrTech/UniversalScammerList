@@ -3,6 +3,7 @@ import time
 import sys
 sys.path.insert(0, ".")
 import Config
+import discord
 
 f_path = 'database/mods.txt'
 
@@ -45,7 +46,7 @@ for subname in subnames:
 		except Exception as e:
 			print("  Unable to send message to u/" + mod_name + " on sub r/" + subname + " with error " + str(e))
 			time.sleep(60)
-		print("Found a new mod! User is u/" + mod_name)
+		discord.log("Found a new mod! User is u/" + mod_name + " from r/" + subname)
 		time.sleep(20)
 		already_sent.add(mod_name)
 

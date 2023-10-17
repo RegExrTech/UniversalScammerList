@@ -68,6 +68,8 @@
 
 * r/gunaccessoriesforsale
 
+* r/hardwareswap
+
 * r/hardwareswapeu
 
 * r/hardwareswapuk
@@ -165,6 +167,8 @@
 * r/animalcrossingamiibos
 
 * r/animedeals
+
+* r/caps
 
 * r/coinsales
 

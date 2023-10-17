@@ -1,4 +1,7 @@
 *.pyc
 config
 config/*
+archived_config
+archived_config/*
 database/mods.txt
+discord_tokens.py

@@ -28,8 +28,6 @@ def main():
 			continue
 		title = "[USL Bot Update] USL Bots now auto-claim subreddits based on their names"
 		body = "Hey folks!\n\nAs you may or may not know, scams have been on the rise where a scammer will claim a subreddit based on a moderator's name (e.g. r/RegExr) and send mod mail messages *as the subreddit* to impersonate moderators. This is a very successful scam method and can only be stopped by beating would-be scammers to the punch and claiming your subreddit ahead of them OR by messaging the admins to get control of the sub if they beat you to it.\n\nIn an effort to prevent this from happening, I've gone ahead and had each USL bot create a subreddit based on their name. The subreddit is private so you won't see it if you click on the bot's profile, but you can find it by directly navigating to it. All existing bots have had their subs claimed and all new bots will automatically claim their subs as a part of their initialization process.\n\nThis is mostly just a heads up message in case you come across the aforementioned subreddits and have any questions or concerns. However, this is also a good time to remind folks to claim their subreddits before someone else does.\n\nThanks for reading this message and please let u/RegExr know if you have any questions!\n\nBest,\n\nu/RegExr"
-		print(title + "\n\n" + body)
-		int('s')
 		send_mod_discussion(sub_config, title, body)
 
 def send_to_all_mods(mod_list, already_sent, subname, title, body):
@@ -59,9 +57,6 @@ def send_mod_discussion(sub_config, title, body):
 		sub_config.subreddit_object.message(subject=title, message=body)
 	except Exception as e:
 		print("Unable to send message to " + subname + " with error " + str(e))
-		return None
-
-	return [x.id for x in  sub_config.subreddit_object.modmail.conversations(state='mod', limit=1)][0]
 
 
 main()

@@ -56,11 +56,11 @@
 
 * r/garlicmarket
 
-* r/gctrading
-
 * r/gctrep
 
 * r/geartrade
+
+* r/giftcardexchange
 
 * r/giftofgames
 
@@ -176,9 +176,9 @@
 
 * r/fightsticksforsale
 
-* r/gcxrep
+* r/gctrading
 
-* r/giftcardexchange
+* r/gcxrep
 
 * r/mcsplaystation
 

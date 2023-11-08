@@ -108,6 +108,7 @@ def publish_bans(sub_config, action):
 		print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
 	print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags " + ", ".join(ban_tags) + " with description" + description)
 	requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
+	log_to_reddit('u/' + banned_user + " banned as " + " ".join(ban_tags), 'u/' + banned_user + " banned as " + " ".join(ban_tags) + " on r/" + sub_config.subreddit_name + " by u/" + banned_by.name + " with description " + description)
 
 
 def ban_from_queue(sub_config):
@@ -251,6 +252,7 @@ def publish_unbans_from_messages(sub_config, messages):
 					text = response['error']
 				else:
 					text = "[r/" + sub_config.subreddit_name + "] u/" + unbanned_user + " is being unbanned with the following tags: " + ", ".join(["#"+tag for tag in tags])
+					log_to_reddit('u/' + unbanned_user + " had the " + " ".join(["#" + x for x in tags]) + " tags removed", 'u/' + unbanned_user + " had the " + " ".join(["#" + x for x in tags]) + " tags removed by u/" + requester)
 		else:
 			text = "Handling for that command has not been implimented yet. Sorry."
 
@@ -274,6 +276,7 @@ def publish_unbans_from_mod_log(sub_config, action):
 		text = "Hi u/" + action._mod + ",\n\n" + response['error'] + "\n\nIf you just meant for this to be a local unban, you can ignore this message. If you are trying to remove this user from the USL, please contact the mods of the sub that originally banned them. Thank you!"
 	else:
 		text = "[r/" + sub_config.subreddit_name + "] u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
+		log_to_reddit('u/' + action.target_author.lower() + " had the " + response['tags'] + " tags removed", 'u/' + action.target_author.lower() + " had the " + " ".join(["#" + x for x in response['tags']]) + " tags removed by u/" + action._mod.lower() + " from r/" + sub_config.subreddit_name)
 	try:
 		mod_obj = sub_config.reddit.redditor(name=action._mod)
 		mod_obj.message(subject="Unban Request Received", message=text)

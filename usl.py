@@ -276,7 +276,7 @@ def publish_unbans_from_mod_log(sub_config, action):
 		text = "Hi u/" + action._mod + ",\n\n" + response['error'] + "\n\nIf you just meant for this to be a local unban, you can ignore this message. If you are trying to remove this user from the USL, please contact the mods of the sub that originally banned them. Thank you!"
 	else:
 		text = "[r/" + sub_config.subreddit_name + "] u/" + action.target_author.lower() + " is being unbanned with the following tags: " + response['tags']
-		log_to_reddit('u/' + action.target_author.lower() + " had the " + response['tags'] + " tags removed", 'u/' + action.target_author.lower() + " had the " + " ".join(["#" + x for x in response['tags']]) + " tags removed by u/" + action._mod.lower() + " from r/" + sub_config.subreddit_name)
+		log_to_reddit('u/' + action.target_author.lower() + " had the " + response['tags'] + " tags removed", 'u/' + action.target_author.lower() + " had the " + response['tags'] + " tags removed by u/" + action._mod.lower() + " from r/" + sub_config.subreddit_name)
 	try:
 		mod_obj = sub_config.reddit.redditor(name=action._mod)
 		mod_obj.message(subject="Unban Request Received", message=text)

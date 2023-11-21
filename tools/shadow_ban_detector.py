@@ -31,7 +31,7 @@ if newly_banned:
 if no_longer_banned:
 	discord.log("The following USL bots are no longer shadowbanned:\n\n* " + "\n* ".join(no_longer_banned))
 
-if newly_banned:
+if newly_banned or no_longer_banned:
 	f = open(database_fname, 'w')
 	f.write("\n".join(banned))
 	f.close()

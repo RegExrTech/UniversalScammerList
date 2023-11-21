@@ -35,4 +35,5 @@ if content != old_content:
 	f.close()
 
 	new_subs = [x for x in content.splitlines() if x not in old_content.splitlines()]
-	discord.log("The following subs have joined the USL: \n\n* " + "\n* ".join(new_subs))
+	if new_subs:
+		discord.log("The following subs have joined the USL: \n\n* " + "\n* ".join(new_subs))

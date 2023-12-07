@@ -57,8 +57,7 @@ def get_ban_tags_and_description(description):
 		else:
 			other.append(word)
 	description = " ".join(other)
-	description = " ".join(description.split(":")[1:])
-	return tags, description
+	return list(set(tags)), description
 
 def get_mod_actions(sub_config, last_update_time, action='banuser', before=None):
 	actions = []

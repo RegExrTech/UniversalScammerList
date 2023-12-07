@@ -74,8 +74,6 @@
 
 * r/hockeyjerseys
 
-* r/hutcoinsales
-
 * r/igsrep
 
 * r/indiegameswap
@@ -93,10 +91,6 @@
 * r/miniswap
 
 * r/mousemarket
-
-* r/nba2kmtselling
-
-* r/nbarep
 
 * r/need
 
@@ -176,6 +170,8 @@
 
 * r/gcxrep
 
+* r/hutcoinsales
+
 * r/machinedpens
 
 * r/mcsplaystation
@@ -185,6 +181,10 @@
 * r/mcsxbox
 
 * r/mediaswap
+
+* r/nba2kmtselling
+
+* r/nbarep
 
 * r/pkmntcgtrades
 

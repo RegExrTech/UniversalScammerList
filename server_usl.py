@@ -424,6 +424,7 @@ if __name__ == "__main__":
 			bans = json_helper.get_db(bans_fname)
 			update_times = json_helper.get_db(update_times_fname)
 			action_queue = json_helper.get_db(action_queue_fname)
+			print("Server start time: " + str(time.time()))
 			app.run(host= '0.0.0.0', port=PORT, request_handler=MyRequestHandler)
 	except Exception as e:
 		print(e)

@@ -12,8 +12,6 @@
 
 * r/avexchange
 
-* r/bitmarket
-
 * r/borrow
 
 * r/canadianhardwareswap
@@ -28,8 +26,6 @@
 
 * r/comicswap
 
-* r/cryptotrade
-
 * r/digitalcodesell
 
 * r/discexchange
@@ -37,8 +33,6 @@
 * r/disneypinswap
 
 * r/edcexchange
-
-* r/fashionrepsbst
 
 * r/food_pantry
 
@@ -54,8 +48,6 @@
 
 * r/gametrade
 
-* r/garlicmarket
-
 * r/geartrade
 
 * r/giftcardexchange
@@ -67,8 +59,6 @@
 * r/gunaccessoriesforsale
 
 * r/hardwareswap
-
-* r/hardwareswapeu
 
 * r/hardwareswapuk
 
@@ -130,13 +120,9 @@
 
 * r/snackexchange
 
-* r/sneakermarket
-
 * r/starcitizen_trades
 
 * r/steamgameswap
-
-* r/teaexchange
 
 * r/thinkpadsforsale
 
@@ -164,21 +150,11 @@
 
 * r/coinsales
 
-* r/dogemarket
-
 * r/fightsticksforsale
-
-* r/gcxrep
 
 * r/hutcoinsales
 
 * r/machinedpens
-
-* r/mcsplaystation
-
-* r/mcsrep
-
-* r/mcsxbox
 
 * r/mediaswap
 
@@ -189,5 +165,3 @@
 * r/pkmntcgtrades
 
 * r/rpgtrade
-
-* r/toyexchange

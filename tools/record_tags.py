@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, ".")
 from Config import Config
+import discord
 import wiki_helper
 import os
 import tags

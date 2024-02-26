@@ -1601,7 +1601,6 @@
                 "mudchoice7034",
                 "sojuggle",
                 "mlkwho",
-                "lallybrochsassenach",
                 "10fudges",
                 "dumbestinthethread",
                 "cautious_trifle_5802",
@@ -2986,7 +2985,6 @@
                 "straight_case_2062",
                 "guyhotookatit",
                 "h-town_info",
-                "evadesion",
                 "onlime-vendor",
                 "richardtickle6534",
                 "sea_wish_1524",
@@ -3226,7 +3224,6 @@
                 "freedum5",
                 "recromu",
                 "townesvanwaits",
-                "njscrub",
                 "rjmitty1000",
                 "brob1717",
                 "informedantipope97",
@@ -3328,7 +3325,18 @@
                 "lovelyliz78",
                 "spedtistic",
                 "6speedpsycho",
-                "tinykitwon"
+                "tinykitwon",
+                "hoodedjusticee",
+                "southerntowel1276",
+                "codinglearn123",
+                "storyappropriate8642",
+                "nebula9199",
+                "_3xtreme_",
+                "mystical_badger",
+                "sunnyshiiine",
+                "irishpablowithtits",
+                "zina_davis",
+                "digzicabre"
             ],
             "sketchy": [
                 "okad2320",
@@ -4252,7 +4260,15 @@
                 "icy_mobile_2250",
                 "greenworker",
                 "disastrous-north8712",
-                "majesticfirechicken"
+                "majesticfirechicken",
+                "fabulous-lemon-1555",
+                "gotothebeachnow",
+                "lallybrochsassenach",
+                "hogwartsismyheart",
+                "john27318",
+                "independent_plate_57",
+                "loveshark63",
+                "icebear_is_best_bear"
             ],
             "troll": []
         },
@@ -6850,6 +6866,26 @@
                 "humble-dish2919",
                 "cyborg__slayer",
                 "dapper-ad-7165"
+            ]
+        }
+    },
+    "gear4sale": {
+        "ban": {
+            "scammer": [
+                "nebula9199",
+                "_3xtreme_",
+                "mystical_badger",
+                "sunnyshiiine",
+                "irishpablowithtits",
+                "zina_davis",
+                "digzicabre"
+            ]
+        },
+        "unban": {
+            "scammer": [
+                "evadesion",
+                "lallybrochsassenach",
+                "njscrub"
             ]
         }
     },

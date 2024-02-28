@@ -33,6 +33,7 @@ class Config():
 		self.subreddit_object = self.reddit.subreddit(self.subreddit_name)
 		self.typo_checking = self.raw_config['typo_checking']
 		self.local_unban_is_usl_unban = self.raw_config['local_unban_is_usl_unban']
+		self.usl_rep = self.raw_config['usl_rep']
 		# Optional, can be set later.
 		self.mods = []
 
@@ -53,4 +54,9 @@ class Config():
 	def update_local_unban_config(self, local_unban_is_usl_unban):
 		self.local_unban_is_usl_unban = local_unban_is_usl_unban
 		self.raw_config['local_unban_is_usl_unban'] = self.local_unban_is_usl_unban
+		dump(self.raw_config, self.fname)
+
+	def update_usl_rep(self, usl_rep):
+		self.usl_rep = usl_rep
+		self.raw_config['usl_rep'] = self.usl_rep
 		dump(self.raw_config, self.fname)

@@ -1,4 +1,4 @@
-from Config import Config
+from Config import Config, dump
 from prawcore.exceptions import NotFound
 import time
 import requests
@@ -58,6 +58,16 @@ def run_config_checker(config):
 	if 'local_unban_is_usl_unban' in config_content:
 		local_unban_is_usl_unban = config_content['local_unban_is_usl_unban'].lower() == 'true'
 		config.update_local_unban_config(local_unban_is_usl_unban)
+	if 'usl_rep' in config_content and config.write_to:
+		log_bot = Config('logger')
+		usl_mods = set([x.name.lower() for x in log_bot.subreddit_object.moderator()])
+		mods = [x.name.lower() for x in config.subreddit_object.moderator()]
+		usl_rep = config_content['usl_rep'].split('/')[-1].lower()
+		if usl_rep not in mods or usl_rep not in usl_mods:
+			invalidate_config(content)
+			inform_config_invalid(config_page)
+			return
+		config.update_usl_rep(usl_rep)
 	# Inform parsing successful
 	inform_config_valid(config_page)
 	# Validate Wiki Page
@@ -71,6 +81,8 @@ def get_local_config_content(config):
 	content = "tags: " + ",".join(["#"+tag for tag in config.tags])
 	content += "\n\ntypo_checking: " + str(config.typo_checking)
 	content += "\n\nlocal_unban_is_usl_unban: " + str(config.local_unban_is_usl_unban)
+	if config.write_to:
+		content += "\n\nusl_rep: " + config.usl_rep
 	return content
 
 def validate_wiki_content(config, config_page):
@@ -119,6 +131,43 @@ def update_tags(tags_string, config):
 	config.update_tags(tags)
 	requests.post(request_url + "/subscribe-new-tags/", {'tags': ",".join(new_tags), 'sub_name': config.subreddit_name})
 
-if __name__ == "__main__":
+# ONLY RUN MANUALLY
+def _add_value_to_configs():
+	import os
 	log_bot = Config('logger')
-	run_config_checker(log_bot)
+	usl_mods = set([x.name.lower() for x in log_bot.subreddit_object.moderator()])
+	subnames = [x.split(".")[0] for x in os.listdir("config/")]
+	for subname in subnames:
+		config = Config(subname)
+
+		if subname.lower() == 'PlayingCardsMarket'.lower():
+			continue
+
+		config.raw_config['usl_rep'] = ""
+		if not config.write_to:
+			dump(config.raw_config, "config/" + subname + ".json")
+			continue
+		mods = [x.name.lower() for x in config.subreddit_object.moderator()]
+		rep = ""
+		for mod in mods:
+			if any([x in mod for x in ['automod', 'bot']]):
+				continue
+			if mod not in usl_mods:
+				continue
+			if subname.lower() != 'funkoswap' and mod == 'regexr':
+				continue
+			print("Rep of r/" + subname + " is u/" + mod)
+			rep = mod
+			break
+		if not rep:
+			print("NO USL REP found for r/" + subname)
+		config.raw_config['usl_rep'] = rep
+		dump(config.raw_config, "config/" + subname + ".json")
+		config_page = get_wiki_page(config, WIKI_PAGE_NAME)
+		validate_wiki_content(config, config_page)
+
+if __name__ == "__main__":
+#	log_bot = Config('logger')
+#	run_config_checker(log_bot)
+
+	_add_value_to_configs()

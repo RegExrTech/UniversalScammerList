@@ -67,5 +67,21 @@ def send_mod_discussion(sub_config, title, body):
 	except Exception as e:
 		print("Unable to send message to " + subname + " with error " + str(e))
 
+def send_to_usl_reps():
+	title = "USL Representative Nomination"
+	subnames = [x.split(".")[0] for x in os.listdir("config/")]
+	for subname in subnames:
+		if subname == 'logger':
+			continue
+		sub_config = Config.Config(subname)
+		if not sub_config.usl_rep:
+			continue
+		rep = sub_config.reddit.redditor(sub_config.usl_rep)
+		body = "Hello u/" + rep.name + ",\n\nYou are receiving this message because you are the most senior mod of r/" + subname + " who is also a mod of r/UniversalScammerList. As such, you have been nominated as the official USL Representative of r/" + subname + ". If this is correct, then no action is required. However, if you are not the best representative, please modify your sub's [config page](https://www.reddit.com/r/" + subname + "/wiki/usl_config) and change the `usl_rep` field's value from *your name* to *another moderator's name*. This other moderator must be a moderator of r/" + subname + " AND r/UniversalScammerList or else the change will not be allowed.\n\nThank you for your help with this!\n\nBest,\n\nThe USL Team"
+		try:
+			rep.message(subject=title, message=body)
+		except Exception as e:
+			print("Unable to message u/" + rep.name + " with error " + str(e))
 
-main()
+#main()
+send_to_usl_reps()

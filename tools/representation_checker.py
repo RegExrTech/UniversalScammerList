@@ -6,7 +6,7 @@ import Config
 import discord
 
 # These mods don't count for representation
-blacklist_mod_names = ['automoderator']
+blacklist_mod_names = ['automoderator', 'regexr']
 
 def main():
 	unrepresented_subs = []

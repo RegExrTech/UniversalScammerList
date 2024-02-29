@@ -2,6 +2,9 @@ import argparse
 import time
 import os
 import random
+import sys
+sys.path.insert(0, '.')
+import Config
 
 parser = argparse.ArgumentParser()
 parser.add_argument('subreddit_name', metavar='C', type=str)
@@ -10,6 +13,10 @@ subreddit_name = args.subreddit_name.lower()
 
 def main():
 	while True:
+		config = Config.Config(subreddit_name)
+		# If the sub has lost read and write access, stop running.
+		if not config.read_from and not config.write_to:
+			return
 		os.system('python3 usl.py ' + subreddit_name)
 		time.sleep(random.randint(30, 60))
 

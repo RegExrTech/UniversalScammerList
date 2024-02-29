@@ -2,6 +2,9 @@ from Config import Config, dump
 from prawcore.exceptions import NotFound
 import time
 import requests
+import sys
+sys.path.insert(0, ".")
+import discord
 
 WIKI_PAGE_NAME = 'usl_config'
 request_url = "http://0.0.0.0:8080"
@@ -63,6 +66,7 @@ def run_config_checker(config):
 		usl_mods = set([x.name.lower() for x in log_bot.subreddit_object.moderator()])
 		mods = [x.name.lower() for x in config.subreddit_object.moderator()]
 		usl_rep = config_content['usl_rep'].split('/')[-1].lower()
+		# An invalid user was added as a USL rep
 		if usl_rep not in mods or usl_rep not in usl_mods:
 			invalidate_config(content)
 			inform_config_invalid(config_page)
@@ -72,6 +76,8 @@ def run_config_checker(config):
 	inform_config_valid(config_page)
 	# Validate Wiki Page
 	validate_wiki_content(config, config_page)
+	discord.log("u/" + config_page.revision_by.name + " has updated the r/" + config.subreddit_name + " config page.\n\n---\n\nOld Content: " + get_local_config_content(config) + "\n\n---\n\nNew Content: " + content)
+	print("    u/" + config_page.revision_by.name + " has updated the r/" + config.subreddit_name + " config page.")
 
 def create_wiki_config(config, config_page):
 	validate_wiki_content(config, config_page)

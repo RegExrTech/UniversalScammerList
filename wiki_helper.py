@@ -114,7 +114,7 @@ def invalidate_config(content, config_page):
 	content = "\n\n".join(content.split("\n\n")[1:] + ["bot_timestamp:" + str(time.time())])
 	config_page.edit(content=content)
 
-def inform_config_invalid(config_pag):
+def inform_config_invalid(config_page):
 	message = "I'm sorry but I was unable to parse the config you set in the " + WIKI_PAGE_NAME + " wiki page. Please review the [config guide](https://www.universalscammerlist.com/config_guide.html) and try again."
 	send_update_message(config_page, message)
 

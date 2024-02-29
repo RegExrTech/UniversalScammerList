@@ -22,7 +22,7 @@ def main():
 
 
 	for subname in subnames:
-		if subname in ['funkoppopmod', 'universalscammerlist', 'forhire']:
+		if subname in ['funkoppopmod', 'universalscammerlist', 'forhire', 'funkoswap']:
 			continue
 		sub_config = Config.Config(subname)
 		try:

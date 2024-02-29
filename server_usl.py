@@ -353,6 +353,15 @@ def add_to_action_queue():
 	json_helper.dump(action_queue, action_queue_fname)
 	return jsonify({})
 
+@app.route('/remove-sub-from-action-queue/', methods=["POST"])
+def remove_sub_from_action_queue():
+	global action_queue
+	sub_name = request.form["sub_name"].lower()
+	if sub_name in action_queue:
+		del(action_queue[sub_name])
+	json_helper.dump(action_queue, action_queue_fname)
+	return jsonify({})
+
 @app.route('/get-unban-queue/', methods=["GET"])
 def get_unban_queue():
 	global action_queue

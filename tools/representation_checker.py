@@ -25,17 +25,19 @@ def main():
 		if subname in ['funkoppopmod', 'universalscammerlist', 'forhire', 'funkoswap']:
 			continue
 		sub_config = Config.Config(subname)
+
+		# Only subs with write access need to be represented
+		if not sub_config.write_to:
+			continue
+
 		try:
 			mod_list = sub_config.subreddit_object.moderator()
 		except:
 			print("    Unable to get mod list from r/" + subname)
 			continue
+
 		# Wait until the bot is a mod of the sub to send messages
 		if sub_config.bot_username.lower() not in [x.name.lower() for x in mod_list]:
-			continue
-
-		# Only subs with write access need to be represented
-		if not sub_config.write_to:
 			continue
 
 		if not any([x.name.lower() in usl_sub_mods for x in mod_list if not x.name.lower() in blacklist_mod_names]):

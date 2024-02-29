@@ -21,6 +21,9 @@ for subname in subnames:
 	if subname == 'funkoppopmod':
 		continue
 	sub_config = Config.Config(subname)
+	# Skip subs without read or write permissions
+	if not sub_config.read_from and not sub_config.write_to:
+		continue
 	try:
 		mod_list = sub_config.subreddit_object.moderator()
 	except:
@@ -48,9 +51,10 @@ for subname in subnames:
 			time.sleep(60)
 		discord.log("Found a new mod! User is u/" + mod_name + " from r/" + subname)
 		already_sent.add(mod_name)
+		# Do this every time we find a new mod, rather than at the end, so overlapping scripts don't send the same message twice.
+		f = open(f_path, 'w')
+		already_sent = list(already_sent)
+		already_sent.sort()
+		f.write("\n".join(already_sent))
+		f.close()
 
-f = open(f_path, 'w')
-already_sent = list(already_sent)
-already_sent.sort()
-f.write("\n".join(already_sent))
-f.close()

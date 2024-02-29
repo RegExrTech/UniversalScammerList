@@ -18,6 +18,9 @@ banned = []
 subnames = [x.split(".")[0] for x in os.listdir("config/")]
 for subname in subnames:
 	sub_config = Config.Config(subname)
+	# Skip subs without read and write access
+	if not sub_config.read_from and not sub_config.write_to:
+		continue
 	try:
 		bot = reddit.redditor(sub_config.bot_username)
 		m = bot.is_mod

@@ -49,9 +49,10 @@ def run_config_checker(config):
 		config_content = get_config_content(content)
 	except:
 		# Unable to parse the config
-		invalidate_config(content)
+		invalidate_config(content, config_page)
 		inform_config_invalid(config_page)
 		return
+	old_config = get_local_config_content(config)
 	# Update the tags
 	if 'tags' in config_content:
 		update_tags(config_content['tags'], config)
@@ -68,7 +69,7 @@ def run_config_checker(config):
 		usl_rep = config_content['usl_rep'].split('/')[-1].lower()
 		# An invalid user was added as a USL rep
 		if usl_rep not in mods or usl_rep not in usl_mods:
-			invalidate_config(content)
+			invalidate_config(content, config_page)
 			inform_config_invalid(config_page)
 			return
 		config.update_usl_rep(usl_rep)
@@ -76,7 +77,7 @@ def run_config_checker(config):
 	inform_config_valid(config_page)
 	# Validate Wiki Page
 	validate_wiki_content(config, config_page)
-	discord.log("u/" + config_page.revision_by.name + " has updated the r/" + config.subreddit_name + " config page.\n\n---\n\nOld Content: " + get_local_config_content(config) + "\n\n---\n\nNew Content: " + content)
+	discord.log("u/" + config_page.revision_by.name + " has updated the r/" + config.subreddit_name + " config page.\n\n---\n\nOld Content: " + old_config + "\n\n---\n\nNew Content: " + content)
 	print("    u/" + config_page.revision_by.name + " has updated the r/" + config.subreddit_name + " config page.")
 
 def create_wiki_config(config, config_page):
@@ -109,7 +110,7 @@ def get_config_content(content):
 		config_content[key] = value
 	return config_content
 
-def invalidate_config(content):
+def invalidate_config(content, config_page):
 	content = "\n\n".join(content.split("\n\n")[1:] + ["bot_timestamp:" + str(time.time())])
 	config_page.edit(content=content)
 

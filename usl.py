@@ -348,7 +348,7 @@ def main():
 		return
 
 	wiki_helper.run_config_checker(sub_config)
-	if not wiki_helper.verify_user_is_valid_usl_mod(sub_config.usl_rep, sub_config):
+	if sub_config.usl_rep != "" and not wiki_helper.verify_user_is_valid_usl_mod(sub_config.usl_rep, sub_config):
 		discord.log("u/" + sub_config.usl_rep + " is no longer a valid USL rep for r/" + sub_config.subreddit_name)
 		sub_config.update_usl_rep("")
 

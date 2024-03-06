@@ -1,5 +1,6 @@
 import sys
 sys.path.insert(0, '.')
+import discord
 from Config import Config
 from tags import TAGS
 import wiki_helper

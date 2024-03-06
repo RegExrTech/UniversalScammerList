@@ -32,6 +32,12 @@ def get_wiki_page_content(config_page, config):
 		# Transient error, assume no changes have been made
 		return ""
 
+def verify_user_is_valid_usl_mod(user, config):
+	mods = [x.name.lower() for x in config.subreddit_object.moderator()]
+	log_bot = Config('logger')
+	usl_mods = set([x.name.lower() for x in log_bot.subreddit_object.moderator()])
+	return user in mods and user in usl_mods
+
 def run_config_checker(config):
 	config_page = get_wiki_page(config, WIKI_PAGE_NAME)
 	content = get_wiki_page_content(config_page, config)
@@ -63,12 +69,8 @@ def run_config_checker(config):
 		local_unban_is_usl_unban = config_content['local_unban_is_usl_unban'].lower() == 'true'
 		config.update_local_unban_config(local_unban_is_usl_unban)
 	if 'usl_rep' in config_content and config.write_to:
-		log_bot = Config('logger')
-		usl_mods = set([x.name.lower() for x in log_bot.subreddit_object.moderator()])
-		mods = [x.name.lower() for x in config.subreddit_object.moderator()]
 		usl_rep = config_content['usl_rep'].split('/')[-1].lower()
-		# An invalid user was added as a USL rep
-		if usl_rep not in mods or usl_rep not in usl_mods:
+		if not verify_user_is_valid_usl_mod(usl_rep, config):
 			invalidate_config(content, config_page)
 			inform_config_invalid(config_page)
 			return

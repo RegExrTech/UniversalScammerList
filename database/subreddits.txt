@@ -1,9 +1,5 @@
 === Full Members ===
 
-* r/airsoftmarket
-
-* r/airsoftmarketcanada
-
 * r/appleswap
 
 * r/assistance
@@ -139,6 +135,10 @@
 * r/ygomarketplace
 
 === Read-Only ===
+
+* r/airsoftmarket
+
+* r/airsoftmarketcanada
 
 * r/animalcrossingamiibos
 

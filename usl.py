@@ -101,7 +101,7 @@ def publish_bans(sub_config, action):
 	# Ignore bans without USL tags
 	if not ban_tags:
 		return
-	unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS]
+	unknown_tags = [tag[1:] for tag in ban_tags if tag[1:] not in TAGS and not tag.endswith('deleter')]
 	if unknown_tags:
 		if sub_config.typo_checking:
 			handle_unknown_tags(sub_config, unknown_tags, banned_by, banned_user)

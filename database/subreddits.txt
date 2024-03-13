@@ -132,8 +132,6 @@
 
 * r/watchexchangecanada
 
-* r/ygomarketplace
-
 === Read-Only ===
 
 * r/airsoftmarket
@@ -167,3 +165,5 @@
 * r/pkmntcgtrades
 
 * r/rpgtrade
+
+* r/ygomarketplace

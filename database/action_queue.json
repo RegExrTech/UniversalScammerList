@@ -221,6 +221,7 @@
     },
     "edcexchange": {
         "ban": {
+            "": [],
             "scammer": []
         },
         "unban": {

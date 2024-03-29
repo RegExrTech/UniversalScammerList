@@ -51,9 +51,9 @@ def handle_no_context(sub_config, ban_tags, banned_by, banned_user):
 	message_subject = "Missing Context From USL Ban"
 	message_body = "Hello u/" + banned_by.name + ",\n\n"
 	message_body += "Recently, you banned u/" + banned_user + " from r/" + sub_config.subreddit_name + " with the following tags: " + ", ".join(ban_tags) + "\n\n"
-	message_body += "When you did so, you did not include any context in the mod note of the ban. While the ban has still been accepted into the USL, please add context to user bans in the future. Context not helps users understand why someone was banned when they look at the USL website, but it also helps USL mods make informed decisions about bans.\n\n"
-	message_body += "If you wish to add context to this ban, you must first **unban** the user in question, then **reban** the user, adding context to the mod not field.\n\n"
-	message_body += "Note that the mod note field is the same field where you put the original ban tags. All you need to do to add context is write the context anywhere before or after the ban tags in the mod note field."
+	message_body += "When you did so, you did not include any context in the mod note of the ban. While the ban has still been accepted into the USL, please add context to user bans in the future. Context not only helps users understand why someone was banned when they look at the USL website, but it also helps USL mods make informed decisions about bans.\n\n"
+	message_body += "If you wish to add context to this ban, you must first **unban** the user in question, then **reban** the user, adding context to the mod note field.\n\n"
+	message_body += "For reference, the mod note field is the same field where you put the original ban tags. All you need to do to add context is write the context anywhere before or after the ban tags in the mod note field.\n\n"
 	message_body += "Thanks!"
 	banned_by.message(subject=message_subject, message=message_body)
 

@@ -126,7 +126,6 @@ def publish_bans(sub_config, action):
 		print("UNKNOWN TAGS: " + ", ".join(unknown_tags))
 	if not description and any([x[1:] in PUBLIC_TAGS for x in ban_tags]):
 		handle_no_context(sub_config, ban_tags, banned_by, banned_user)
-		print("NO CONTEXT: " + banned_by.name)
 	print("u/" + banned_user + " has been banned by u/" + banned_by.name + " on r/" + sub_config.subreddit_name + " at " + str(created_utc) + " with tags " + ", ".join(ban_tags) + " with description: " + description)
 	requests.post(request_url + "/publish-ban/", {'banned_user': banned_user, 'banned_by': banned_by.name, 'banned_on': sub_config.subreddit_name, 'issued_on': created_utc, 'tags': ",".join(ban_tags), 'description': description})
 	log_to_reddit('u/' + banned_user + " banned as " + " ".join(ban_tags), 'u/' + banned_user + " banned as " + " ".join(ban_tags) + " on r/" + sub_config.subreddit_name + " by u/" + banned_by.name + " with description " + description)

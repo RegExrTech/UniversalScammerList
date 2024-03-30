@@ -58,8 +58,6 @@
 
 * r/hockeyjerseys
 
-* r/igsrep
-
 * r/indiegameswap
 
 * r/knife_swap
@@ -101,8 +99,6 @@
 * r/randomkindness
 
 * r/retrogameswap
-
-* r/sgsflair
 
 * r/shave_bazaar
 
@@ -152,6 +148,8 @@
 
 * r/hutcoinsales
 
+* r/igsrep
+
 * r/letstradepedals
 
 * r/machinedpens
@@ -165,5 +163,7 @@
 * r/pkmntcgtrades
 
 * r/rpgtrade
+
+* r/sgsflair
 
 * r/ygomarketplace

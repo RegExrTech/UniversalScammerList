@@ -21,8 +21,8 @@ for subname in subnames:
 	if subname == 'funkoppopmod':
 		continue
 	sub_config = Config.Config(subname)
-	# Skip subs without read or write permissions
-	if not sub_config.read_from and not sub_config.write_to:
+	# Skip subs without write permission. Subs that are read-only don't need to know how to use the USL
+	if not sub_config.write_to:
 		continue
 	try:
 		mod_list = sub_config.subreddit_object.moderator()

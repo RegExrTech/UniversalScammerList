@@ -219,6 +219,22 @@
             "scammer": []
         }
     },
+    "donedirtcheap": {
+        "ban": {
+            "scammer": [
+                "snoocomics1856",
+                "seasonsinthesub",
+                "hilfrednieland"
+            ],
+            "sketchy": [
+                "kidfreshh"
+            ]
+        },
+        "unban": {
+            "scammer": [],
+            "sketchy": []
+        }
+    },
     "edcexchange": {
         "ban": {
             "": [],

@@ -224,14 +224,27 @@
             "scammer": [
                 "snoocomics1856",
                 "seasonsinthesub",
-                "hilfrednieland"
+                "hilfrednieland",
+                "herobryant1",
+                "inside-ad-7702",
+                "bobo_brown",
+                "affectionate-fly9244",
+                "maliciouslip",
+                "kingjojothegreat",
+                "lywdt5",
+                "masterb8yolomqn",
+                "jahslust"
             ],
             "sketchy": [
-                "kidfreshh"
+                "kidfreshh",
+                "practical_skirt_60",
+                "honeylemond"
             ]
         },
         "unban": {
-            "scammer": [],
+            "scammer": [
+                "ultracabbage"
+            ],
             "sketchy": []
         }
     },
@@ -250,6 +263,17 @@
         },
         "unban": {
             "scammer": []
+        }
+    },
+    "flashlight": {
+        "ban": {
+            "sketchy": [
+                "practical_skirt_60",
+                "honeylemond"
+            ]
+        },
+        "unban": {
+            "sketchy": []
         }
     },
     "food_pantry": {
@@ -404,6 +428,26 @@
         },
         "unban": {
             "scammer": []
+        }
+    },
+    "hireagirlfriend": {
+        "ban": {
+            "scammer": [
+                "maliciouslip",
+                "kingjojothegreat",
+                "lywdt5",
+                "masterb8yolomqn",
+                "jahslust"
+            ],
+            "sketchy": [
+                "honeylemond"
+            ]
+        },
+        "unban": {
+            "scammer": [
+                "ultracabbage"
+            ],
+            "sketchy": []
         }
     },
     "hireawriter": {
@@ -603,6 +647,24 @@
             "scammer": []
         }
     },
+    "phoneverification": {
+        "ban": {
+            "scammer": [
+                "maliciouslip",
+                "kingjojothegreat",
+                "lywdt5",
+                "masterb8yolomqn",
+                "jahslust"
+            ],
+            "sketchy": [
+                "honeylemond"
+            ]
+        },
+        "unban": {
+            "scammer": [],
+            "sketchy": []
+        }
+    },
     "photomarket": {
         "ban": {
             "": [],
@@ -718,6 +780,24 @@
             "scammer": [],
             "sketchy": [],
             "troll": []
+        }
+    },
+    "referral": {
+        "ban": {
+            "scammer": [
+                "maliciouslip",
+                "kingjojothegreat",
+                "lywdt5",
+                "masterb8yolomqn",
+                "jahslust"
+            ],
+            "sketchy": [
+                "honeylemond"
+            ]
+        },
+        "unban": {
+            "scammer": [],
+            "sketchy": []
         }
     },
     "retrogameswap": {

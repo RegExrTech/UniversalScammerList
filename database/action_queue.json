@@ -754,17 +754,12 @@
     },
     "referrals": {
         "ban": {
-            "scammer": [
-                "breadfruitno4523",
-                "dagw6n",
-                "gabrielekko76"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {
-            "scammer": [
-                "hexical_"
-            ]
+            "scammer": [],
+            "sketchy": []
         }
     },
     "retrogameswap": {

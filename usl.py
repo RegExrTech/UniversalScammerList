@@ -78,7 +78,7 @@ def get_ban_tags_and_description(description):
 
 	return list(set(tags)), description
 
-def get_mod_actions(sub_config, last_update_time, action='banuser', before=None):
+def get_mod_actions(sub_config, last_update_time, before=None):
 	actions = []
 	try:
 		if before is not None:

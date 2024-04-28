@@ -113,6 +113,8 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	sorted_usernames = order_users_by_ban_date(bans)
 	text_lines = []
 	for username in sorted_usernames:
+		if username not in bans:
+			continue
 		tags = [tag for tag in list(bans[username].keys()) if tag in PUBLIC_TAGS]
 		if tags == []:
 			continue
@@ -287,7 +289,6 @@ def publish_unban():
 		found_valid_tag = True
 		valid_mods = get_valid_moderators(bans[unbanned_user][tag]['banned_on'].lower())
 		if requester in valid_mods:
-			print("Removing tag " + tag + " from " + unbanned_user + " from r/" + bans[unbanned_user][tag]['banned_on'] + " because u/" + requester + " is a moderator in the list u/" + ", u/".join(valid_mods))
 			originally_banned_on = bans[unbanned_user][tag]['banned_on'].lower()
 			del(bans[unbanned_user][tag])
 			issued_by_valid_mod = True

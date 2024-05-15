@@ -471,73 +471,12 @@
     },
     "itunesdeals": {
         "ban": {
-            "scammer": [
-                "leezyle",
-                "equivalentextreme20",
-                "redbeard0688",
-                "ok_dog_9143",
-                "apdgjoabsp",
-                "incognewtobrowsin",
-                "uups",
-                "cheskypalenz1517",
-                "footypajamaz",
-                "lwheeler17",
-                "own-sleep-2012",
-                "radik_absalyamov",
-                "pksmama",
-                "sweetfoundation7858",
-                "nanaphy",
-                "fit-extension2827",
-                "whodoesntlikehash",
-                "locodesigns",
-                "mispelledusernaem",
-                "swaka9",
-                "pianist_direct",
-                "rhythm_morgan",
-                "miraak124",
-                "new-beautiful9826",
-                "powerful_entry9813",
-                "aggravating-bit9418",
-                "slayertheelite",
-                "responsible-bid4120",
-                "prettyprincess1018",
-                "donkey_kong_fever",
-                "external-stable8795",
-                "thisismyaltneener"
-            ],
-            "sketchy": [
-                "mushaboom83",
-                "ricdrew",
-                "iloveasiancunts",
-                "panfiissz",
-                "lowelifejames",
-                "upstairssouth1322",
-                "neverhigher",
-                "psychocookeez",
-                "clockoutgohome",
-                "late_assumption1928",
-                "bhuwanpandeys",
-                "pie_patience",
-                "nomascusgabriellae",
-                "trigyn",
-                "rkontheone",
-                "throwra_ouchie",
-                "raikoumt",
-                "ill_ad4312",
-                "throwra6064",
-                "successful-rent2622",
-                "which-worry-9259"
-            ]
+            "scammer": [],
+            "sketchy": []
         },
         "unban": {
-            "scammer": [
-                "rnldvzla",
-                "butrostheguy82"
-            ],
-            "sketchy": [
-                "psych00range",
-                "lwheeler17"
-            ]
+            "scammer": [],
+            "sketchy": []
         }
     },
     "knife_swap": {

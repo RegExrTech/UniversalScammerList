@@ -270,6 +270,7 @@ huskypupper2
 hustlebird
 hutmod
 hwsukmods
+i18n-leaderboard
 i922sparkcir
 i_am_ehehron
 i_regularly_lurk
@@ -447,6 +448,7 @@ omnias-42
 onepieceneverending
 oneyewilly
 onicowboy
+only-flairs
 orangeapplez
 ottawahighlander
 ourrobotoverlord
@@ -497,6 +499,7 @@ r4zen
 r_thorburn
 rabidmonkeys
 rachelguy72
+raffler-proj
 raignbeau
 rainbowterfly
 random_acts_of_pizza

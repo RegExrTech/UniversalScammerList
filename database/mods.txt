@@ -127,6 +127,7 @@ creature_fear12
 cripplerjones
 cumbrad
 cupcake1713
+d6minis
 dace
 danhalensri
 danmanner
@@ -250,6 +251,7 @@ hamsterdamc
 hannahkh
 happybadger
 harlangrandison
+heavilybearded
 hellointhere
 helpingly
 henrebotha
@@ -295,6 +297,7 @@ isaihtb11
 ishkabibbel2000
 itendy
 its_kuri
+itsallsoclear
 itsbeardie
 iwee
 j007conks
@@ -479,6 +482,7 @@ polypeptide147
 poontawn
 popular_mastodon6815
 powerline77
+praeshock
 previous-giraffe-962
 princedakkar
 prius-driver

@@ -135,9 +135,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [
-                "itsripley"
-            ],
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -260,9 +258,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [
-                "itsripley"
-            ],
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -516,10 +512,22 @@
     },
     "machinedpens": {
         "ban": {
-            "scammer": []
+            "scammer": [
+                "fun-mark-3030",
+                "mrlou_sassel",
+                "tight-vegetable6760"
+            ],
+            "sketchy": [
+                "bloodyblade9",
+                "babyfork",
+                "adorable_class_4733",
+                "sagbantheman"
+            ],
+            "troll": []
         },
         "unban": {
-            "scammer": []
+            "scammer": [],
+            "sketchy": []
         }
     },
     "mangaswap": {
@@ -598,9 +606,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [
-                "itsripley"
-            ],
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -688,9 +694,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [
-                "itsripley"
-            ],
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -716,9 +720,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [
-                "itsripley"
-            ],
+            "gbdeleter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []

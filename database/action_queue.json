@@ -727,6 +727,7 @@
     },
     "randomactsoftacobell": {
         "ban": {
+            "": [],
             "compromised": [],
             "scammer": [],
             "sketchy": [],

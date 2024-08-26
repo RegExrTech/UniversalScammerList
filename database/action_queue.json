@@ -88,6 +88,8 @@
     "borrow": {
         "ban": {
             "": [],
+            "compromised": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": []
         },
@@ -259,6 +261,7 @@
             "": [],
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -266,6 +269,7 @@
         "unban": {
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -713,6 +717,7 @@
             "": [],
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -720,6 +725,7 @@
         "unban": {
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -745,6 +751,7 @@
             "": [],
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -752,6 +759,7 @@
         "unban": {
             "compromised": [],
             "gbdeleter": [],
+            "grifter": [],
             "scammer": [],
             "sketchy": [],
             "troll": []

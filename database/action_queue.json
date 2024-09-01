@@ -94,6 +94,7 @@
             "sketchy": []
         },
         "unban": {
+            "compromised": [],
             "scammer": [],
             "sketchy": []
         }

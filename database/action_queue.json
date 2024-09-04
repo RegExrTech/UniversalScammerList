@@ -138,7 +138,9 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [],
+            "gbdeleter": [
+                "kaligary"
+            ],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -166,7 +168,9 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [],
+            "gbdeleter": [
+                "kaligary"
+            ],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -261,7 +265,9 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [],
+            "gbdeleter": [
+                "kaligary"
+            ],
             "grifter": [],
             "scammer": [],
             "sketchy": [],
@@ -374,7 +380,9 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [],
+            "gbdeleter": [
+                "kaligary"
+            ],
             "scammer": [],
             "sketchy": [],
             "troll": []
@@ -717,7 +725,9 @@
         "ban": {
             "": [],
             "compromised": [],
-            "gbdeleter": [],
+            "gbdeleter": [
+                "kaligary"
+            ],
             "grifter": [],
             "scammer": [],
             "sketchy": [],

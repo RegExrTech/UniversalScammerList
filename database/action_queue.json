@@ -41,9 +41,7 @@
     "appleswap": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {
@@ -92,9 +90,7 @@
             "": [],
             "compromised": [],
             "grifter": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {
@@ -108,9 +104,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -223,9 +217,7 @@
     "disneypinswap": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -322,9 +314,7 @@
     "gameswap": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -337,9 +327,7 @@
     "gametrade": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -404,9 +392,7 @@
     "gunaccessoriesforsale": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -555,9 +541,7 @@
     "mechmarket": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -665,9 +649,7 @@
     "photomarket": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -675,9 +657,7 @@
     },
     "pkmntcgtrades": {
         "ban": {
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -714,9 +694,7 @@
             "": [],
             "compromised": [],
             "gbdeleter": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -731,9 +709,7 @@
     "randomactsofchristmas": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -745,9 +721,7 @@
             "compromised": [],
             "gbdeleter": [],
             "grifter": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -764,9 +738,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -783,9 +755,7 @@
             "compromised": [],
             "gbdeleter": [],
             "grifter": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -800,9 +770,7 @@
     },
     "referral": {
         "ban": {
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {
@@ -822,9 +790,7 @@
     },
     "retrogameswap": {
         "ban": {
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -849,9 +815,7 @@
     "sgsflair": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {
@@ -876,9 +840,7 @@
     "signupsforpay": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -887,9 +849,7 @@
     "slavelabour": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "troll": []
         },
         "unban": {
@@ -913,9 +873,7 @@
     "starcitizen_trades": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ]
+            "scammer": []
         },
         "unban": {
             "scammer": []
@@ -945,9 +903,7 @@
         "ban": {
             "": [],
             "compromised": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": [],
             "troll": []
         },
@@ -959,9 +915,7 @@
     "universalscammerlist": {
         "ban": {
             "": [],
-            "scammer": [
-                "ewright222"
-            ],
+            "scammer": [],
             "sketchy": []
         },
         "unban": {

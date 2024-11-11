@@ -508,6 +508,17 @@
             "scammer": []
         }
     },
+    "letstradepedals": {
+        "ban": {
+            "scammer": [
+                "jsmith4976",
+                "questionable_d"
+            ]
+        },
+        "unban": {
+            "scammer": []
+        }
+    },
     "lolboosting": {
         "ban": {
             "": [],

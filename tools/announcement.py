@@ -68,7 +68,8 @@ def send_mod_discussion(sub_config, title, body):
 		print("Unable to send message to " + subname + " with error " + str(e))
 
 def send_to_usl_reps():
-	title = "USL Representative Nomination"
+	already_sent = set()
+	title = "USL Downtime For Database Migration"
 	subnames = [x.split(".")[0] for x in os.listdir("config/")]
 	for subname in subnames:
 		if subname == 'logger':
@@ -77,7 +78,10 @@ def send_to_usl_reps():
 		if not sub_config.usl_rep:
 			continue
 		rep = sub_config.reddit.redditor(sub_config.usl_rep)
-		body = "Hello u/" + rep.name + ",\n\nYou are receiving this message because you are the most senior mod of r/" + subname + " who is also a mod of r/UniversalScammerList. As such, you have been nominated as the official USL Representative of r/" + subname + ". If this is correct, then no action is required. However, if you are not the best representative, please modify your sub's [config page](https://www.reddit.com/r/" + subname + "/wiki/usl_config) and change the `usl_rep` field's value from *your name* to *another moderator's name*. This other moderator must be a moderator of r/" + subname + " AND r/UniversalScammerList or else the change will not be allowed.\n\nThank you for your help with this!\n\nBest,\n\nThe USL Team"
+		if rep.name in already_sent:
+			continue
+		already_sent.add(rep.name)
+		body = "Hello u/" + rep.name + ",\n\nYou are receiving this message because you are listed as the USL rep of r/" + subname + ". I'm writing to let you know that the USL service is currently down while I perform a database migration. Once complete, this migration will allow the USL website to return results instantly rather than forcing users to wait a long time for the database to load. \n\nWhile the USL service is down, new bans and unbans will not be reflected in the USL. However, once service resumes, the bot will catch up on all actions, so please continue to operate as if the USL was still running. Also, note that this does NOT impact the USL website. The site is still up and operational, but will just not reflect any new bans or unbans. \n\nI anticipate this migration taking a few hours, so please be patient as this runs. I will send another update once the USL is back up and running.\n\nPlease pass this information along to your moderation team if they have any questions about the USL's current status. \n\nThanks for your help! Looking forward to this new change going live.\n\nBest,\n\nu/RegExr"
 		try:
 			rep.message(subject=title, message=body)
 		except Exception as e:

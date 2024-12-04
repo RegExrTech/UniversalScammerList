@@ -17,7 +17,7 @@ def get_wiki_page(config, wiki_page_name):
 		# Transient error, assume no changes have been made
 		return None
 
-def get_wiki_page_content(config_page, config):
+def get_config_page_content(config_page, config):
 	# If the config page does not exist, make it
 	try:
 		return config_page.content_md
@@ -40,7 +40,7 @@ def verify_user_is_valid_usl_mod(user, config):
 
 def run_config_checker(config):
 	config_page = get_wiki_page(config, WIKI_PAGE_NAME)
-	content = get_wiki_page_content(config_page, config)
+	content = get_config_page_content(config_page, config)
 	if content == "":
 		return
 	# If the bot was the last person to update the config, break out early

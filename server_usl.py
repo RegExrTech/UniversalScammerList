@@ -6,6 +6,7 @@ import helper
 from Config import Config
 import datetime
 import time
+import prawcore
 
 import sys
 sys.path.insert(0, '.')
@@ -32,60 +33,18 @@ bans_fname = 'database/bans.json'
 update_times_fname = 'database/update_times.json'
 action_queue_fname = 'database/action_queue.json'
 
-def get_most_recent_ban_time(user_data):
-	# Gets the most recent ban date for each ban tag
-	return max([user_data[tag]['issued_on'] for tag in list(user_data.keys())])
-
-def order_users_by_ban_date(bans, reverse=False):
-	# Returns a list of usernames sorted from oldest to newest ban.
-	# Set reverse=True to get bans from newest to oldest.
-	users_to_ban_date = {}
-	for user in list(bans.keys()):
-		users_to_ban_date[user] = get_most_recent_ban_time(bans[user])
-	return sorted(users_to_ban_date, key=users_to_ban_date.get, reverse=reverse)
-
-def create_paginated_wiki(wiki_title, text_lines, config):
-	content_size = 0
-	page = 1
-	page_content = {}
-	index_start = 0
-	index_end = 0
-	for line in text_lines:
-		content_size += len((line+"\n").encode('utf-8'))
-		# Wiki pages are limited to 524288 bytes
-		if content_size >= 200000:
-			page_content[page] = "\n".join(text_lines[index_start:index_end])
-			index_start = index_end
-			page += 1
-			content_size = len((line+"\n").encode('utf-8'))
-		index_end += 1
-	page_content[page] = "\n".join(text_lines[index_start:])
-
-	page_numbers = list(page_content.keys())
-	page_numbers.sort()
-	for page_number in page_numbers:
-		page = config.subreddit_object.wiki[wiki_title+"/"+str(page_number)]
-#		if len(page_numbers) > 1 and page_numbers[-2] == page_number:
-#			json_helper.dump({'data': {'content_md': page_content[page_number]}}, "../RegExrTech.github.io/static/data/bot_actions_" + str(page_number) + ".json")
-		page.edit(content=page_content[page_number])
-	page = config.subreddit_object.wiki[wiki_title]
-	page.edit(content="\n".join(["* [Page " + str(page_number) + "](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + wiki_title + "/" + str(page_number) + ")" for page_number in page_numbers]))
-
-def update_action_log_wiki(action_text, config):
-	index_page = config.subreddit_object.wiki['bot_actions']
-	index_content = index_page.content_md
-	latest_page_number = index_content.splitlines()[-1].split("/")[-1]
-
-	content_page = config.subreddit_object.wiki['bot_actions/'+latest_page_number]
-	page_content = content_page.content_md
-	# Wiki pages are limited to 524288 bytes
-	if len((action_text + "\n" + page_content).encode('utf-8')) < 200000:
-		content_page.edit(content=action_text + "\n" + page_content)
-	else:  # Make a new page
-		json_helper.dump({'data': {'content_md': page_content}}, "../RegExrTech.github.io/static/data/bot_actions_" + latest_page_number + ".json")
-		latest_page_number = str(int(latest_page_number) + 1)
-		config.subreddit_object.wiki.create(name='bot_actions/'+latest_page_number, content=action_text)
-		index_page.edit(content=index_content + "\n" + "* https://www.reddit.com/r/" + config.subreddit_name + "/wiki/bot_actions/" + latest_page_number)
+def update_user_wiki(username, tags, action_text, config):
+	try:
+		content_page = config.subreddit_object.wiki['database/'+username]
+		old_data = content_page.content_md.splitlines()[1:]
+	except prawcore.exceptions.NotFound:
+		config.subreddit_object.wiki.create(name='database/'+username, content="")
+		old_data = []
+	page_content_lines = ["* tags: " + ", ".join(tags)]
+	page_content_lines += old_data
+	page_content_lines.append(action_text)
+	page_content = "\n".join(page_content_lines)
+	content_page.edit(content=page_content)
 
 def log_action(impacted_user, issued_by, originated_from, issued_at, context="", is_ban=False, is_unban=False):
 	# Generate new action text
@@ -105,26 +64,11 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	try:
 		# Only update if the context includes a public tag
 		if any(["#"+tag in context for tag in PUBLIC_TAGS]):
-			update_action_log_wiki(action_text, log_bot)
+			tags = [tag for tag in list(bans[impacted_user].keys()) if tag in PUBLIC_TAGS]
+			update_user_wiki(impacted_user, tags, action_text, log_bot)
 			time.sleep(5)  # Sleep a bit so we don't rate limit ourselves when writing to wiki pages
 	except Exception as e:
 		print("Unable to log action " + action_text + " with error " + str(e))
-	# Update the ban list
-	sorted_usernames = order_users_by_ban_date(bans)
-	text_lines = []
-	for username in sorted_usernames:
-		if username not in bans:
-			continue
-		tags = [tag for tag in list(bans[username].keys()) if tag in PUBLIC_TAGS]
-		if tags == []:
-			continue
-		line_text = "* /u/" + username + " " + " ".join(["#"+tag for tag in tags])
-		text_lines.append(line_text)
-	try:
-		create_paginated_wiki('banlist', text_lines, log_bot)
-		time.sleep(5)  # Sleep a bit so we don't rate limit ourselves when writing to wiki pages
-	except Exception as e:
-		print("Unable to update the banlist with error " + str(e))
 
 def clean_tags(tags):
 	cleaned_tags = []

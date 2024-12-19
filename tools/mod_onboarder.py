@@ -57,4 +57,4 @@ for subname in subnames:
 		already_sent.sort()
 		f.write("\n".join(already_sent))
 		f.close()
-
+		already_sent = set(already_sent)

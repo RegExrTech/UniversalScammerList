@@ -11,12 +11,12 @@ if not os.path.exists(f_path):
 	os.mknod(f_path)
 
 f = open(f_path, 'r')
-already_sent = set(f.read().splitlines())
+ALREADY_SENT = set(f.read().splitlines())
 f.close()
 
 title = "[PLEASE READ] How To Be a Mod of r/UniversalScammerList"
 
-def main():
+def main(already_sent):
 	sub_config = Config.Config('logger')
 	try:
 		mod_list = sub_config.subreddit_object.moderator()
@@ -50,6 +50,7 @@ def main():
 		to_write.sort()
 		f.write("\n".join(to_write))
 		f.close()
+		already_sent = set(already_sent)
 
 if __name__ == '__main__':
-	main()
+	main(ALREADY_SENT)

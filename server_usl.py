@@ -64,7 +64,10 @@ def log_action(impacted_user, issued_by, originated_from, issued_at, context="",
 	try:
 		# Only update if the context includes a public tag
 		if any(["#"+tag in context for tag in PUBLIC_TAGS]):
-			tags = [tag for tag in list(bans[impacted_user].keys()) if tag in PUBLIC_TAGS]
+			if impacted_user in bans:
+				tags = [tag for tag in list(bans[impacted_user].keys()) if tag in PUBLIC_TAGS]
+			else:
+				tags = []
 			update_user_wiki(impacted_user, tags, action_text, log_bot)
 			time.sleep(5)  # Sleep a bit so we don't rate limit ourselves when writing to wiki pages
 	except Exception as e:

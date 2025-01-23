@@ -34,6 +34,8 @@
 
 * r/forhire
 
+* r/fragranceswap
+
 * r/funkoswap
 
 * r/gamesale
@@ -57,8 +59,6 @@
 * r/hardwareswapuk
 
 * r/hireagirlfriend
-
-* r/hireawriter
 
 * r/hockeyjerseys
 
@@ -179,5 +179,7 @@
 * r/rpgtrade
 
 * r/sgsflair
+
+* r/silverbugbets
 
 * r/ygomarketplace

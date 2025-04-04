@@ -93,6 +93,8 @@ def main(config, num_messages, last_id_file_path, post_lookback_limit):
 	messages = get_mod_mail_messages(config, num_messages, last_message_id)
 	newest_message_id = last_message_id
 	for message in messages[::-1]:
+		if message.id == last_message_id:
+			continue
 		newest_message_id = message.id
 		subject = message.subject.lower()
 		if subject != "we would like to join the usl":

@@ -1,3 +1,4 @@
+import os
 import time
 import traceback
 import sys
@@ -46,7 +47,7 @@ def get_post_info(requesting_sub_object, post_lookback_limit):
 	return post_authors, post_count
 
 
-def build_response(message, config, post_lookback_limit):
+def build_response(message, config, post_lookback_limit, all_configs):
 	subject = message.subject.lower()
 	body = message.messages[0].body_markdown.lower()
 	author = message.messages[0].author
@@ -75,11 +76,24 @@ def build_response(message, config, post_lookback_limit):
 	except Exception as e:
 		discord.log("Failed to get mod status of u/" + author.name + " in r/" + requesting_sub, e)
 		return "Failed to get mod status of u/" + author.name + " in r/" + requesting_sub + ". Please verify their status manually.", False
-	response = "* Requester: u/" + author.name + "\n"
-	response += "* Subreddit: r/" + requesting_sub + "\n"
-	response += "* Requester is mod of sub: " + str(requester_is_mod) + "\n"
-	response += "* Num posts in last " + str(post_lookback_limit) + " days: " + post_count_string + "\n"
-	response += "* Num unique post authors: " + str(len(post_authors)) + "\n"
+	sub_has_usl_access_string_parts = []
+	for other_config in all_configs:
+		if other_config.subreddit_name != requesting_sub:
+			continue
+		if other_config.read_from:
+			sub_has_usl_access_string_parts.append("Read")
+		if other_config.write_to:
+			sub_has_usl_access_string_parts.append("Write")
+	if not sub_has_usl_access_string_parts:
+		sub_has_usl_access_string_parts.append("False")
+	response_parts = []
+	response_parts.append("Requester: u/" + author.name)
+	response_parts.append("Subreddit: r/" + requesting_sub)
+	response_parts.append("Requester is mod of sub: " + str(requester_is_mod))
+	response_parts.append("Sub already has USL access: " + ", ".join(sub_has_usl_access_string_parts))
+	response_parts.append("Num posts in last " + str(post_lookback_limit) + " days: " + post_count_string)
+	response_parts.append("Num unique post authors: " + str(len(post_authors)))
+	response = "\n".join(["* " + part for part in response_parts])
 	return response.strip(), False
 
 def reply(message, response, should_archive):
@@ -89,6 +103,9 @@ def reply(message, response, should_archive):
 
 
 def main(config, num_messages, last_id_file_path, post_lookback_limit):
+	subnames = [x.split(".")[0] for x in os.listdir("config/")]
+	all_configs = [Config(subname) for subname in subnames]
+
 	last_message_id = get_last_message_id(last_id_file_path)
 	messages = get_mod_mail_messages(config, num_messages, last_message_id)
 	newest_message_id = last_message_id
@@ -99,7 +116,7 @@ def main(config, num_messages, last_id_file_path, post_lookback_limit):
 		subject = message.subject.lower()
 		if subject != "we would like to join the usl":
 			continue
-		response, should_archive = build_response(message, config, post_lookback_limit)
+		response, should_archive = build_response(message, config, post_lookback_limit, all_configs)
 		try:
 			reply(message, response, should_archive)
 		except Exception as e:

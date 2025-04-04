@@ -66,7 +66,7 @@ def build_response(message, config, post_lookback_limit):
 	except Exception as e:
 		discord.log("Failed to get post statistics from r/" + requesting_sub, e, traceback.format_exc())
 		return "I was unable to process post stats for r/" + requesting_sub + ". Please verify their status manually.", False
-	if len(post_count) >= 1000:
+	if post_count >= 1000:
 		post_count_string = "1000+"
 	else:
 		post_count_string = str(post_count)

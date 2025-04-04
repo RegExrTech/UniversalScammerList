@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 import random
 import string
@@ -68,9 +69,22 @@ def send_mod_discussion(sub_config, title, body):
 		print("Unable to send message to " + subname + " with error " + str(e))
 
 def send_to_usl_reps():
+	def get_reps_to_subs(subnames):
+		d = defaultdict(lambda: [])
+		for subname in subnames:
+			if subname == 'logger':
+				continue
+			sub_config = Config.Config(subname)
+			if not sub_config.usl_rep:
+				continue
+			rep = sub_config.reddit.redditor(sub_config.usl_rep)
+			d[rep.name].append(subname)
+		return d
+
 	already_sent = set()
-	title = "USL Downtime For Database Migration"
+	title = "USL Back Online with Improved Website Speeds"
 	subnames = [x.split(".")[0] for x in os.listdir("config/")]
+	reps_to_subs = get_reps_to_subs(subnames)
 	for subname in subnames:
 		if subname == 'logger':
 			continue
@@ -81,7 +95,7 @@ def send_to_usl_reps():
 		if rep.name in already_sent:
 			continue
 		already_sent.add(rep.name)
-		body = "Hello u/" + rep.name + ",\n\nYou are receiving this message because you are listed as the USL rep of r/" + subname + ". I'm writing to let you know that the USL service is currently down while I perform a database migration. Once complete, this migration will allow the USL website to return results instantly rather than forcing users to wait a long time for the database to load. \n\nWhile the USL service is down, new bans and unbans will not be reflected in the USL. However, once service resumes, the bot will catch up on all actions, so please continue to operate as if the USL was still running. Also, note that this does NOT impact the USL website. The site is still up and operational, but will just not reflect any new bans or unbans. \n\nI anticipate this migration taking a few hours, so please be patient as this runs. I will send another update once the USL is back up and running.\n\nPlease pass this information along to your moderation team if they have any questions about the USL's current status. \n\nThanks for your help! Looking forward to this new change going live.\n\nBest,\n\nu/RegExr"
+		body = "Hello u/" + rep.name + ",\n\nYou are receiving this message because you are listed as the USL rep of " + ", ".join(["r/" + s for s in reps_to_subs[rep.name]]) + ".\n\nThank you for your patience while the USL was down for the last few hours. As you may have noticed, the USL is back up and running and includes improved speeds on the website! If you've used the [USL website](https://www.universalscammerlist.com) before, you'll know that it used to be very slow upon initial load. Now, the site loads instantly and nearly no delay when searching for a username. Give it a go and let me know what you think!\n\nAs always, with new changes, there is the potential for new issues. If you notice anything not working as intended, please reach out to me ASAP and I'll look into it.\n\nThanks and have a great week!\n\nBest,\n\nu/RegExr"
 		try:
 			rep.message(subject=title, message=body)
 		except Exception as e:

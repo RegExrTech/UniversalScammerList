@@ -4,6 +4,7 @@ config/*
 archived_config
 archived_config/*
 database/mods.txt
+database/all_mods.txt
 discord_tokens.py
 static
 static/*

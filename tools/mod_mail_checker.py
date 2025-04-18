@@ -1,3 +1,4 @@
+import datetime
 import os
 import time
 import traceback
@@ -8,7 +9,7 @@ import discord
 
 CONFIG = Config('logger')
 NUN_MESSAGES = 100
-FPATH = "static/mod_mail_message_id.txt"
+FPATH = "static/mod_mail_message_timestamp.txt"
 POST_LOOKBACK_LIMIT = 90
 
 
@@ -21,15 +22,15 @@ def get_mod_mail_messages(config, num_messages, after):
 		print("Unable to read mod conversations from query on r/" + config.subreddit_name, e)
 	return queries
 
-def get_last_message_id(fpath):
+def get_last_message_timestamp(fpath):
 	f = open(fpath, 'r')
 	id = f.read().strip()
 	f.close()
-	return id
+	return float(id)
 
-def save_last_message_id(fpath, id):
+def save_last_message_timestamp(fpath, timestamp):
 	f = open(fpath, 'w')
-	f.write(id)
+	f.write(str(timestamp))
 	f.close()
 
 def get_post_info(requesting_sub_object, post_lookback_limit):
@@ -102,17 +103,20 @@ def reply(message, response, should_archive):
 		message.archive()
 
 
-def main(config, num_messages, last_id_file_path, post_lookback_limit):
+def main(config, num_messages, last_timestamp_file_path, post_lookback_limit):
 	subnames = [x.split(".")[0] for x in os.listdir("config/")]
 	all_configs = [Config(subname) for subname in subnames]
 
-	last_message_id = get_last_message_id(last_id_file_path)
-	messages = get_mod_mail_messages(config, num_messages, last_message_id)
-	newest_message_id = last_message_id
+	last_message_timestamp = get_last_message_timestamp(last_timestamp_file_path)
+	messages = get_mod_mail_messages(config, num_messages, last_message_timestamp)
+	newest_message_timestamp = last_message_timestamp
 	for message in messages[::-1]:
-		if message.id == last_message_id:
+		mod_conv_time = float(datetime.datetime.strptime(message.messages[0].date, "%Y-%m-%dT%H:%M:%S.%f%z").timestamp())
+		print(mod_conv_time)
+		if mod_conv_time <= last_message_timestamp:
 			continue
-		newest_message_id = message.id
+		if mod_conv_time > newest_message_timestamp:
+			newest_message_timestamp = mod_conv_time
 		subject = message.subject.lower()
 		if subject != "we would like to join the usl":
 			continue
@@ -121,8 +125,8 @@ def main(config, num_messages, last_id_file_path, post_lookback_limit):
 			reply(message, response, should_archive)
 		except Exception as e:
 			discord.log("Unable to reply to message https://mod.reddit.com/mail/thread/" + message.id, e, traceback.format_exc())
-	if newest_message_id != last_message_id:
-		save_last_message_id(last_id_file_path, newest_message_id)
+	if newest_message_timestamp != last_message_timestamp:
+		save_last_message_timestamp(last_timestamp_file_path, newest_message_timestamp)
 
 if __name__ == '__main__':
 	try:

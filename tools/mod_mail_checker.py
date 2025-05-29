@@ -56,7 +56,7 @@ def build_response(message, config, post_lookback_limit, all_configs):
 	for line in body.splitlines():
 		if 'r/' in line:
 			requesting_sub = line.split("r/")[1].split(" ")[0]
-			if 'universalscammerlist' in requesting_sub:
+			if not requesting_sub or 'universalscammerlist' in requesting_sub:
 				requesting_sub = None
 				continue
 			break
@@ -105,20 +105,18 @@ def reply(message, response, should_archive):
 
 def main(config, num_messages, last_timestamp_file_path, post_lookback_limit):
 	subnames = [x.split(".")[0] for x in os.listdir("config/")]
-	all_configs = [Config(subname) for subname in subnames]
-
+	all_configs = [Config(subname) for subname in subnames if subname]
 	last_message_timestamp = get_last_message_timestamp(last_timestamp_file_path)
 	messages = get_mod_mail_messages(config, num_messages, last_message_timestamp)
 	newest_message_timestamp = last_message_timestamp
 	for message in messages[::-1]:
 		mod_conv_time = float(datetime.datetime.strptime(message.messages[0].date, "%Y-%m-%dT%H:%M:%S.%f%z").timestamp())
-		print(mod_conv_time)
 		if mod_conv_time <= last_message_timestamp:
 			continue
 		if mod_conv_time > newest_message_timestamp:
 			newest_message_timestamp = mod_conv_time
 		subject = message.subject.lower()
-		if subject != "we would like to join the usl":
+		if "we would like to join the usl" not in subject:
 			continue
 		response, should_archive = build_response(message, config, post_lookback_limit, all_configs)
 		try:

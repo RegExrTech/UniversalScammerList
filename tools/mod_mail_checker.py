@@ -63,6 +63,20 @@ def build_response(message, config, post_lookback_limit, all_configs):
 	if not requesting_sub:
 		return "No requesting sub found. Archiving.", True
 	requesting_sub_object = config.reddit.subreddit(requesting_sub)
+	creation_date = requesting_sub_object.created_utc
+	sub_age = (time.time() - creation_date)
+	if sub_age < 60:
+		sub_age_string = str(sub_age) + " seconds"
+	elif sub_age < 60*60:
+		sub_age_string = str(sub_age//60) + " minutes"
+	elif sub_age < 60*60*24:
+		sub_age_string = str(sub_age//(60*60)) + " hours"
+	elif sub_age < 60*60*24*30:
+		sub_age_string = str(sub_age//(60*60*24)) + " days"
+	elif sub_age < 60*60*24*365:
+		sub_age_string = str(sub_age//(60*60*24*30)) + " months"
+	else:
+		sub_age_string = str(sub_age//(60*60*24*365)) + " years"
 	try:
 		post_authors, post_count = get_post_info(requesting_sub_object, post_lookback_limit)
 	except Exception as e:
@@ -90,6 +104,7 @@ def build_response(message, config, post_lookback_limit, all_configs):
 	response_parts = []
 	response_parts.append("Requester: u/" + author.name)
 	response_parts.append("Subreddit: r/" + requesting_sub)
+	response_parts.append("Subreddit Age: " + sub_age_string)
 	response_parts.append("Requester is mod of sub: " + str(requester_is_mod))
 	response_parts.append("Sub already has USL access: " + ", ".join(sub_has_usl_access_string_parts))
 	response_parts.append("Num posts in last " + str(post_lookback_limit) + " days: " + post_count_string)

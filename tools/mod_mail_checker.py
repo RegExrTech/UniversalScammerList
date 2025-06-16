@@ -63,7 +63,10 @@ def build_response(message, config, post_lookback_limit, all_configs):
 	if not requesting_sub:
 		return "No requesting sub found. Archiving.", True
 	requesting_sub_object = config.reddit.subreddit(requesting_sub)
-	creation_date = requesting_sub_object.created_utc
+	try:
+		creation_date = requesting_sub_object.created_utc
+	except:
+		"Unable to find r/" + requesting_sub + ", maybe there is a typo?", False
 	sub_age = (time.time() - creation_date)
 	if sub_age < 60:
 		sub_age_string = str(sub_age) + " seconds"

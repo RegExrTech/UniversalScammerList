@@ -358,12 +358,8 @@ def set_last_update_time(actions, new_update_time, last_update_time, sub_config)
 		requests.post(request_url + "/set-last-update-time/", {'sub_name': sub_config.subreddit_name, 'update_time': new_update_time})
 
 
-def main():
-	parser = argparse.ArgumentParser()
-	parser.add_argument('sub_name', metavar='C', type=str)
-	args = parser.parse_args()
-
-	sub_config = Config(args.sub_name.lower())
+def main(sub_name):
+	sub_config = Config(sub_name)
 	try:
 		sub_config.mods = [x.name.lower() for x in sub_config.subreddit_object.moderator()]
 	except Exception as e:
@@ -404,4 +400,12 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	parser = argparse.ArgumentParser()
+	parser.add_argument('sub_name', metavar='C', type=str)
+	args = parser.parse_args()
+	sub_name = args.sub_name.lower()
+
+	try:
+		main(sub_name)
+	except Excception as e:
+		discord.log("Failed to run usl.py for r/" + sub_name, e)

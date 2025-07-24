@@ -39,7 +39,7 @@ class Config():
 
 
 	def is_bot_name(self, bot_name):
-		return bot_name.lower() in [self.bot_username.lower(), "uslbot"]
+		return bot_name.lower() in [self.bot_username.lower(), "uslbot", "supershinybot"]
 
 	def update_tags(self, tags):
 		self.tags = tags

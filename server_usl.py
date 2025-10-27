@@ -191,7 +191,7 @@ def get_ban_queue():
 @app.route('/publish-unban/', methods=["POST"])
 def publish_unban():
 	# TODO The bot is unclear when a mod goes to remove multiple tags if they are only authorized to remove *some* of those tags.
-	# For example, if a user is banned with #scammer and #sketchy but I'm only authorized to remove #sketchy but a sent a request
+	# For example, if a user is banned with #scammer and #sketchy but I'm only authorized to remove #sketchy but I sent a request
 	# to remove both tags anyway, the bot will say that my request went through as expected EVEN THOUGH it really only removed
 	# the tags that I'm authorized to remove.
 	#
@@ -267,14 +267,14 @@ def publish_unban():
 			remaining_tags = []
 			if unbanned_user in bans:
 				remaining_tags = list(bans[unbanned_user].keys())
+			# If the user was scheduled to be banned but the unban request came through BEFORE
+			# the user could even be banned on the sub, then skip the ban step and just remove them
+			# from the queue
+			if tag in action_queue[sub_name]['ban'] and unbanned_user in action_queue[sub_name]['ban'][tag]:
+				action_queue[sub_name]['ban'][tag].remove(unbanned_user)
 			# ONLY issue an unban IF this user has no tags remaining that the sub is subscribed to.
 			if not any([x in remaining_tags for x in all_subs[sub_name].tags]):
-				# If the user was scheduled to be banned but the unban request came through BEFORE
-				# the user could even be banned on the sub, then skip the ban step and just remove them
-				# from the queue
-				if tag in action_queue[sub_name]['ban'] and unbanned_user in action_queue[sub_name]['ban'][tag]:
-					action_queue[sub_name]['ban'][tag].remove(unbanned_user)
-				elif unbanned_user not in action_queue[sub_name]['unban'][tag]:
+				if unbanned_user not in action_queue[sub_name]['unban'][tag]:
 					action_queue[sub_name]['unban'][tag].append(unbanned_user)
 
 	log_action(unbanned_user, requester, originally_banned_on, time.time(), context="Tags Removed: " + ", ".join(["#" + _tag for _tag in valid_tags]), is_unban=True)

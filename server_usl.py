@@ -156,8 +156,10 @@ def publish_ban():
 				action_queue[sub_name]['unban'][tag] = []
 			# If the user is in the queue to be unbanned but a request to ban them happened
 			# before the unban could take effect, remove the unban request and do nothing.
-			if banned_user in action_queue[sub_name]['unban'][tag]:
-				action_queue[sub_name]['unban'][tag].remove(banned_user)
+			if any(banned_user in action_queue[sub_name]['unban'][_tag] for _tag in action_queue[sub_name]['unban']):
+				for _tag in action_queue[sub_name]['unban']:
+					if banned_user in action_queue[sub_name]['unban'][_tag]:
+						action_queue[sub_name]['unban'][_tag].remove(banned_user)
 			# If the user is not already in the ban action queue for that tag
 			elif banned_user not in action_queue[sub_name]['ban'][tag]:
 				action_queue[sub_name]['ban'][tag].append(banned_user)

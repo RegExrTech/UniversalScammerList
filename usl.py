@@ -102,7 +102,7 @@ def get_mod_actions(sub_config, last_update_time, before=None):
 				break
 			actions.append(action)
 	except Exception as e:
-		print("    r/" + sub_config.subreddit_name + " was unable to continue scraping the mod log with error " + str(e) + ". Skipping iteration and trying again.")
+#		print("    r/" + sub_config.subreddit_name + " was unable to continue scraping the mod log with error " + str(e) + ". Skipping iteration and trying again.")
 		return []
 	if len(actions) == 0:
 		found_last_action = True
@@ -210,22 +210,7 @@ def get_messages(sub_config):
 			if message.author is not None and message.author.name.lower() in IGNORE_MESSAGES_FROM:
 				continue
 			if not message.was_comment:
-				if 'gadzooks! **you are invited to become a moderator**' in message.body.lower() and message.subreddit != None and message.subreddit.display_name.lower() == sub_config.subreddit_name:
-					try:
-						sub_config.subreddit_object.mod.accept_invite()
-					except Exception as e:
-						print("Was unable to accept invitation to moderate " + sub_config.subreddit_name + " with error " + str(e))
-						continue
-					# This means that we're in action for the first time, so let's also claim our own subreddit
-					print("Attempting to claim r/" + sub_config.bot_username)
-					sh = SubredditHelper(sub_config.reddit, {})
-					try:
-						sh.create(sub_config.bot_username, subreddit_type='private')
-					except Exception as e:
-						if 'SUBREDDIT_EXISTS' in str(e):
-							print("    IMPERSONATION FOUND FOR u/" + sub_config.bot_username)
-				else:
-					messages.append(message)
+				messages.append(message)
 	except Exception as e:
 		print("    u/" + sub_config.bot_username + " failed to get next message from unreads with error " + str(e) + ". Ignoring all unread messages and will try again next time.")
 		return []
@@ -370,7 +355,18 @@ def main(sub_name):
 	messages = get_messages(sub_config)
 
 	if not check_if_mod(sub_config):
-		return
+		try:
+			sub_config.subreddit_object.mod.accept_invite()
+		except Exception as e:
+			return
+		# This means that we're in action for the first time, so let's also claim our own subreddit
+		print("Attempting to claim r/" + sub_config.bot_username)
+		sh = SubredditHelper(sub_config.reddit, {})
+		try:
+			sh.create(sub_config.bot_username, subreddit_type='private')
+		except Exception as e:
+			if 'SUBREDDIT_EXISTS' in str(e):
+				print("    IMPERSONATION FOUND FOR u/" + sub_config.bot_username)
 
 	wiki_helper.run_config_checker(sub_config)
 	if sub_config.usl_rep != "" and not wiki_helper.verify_user_is_valid_usl_mod(sub_config.usl_rep, sub_config):
@@ -407,5 +403,5 @@ if __name__ == "__main__":
 
 	try:
 		main(sub_name)
-	except Excception as e:
+	except Exception as e:
 		discord.log("Failed to run usl.py for r/" + sub_name, e)

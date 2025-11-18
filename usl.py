@@ -1,3 +1,4 @@
+import traceback
 import sys
 sys.path.insert(0, '.')
 import discord
@@ -404,4 +405,4 @@ if __name__ == "__main__":
 	try:
 		main(sub_name)
 	except Exception as e:
-		discord.log("Failed to run usl.py for r/" + sub_name, e)
+		discord.log("Failed to run usl.py for r/" + sub_name, e, traceback.format_exc())

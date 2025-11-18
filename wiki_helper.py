@@ -128,7 +128,10 @@ def send_update_message(config_page, message):
 	redditor = config_page.revision_by
 	username = redditor.name
 	message = "Hi u/" + username + "\n\n" + message
-	redditor.message(subject=WIKI_PAGE_NAME + " wiki update", message=message)
+	try:
+		redditor.message(subject=WIKI_PAGE_NAME + " wiki update", message=message)
+	except Exception as e:
+		discord.log("Unable to message u/" + redditor.name + " after they updated wiki page " + WIKI_PAGE_NAME, e)
 
 def update_tags(tags_string, config):
 	tags_string = tags_string.strip()
